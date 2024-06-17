@@ -45,6 +45,11 @@ export const InputField = styled.input`
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
+    ::placeholder {
+        color: #C4C4C4;
+        font-size: 10px;
+    }
 `
 
 export const LoginButton = styled.button`
