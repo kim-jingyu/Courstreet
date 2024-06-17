@@ -4,41 +4,27 @@ export const SignupWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f9f9f9;
 `
 
 export const SignupContainer = styled.div`
     width: 100%;
     max-width: 400px;
-    padding: 20px;
-    background: white;
+    padding: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     position: relative;
 ` 
 
-export const Header = styled.header`
-    display: flex;
-    align-items: center;
-`
-
 export const SubmitForm = styled.form`
+    width: 100%;
     display: flex;
     flex-direction: column;
 `
 
-export const BackButton = styled.button`
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-`
-
 export const Title = styled.h1`
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 `
 
 export const Label = styled.label`
@@ -46,12 +32,33 @@ export const Label = styled.label`
     margin-bottom: 10px;
 `
 
-export const InputForm = styled.input`
-    width: 100%;
-    padding: 8px;
+export const TextForm = styled.span`
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+`
+
+export const InputForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+`
+
+export const InputField = styled.input`
+    margin-bottom: 10px;
     margin-top: 5px;
+    width: 80%;
+    /* margin-left: 10px; */
+    padding: 10px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+
+    ::placeholder {
+        color: #C4C4C4;
+        font-size: 10px;
+    }
 `
 
 export const GenderLabelEx = styled.label`
@@ -64,7 +71,6 @@ export const GenderLabelEx = styled.label`
 
 export const GenderContainer = styled.div`
     display: flex;
-    justify-content: space-evenly;
     flex-grow: 1;
     margin-left: 10px;
 `
@@ -91,9 +97,11 @@ export const Select = styled.select`
     width: 20%;
     padding: 8px;
     margin-top: 5px;
-    margin-left: 20px;
+    margin-left: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    height: 32px; /* 원하는 높이로 조정 */
+    // vertical-align: middle; /* 텍스트를 수직으로 정렬 */
 `
 
 export const Option = styled.option``

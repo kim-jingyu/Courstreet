@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import './Signup.style';
-import { BackButton, SubmitForm, InputForm, Header, Label, Title, GenderContainer, GenderLabelEx, GenderRadio, Select, SubmitButton, Option, GenderLabelIn, AgeLabel, SignupWrapper, SignupContainer } from './Signup.style';
+import { SubmitForm, InputForm, Title, GenderContainer, GenderLabelEx, GenderRadio, Select, SubmitButton, Option, GenderLabelIn, AgeLabel, SignupWrapper, SignupContainer, TextForm, InputField } from './Signup.style';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -17,25 +17,22 @@ function Signup() {
   return (
     <SignupWrapper>
       <SignupContainer>
-        <Header>
-          <BackButton>&lt;</BackButton>
-          <Title>회원가입</Title>
-        </Header>
+        <Title>회원가입</Title>
         <SubmitForm onSubmit={handleSubmit}>
-          <Label>
-            이메일
-            <InputForm type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@gmail.com' required></InputForm>
-          </Label>
-          <Label>
-            비밀번호
-            <InputForm type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="8자리 이상 입력해주세요" required></InputForm>
-          </Label>
-          <Label>
-            이름
-            <InputForm type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동" required></InputForm>
-          </Label>
+          <InputForm>
+            <div>이메일</div>
+            <InputField type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@gmail.com' required></InputField>
+          </InputForm>
+          <InputForm>
+            <div>비밀번호</div>
+            <InputField type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="8자리 이상 입력해주세요" required></InputField>
+          </InputForm>
+          <InputForm>
+            <div>이름</div>
+            <InputField type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동" required></InputField>
+          </InputForm>
           <GenderLabelEx>
-            성별
+            <TextForm>성별</TextForm>
             <GenderContainer>
               <GenderLabelIn>
                 <GenderRadio type='radio' value='남성' checked={gender === '남성'} onChange={(e) => setGender(e.target.value)}></GenderRadio>
@@ -48,7 +45,7 @@ function Signup() {
             </GenderContainer>
           </GenderLabelEx>
           <AgeLabel>
-            나이
+            <TextForm>나이</TextForm>
             <Select value={age} onChange={(e) => setAge(e.target.value)} required>
               <Option value="" disabled>00</Option>
                 {[...Array(150).keys()].map((n) => (
