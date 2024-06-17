@@ -1,7 +1,5 @@
-import './CourseItem.style'
-import { Container, DateRange, Dot, ImageBox, ImageGrid, ItemContainer, ItemFooter, UserIcon, UserName, ItemTitle, UserContainer } from './CourseItem.style';
 
-function CourseItem() {
+function CourseLikeItem() {
     return (
       <Container>
         <ItemContainer>
@@ -25,4 +23,4 @@ function CourseItem() {
     )
 }
 
-export default CourseItem;
+export default CourseLikeItem;
