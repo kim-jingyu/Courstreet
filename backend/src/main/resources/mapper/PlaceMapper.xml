@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hyundairoad.hyundairoad.place.mapper.PlaceMapper">
+    <select id="getList" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
+        SELECT PLACE_ID,
+               NAME,
+               PHONE,
+               START_TIME,
+               END_TIME,
+               START_AGE,
+               END_AGE,
+               WITH_WHOM,
+               FLOOR,
+               LOCATION,
+               TYPE,
+               CATEGORY,
+               THEME1,
+               THEME2,
+               THEME3,
+               WEIGHT1,
+               WEIGHT2,
+               WEIGHT3
+        FROM PLACE
+        WHERE PLACE_ID > 0
+        ORDER BY PLACE_ID DESC
+    </select>
+
+    <insert id="insert">
+        INSERT INTO PLACE(PLACE_ID,
+                          NAME,
+                          PHONE,
+                          START_TIME,
+                          END_TIME,
+                          START_AGE,
+                          END_AGE,
+                          WITH_WHOM,
+                          FLOOR,
+                          LOCATION,
+                          TYPE,
+                          CATEGORY,
+                          THEME1,
+                          THEME2,
+                          THEME3,
+                          WEIGHT1,
+                          WEIGHT2,
+                          WEIGHT3)
+        VALUES (PLACE_ID_SEQ.NEXTVAL,
+                #{name},
+                #{phone, jdbcType=VARCHAR, javaType=String},
+                #{startTime},
+                #{endTime},
+                #{startAge},
+                #{endAge},
+                #{withWhom},
+                #{floor},
+                #{location},
+                #{type},
+                #{category},
+                #{theme1},
+                #{theme2, jdbcType=VARCHAR},
+                #{theme3, jdbcType=VARCHAR},
+                #{weight1, jdbcType=NUMERIC, javaType=_int},
+                #{weight2, jdbcType=NUMERIC, javaType=_int},
+                #{weight3, jdbcType=NUMERIC, javaType=_int})
+    </insert>
+
+
+</mapper>
