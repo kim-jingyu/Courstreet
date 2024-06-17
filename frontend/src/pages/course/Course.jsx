@@ -1,7 +1,11 @@
+import TodayPick from '/src/components/course/today-pick/TodayPick';
+import CourseList from '/src/components/course/course-list/CourseList';
+
 function Course() {
   return (
     <>
-      <h1>Hello Course</h1>
+      <TodayPick />
+      <CourseList />
     </>
   );
 }
