@@ -1,12 +1,11 @@
 import './Login.style';
-import { LoginWrapper, BackButton, InputField, Links, LoginButton, LoginContainer, LoginForm, Options, SocialButton, SocialLogin, Title } from "./Login.style";
+import { LoginWrapper, InputField, Links, LoginButton, LoginContainer, LoginForm, Options, SocialButton, SocialLogin, Title } from "./Login.style";
 
 
 function Login() {
     return (
         <LoginWrapper>
             <LoginContainer>
-                <BackButton>←</BackButton>
                 <Title>로그인</Title>
                 <LoginForm>
                     <InputField placeholder="아이디" />

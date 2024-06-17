@@ -4,30 +4,17 @@ export const LoginWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f9f9f9;
 `
 
 export const LoginContainer = styled.div`
     width: 100%;
     max-width: 400px;
     padding: 20px;
-    background: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     text-align: center;
     position: relative;
 ` 
-
-export const BackButton = styled.button`
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-`
 
 export const Title = styled.h1`
     font-size: 24px;
@@ -45,6 +32,11 @@ export const InputField = styled.input`
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
+    ::placeholder {
+        color: #C4C4C4;
+        font-size: 10px;
+    }
 `
 
 export const LoginButton = styled.button`
