@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import COLOR from '/src/constants/color';
 
 export const Container = styled.div`
   position: fixed;
@@ -15,16 +16,12 @@ export const Container = styled.div`
   z-index: 100;
 `;
 
-export const SectionPrev = styled.div`
+export const Section = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 3%;
-`;
-
-export const SectionPost = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 3%;
+  padding: 0 3%;
+  font-size: 17px;
+  font-weight: 700;
+  color: ${COLOR.HDDarkBrown};
 `;
