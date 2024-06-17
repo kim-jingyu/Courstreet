@@ -13,12 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-<<<<<<< HEAD
-body {
-  margin: 70px 0 0px 0;
-  display: flex;
-  min-height: calc(100vh);
-=======
 #root {
   max-width: 100%;
   /* text-align: center; */
@@ -28,5 +22,4 @@ body {
   margin: 70px 0;
   padding: 0;
   display: flex;
->>>>>>> c7ac69d (feat: 오늘의픽 KAN-101)
 }
