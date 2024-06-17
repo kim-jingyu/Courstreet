@@ -39,6 +39,11 @@ const router = createBrowserRouter([
         element: <PAGE.Place />,
         errorElement: <PAGE.NotFound />,
       },
+      {
+        path: PATH.Login,
+        element: <PAGE.Login />,
+        errorElement: <PAGE.NotFound />
+      }
     ],
     errorElement: <PAGE.NotFound />,
   },

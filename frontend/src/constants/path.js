@@ -6,6 +6,7 @@ const PATH = {
   MyPage: '/mypage',
   Place: '/place',
   NotFound: '/notfound',
+  Login: '/login'
 };
 
 export default PATH;
