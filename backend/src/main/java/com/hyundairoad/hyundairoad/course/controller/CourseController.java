@@ -2,6 +2,7 @@ package com.hyundairoad.hyundairoad.course.controller;
 
 import com.hyundairoad.hyundairoad.course.domain.dto.CourseDetailDto;
 import com.hyundairoad.hyundairoad.course.domain.dto.CreateCourseDto;
+import com.hyundairoad.hyundairoad.course.domain.dto.UpdateCourseDto;
 import com.hyundairoad.hyundairoad.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,11 @@ public class CourseController {
     public ResponseEntity<List<CourseDetailDto>> getAllCourses(@RequestParam Long memberId) {
         List<CourseDetailDto> courseDetailDtos = courseService.getAllCourses(memberId);
         return ResponseEntity.ok(courseDetailDtos);
+    }
+
+    @PutMapping("/{courseId}")
+    public ResponseEntity<Void> updateCourse(@PathVariable Long courseId, @RequestBody UpdateCourseDto updateCourseDto) {
+        courseService.updateCourse(updateCourseDto.toBuilder().courseId(courseId).build());
+        return ResponseEntity.ok().build();
     }
 }
