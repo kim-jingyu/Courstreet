@@ -6,6 +6,7 @@ import MyPage from '../pages/mypage/MyPage';
 import Place from '../pages/place/Place';
 import NotFound from '../pages/error/NotFound';
 import Login from '../pages/login/Login';
+import PasswordFind from '../pages/password-find/PasswordFind';
 
 const PAGE = {
   Course,
@@ -15,7 +16,8 @@ const PAGE = {
   MyPage,
   Place,
   NotFound,
-  Login
+  Login,
+  PasswordFind,
 };
 
 export default PAGE;
