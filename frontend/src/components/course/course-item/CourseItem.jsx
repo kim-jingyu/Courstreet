@@ -1,19 +1,27 @@
 import './CourseItem.style'
-import { CourseItemWrapper, CourseHeader, CourseImage, CourseDetails, UserName, DateRange, CourseTitle, CourseContent } from './CourseItem.style';
+import { Container, DateRange, Dot, ImageBox, ImageGrid, ItemContainer, ItemFooter, UserIcon, UserName, ItemTitle, UserContainer } from './CourseItem.style';
 
 function CourseItem() {
     return (
-        <CourseItemWrapper>
-          <CourseHeader>
-            <CourseImage />
-            <CourseDetails>
-              <UserName>JADEN</UserName>
-              <DateRange>2022.05.01 ~ 2022.06.01</DateRange>
-            </CourseDetails>
-          </CourseHeader>
-          <CourseTitle>코스 이름</CourseTitle>
-          <CourseContent>코스 내용</CourseContent>
-        </CourseItemWrapper>
+      <Container>
+        <ItemContainer>
+          <ImageGrid>
+            <ImageBox />
+            <ImageBox />
+            <ImageBox />
+            <ImageBox />
+          </ImageGrid>
+          <UserIcon />
+          <ItemFooter>
+            <UserContainer>
+              <UserName>JADEN님의 일정</UserName>
+              <Dot>·</Dot>
+              <DateRange>2박 3일</DateRange>
+            </UserContainer>
+            <ItemTitle>6일전 예약한 무작정 일본여행</ItemTitle>
+          </ItemFooter>
+        </ItemContainer>
+      </Container>
     )
 }
 

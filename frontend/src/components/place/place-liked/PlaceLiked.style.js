@@ -1,45 +1,64 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const LikePlace = styled.div`
+export const HeartIcon = styled.img`
+  width: 15px;
+  height: 15px;
+  margin-bottom: 52px;
+  margin-right: 20px;
+`;
+
+export const LikeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const LikeItem = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 2px 10px;
   border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px 0px #a8a9ad;
   border-radius: 10px;
+  background: white;
 `;
 
-export const PlaceImage = styled.img`
+export const ItemImage = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 10px;
   margin-right: 10px;
 `;
 
-export const PlaceDetails = styled.div`
+export const ItemDetails = styled.div`
   flex-grow: 1;
+  padding: 12px;
 `;
 
-export const PlaceTitle = styled.div`
-  font-size: 1rem;
+export const ItemTitle = styled.div`
+  font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: 5px;
 `;
 
-export const PlaceRating = styled.div`
-  font-size: 0.9rem;
+export const ItemRating = styled.div`
+  font-size: 0.7rem;
   color: #888;
+  display: flex;
+  align-items: center;
 `;
 
-export const PlaceTag = styled.span`
+export const ItemTag = styled.span`
   padding: 2px 5px;
-  border: 1px solid #ccc;
+  border: 1px solid;
   border-radius: 5px;
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.7rem;
+  color: #f0ad4e;
+  margin-left: 10px;
 `;
 
-export const HeartIcon = styled.div`
-  font-size: 1.5rem;
-  color: red;
+export const FooterDetails = styled.div`
+  font-size: 0.6rem;
+  color: #888;
+  margin-top: 5px;
 `;
