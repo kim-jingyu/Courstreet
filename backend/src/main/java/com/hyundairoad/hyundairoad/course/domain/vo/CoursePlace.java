@@ -1,15 +1,15 @@
-package com.hyundairoad.hyundairoad.course.domain.dto;
+package com.hyundairoad.hyundairoad.course.domain.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoursePlaceDto {
+@Builder
+public class CoursePlace {
     private Long coursePlaceId;
     private Long courseId;
     private Long placeId;

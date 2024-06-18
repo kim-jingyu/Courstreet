@@ -9,5 +9,4 @@ import java.util.List;
 public interface CourseMapper {
     List<CourseDetailDto> getAllCourses(Long memberId);
     CourseDetailDto getCourseDetailsById(@Param("courseId") Long courseId, @Param("memberId") Long memberId);
-
 }
