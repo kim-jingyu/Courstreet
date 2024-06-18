@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const CourseCreateIndexState = atom({
-  key: 'CourseCreateIndexState',
+export const courseCreateIndexState = atom({
+  key: 'courseCreateIndexState',
   default: 0,
 });

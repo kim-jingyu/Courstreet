@@ -1,6 +1,7 @@
 const COLOR = {
   HDOrange: '#CA7701',
   HDDepartmentPink: '#F5DCEA',
+  HDDepartmentGreen: '#00805A',
   HDBlack: '#1E1E1E',
   HDDarkGreen: '#22505F',
   HDDarkBrown: '#452324',

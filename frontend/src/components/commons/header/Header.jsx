@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { CourseCreateIndexState } from '/src/recoils/HeaderAtoms';
+import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 
 import * as S from './Header.style';
 import arrowLeft from '/src/assets/header-arrow-left.png';
@@ -10,7 +10,7 @@ const prevText = ['나가기', '카테고리', '장소 선택'];
 const postText = ['장소 선택', '코스 생성', '작성 완료'];
 
 function Header() {
-  const [currPage, setCurrPage] = useRecoilState(CourseCreateIndexState);
+  const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
 
   const navigate = useNavigate();
   const location = useLocation();
