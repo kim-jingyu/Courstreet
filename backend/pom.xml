@@ -102,7 +102,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
+            <version>1.2.17</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.mail</groupId>
@@ -200,7 +200,7 @@
         </dependency>
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
-            <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId> <!-- jdbc4에서 jdbc4.1로 변경 -->
             <version>1.16</version>
         </dependency>
 

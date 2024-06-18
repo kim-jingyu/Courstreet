@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface PlaceMapper {
     List<Place> getList();
-    void insert();
+    void insert(Place place);
+
+    void delete(Long placeId);
 }

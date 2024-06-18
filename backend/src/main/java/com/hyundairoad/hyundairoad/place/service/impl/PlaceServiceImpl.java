@@ -27,6 +27,21 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public void register(Place place) {
         System.out.println(place);
-//        mapper.insert();
+        mapper.insert(place);
+    }
+
+    @Override
+    public void remove(Long placeId) {
+        mapper.delete(placeId);
+    }
+
+    @Override
+    public void update(Place place) {
+
+    }
+
+    @Override
+    public Place getPlaceByPlaceId(Long placeId) {
+        return null;
     }
 }

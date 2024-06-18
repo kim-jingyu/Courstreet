@@ -28,7 +28,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO PLACE(PLACE_ID,
+        INSERT INTO PLACE(
                           NAME,
                           PHONE,
                           START_TIME,
@@ -46,9 +46,9 @@
                           WEIGHT1,
                           WEIGHT2,
                           WEIGHT3)
-        VALUES (PLACE_ID_SEQ.NEXTVAL,
+        VALUES (
                 #{name},
-                #{phone, jdbcType=VARCHAR, javaType=String},
+                #{phone},
                 #{startTime},
                 #{endTime},
                 #{startAge},
@@ -59,12 +59,15 @@
                 #{type},
                 #{category},
                 #{theme1},
-                #{theme2, jdbcType=VARCHAR},
-                #{theme3, jdbcType=VARCHAR},
-                #{weight1, jdbcType=NUMERIC, javaType=_int},
-                #{weight2, jdbcType=NUMERIC, javaType=_int},
-                #{weight3, jdbcType=NUMERIC, javaType=_int})
+                #{theme2},
+                #{theme3},
+                #{weight1},
+                #{weight2},
+                #{weight3})
     </insert>
 
+    <delete id="delete">
+        DELETE FROM PLACE WHERE PLACE_ID = #{placeId}
+    </delete>
 
 </mapper>
