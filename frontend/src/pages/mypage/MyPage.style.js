@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
+  width: 350px;
   margin: auto;
   padding: 20px;
   font-family: Arial, sans-serif;

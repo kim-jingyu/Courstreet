@@ -1,7 +1,8 @@
-import CourseLikeItem from '../../course/course-like-item/CourseLikeItem';
-import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab, PostButton, PlaceButton } from './LikePost.style';
+import PlaceLiked from '../../place/place-liked/PlaceLiked';
+import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab } from '../like-post/LikePost.style';
+import { PostButton, PlaceButton } from './LikePlace.style';
 
-function LikePost() {
+function LikePlace() {
   return (
     <>
       <Tabs>
@@ -15,14 +16,13 @@ function LikePost() {
           <PlaceButton>장소</PlaceButton>
         </FilterContainer>
         <LikeContainer>
-          <CourseLikeItem />
-          <CourseLikeItem />
-          <CourseLikeItem />
-          <CourseLikeItem />
+          <PlaceLiked />
+          <PlaceLiked />
+          <PlaceLiked />
         </LikeContainer>
       </>
     </>
   );
 }
 
-export default LikePost;
+export default LikePlace;

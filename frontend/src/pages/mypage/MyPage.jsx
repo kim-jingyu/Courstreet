@@ -1,8 +1,6 @@
 import './MyPage.style';
 import { Container, Header, Title } from './MyPage.style';
-import LikePost from '/src/components/mypage/like-post/LikePost';
-// import MyCourse from '/src/components/mypage/mycourse/MyCourse';
-
+import LikePlace from '/src/components/mypage/like-place/LikePlace';
 
 function MyPage() {
   return (
@@ -10,7 +8,7 @@ function MyPage() {
       <Header>
         <Title>마이페이지</Title>
       </Header>
-      <LikePost />
+      <LikePlace />
     </Container>
   );
 }

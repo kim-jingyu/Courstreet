@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Tabs = styled.div`
   display: flex;
@@ -10,8 +10,16 @@ export const Tab = styled.div`
   padding: 10px;
   cursor: pointer;
   font-size: 1rem;
-  color: ${props => props.active ? '#007BFF' : '#555'};
-  border-bottom: ${props => props.active ? '2px solid #007BFF' : 'none'};
+  color: #555;
+  border-bottom: none;
+`;
+
+export const LikeTab = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #00805a;
+  border-bottom: 2px solid #00805a;
 `;
 
 export const FilterContainer = styled.div`
@@ -20,13 +28,23 @@ export const FilterContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-export const FilterButton = styled.button`
+export const PostButton = styled.button`
   padding: 5px 10px;
   margin: 0 5px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: ${props => props.active ? '#007BFF' : '#ccc'};
+  background-color: #00805a;
+  color: white;
+`;
+
+export const PlaceButton = styled.button`
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
   color: white;
 `;
 
