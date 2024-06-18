@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hyundairoad.hyundairoad.place.mapper.PlaceMapper">
+    <select id="getList" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
+        SELECT PLACE_ID,
+               NAME,
+               PHONE,
+               START_TIME,
+               END_TIME,
+               START_AGE,
+               END_AGE,
+               WITH_WHOM,
+               FLOOR,
+               LOCATION,
+               TYPE,
+               CATEGORY,
+               THEME1,
+               THEME2,
+               THEME3,
+               WEIGHT1,
+               WEIGHT2,
+               WEIGHT3
+        FROM PLACE
+        WHERE PLACE_ID > 0
+        ORDER BY PLACE_ID DESC
+    </select>
+
+    <insert id="insert">
+        INSERT INTO PLACE(
+                          NAME,
+                          PHONE,
+                          START_TIME,
+                          END_TIME,
+                          START_AGE,
+                          END_AGE,
+                          WITH_WHOM,
+                          FLOOR,
+                          LOCATION,
+                          TYPE,
+                          CATEGORY,
+                          THEME1,
+                          THEME2,
+                          THEME3,
+                          WEIGHT1,
+                          WEIGHT2,
+                          WEIGHT3)
+        VALUES (
+                #{name},
+                #{phone},
+                #{startTime},
+                #{endTime},
+                #{startAge},
+                #{endAge},
+                #{withWhom},
+                #{floor},
+                #{location},
+                #{type},
+                #{category},
+                #{theme1},
+                #{theme2},
+                #{theme3},
+                #{weight1},
+                #{weight2},
+                #{weight3})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM PLACE WHERE PLACE_ID = #{placeId}
+    </delete>
+
+</mapper>
