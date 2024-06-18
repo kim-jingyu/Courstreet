@@ -70,4 +70,26 @@
         DELETE FROM PLACE WHERE PLACE_ID = #{placeId}
     </delete>
 
+    <update id="update">
+        update PLACE
+        set NAME       = #{name},
+            PHONE      = #{phone},
+            START_TIME = #{startTime},
+            END_TIME   = #{endTime},
+            START_AGE  = #{startAge},
+            END_AGE    = #{endAge},
+            WITH_WHOM  = #{withWhom},
+            FLOOR      = #{floor},
+            LOCATION   = #{location},
+            TYPE       = #{type},
+            CATEGORY   = #{category},
+            THEME1     = #{theme1},
+            THEME2     = #{theme2},
+            THEME3     = #{theme3},
+            WEIGHT1    = #{weight1},
+            WEIGHT2    = #{weight2},
+            WEIGHT3    = = #{weight3}
+        where PLACE_ID = 1;
+    </update>
+
 </mapper>

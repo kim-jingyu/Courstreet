@@ -9,4 +9,6 @@ public interface PlaceMapper {
     void insert(Place place);
 
     void delete(Long placeId);
+
+    void update(Place place);
 }

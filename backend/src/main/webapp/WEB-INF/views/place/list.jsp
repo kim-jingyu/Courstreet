@@ -288,30 +288,31 @@
                 weight2: cells[18].querySelector('input').value,
                 weight3: cells[19].querySelector('input').value,
             };
+            console.log(updatedData)
 
             // Send the updated data to the server using the Fetch API
-            fetch(`/update`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedData)
-            })
-                .then(response => response.json())
-                .then(data => {
+            $.ajax({
+                url: '/place/modify/' + id,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedData),
+                success: function (data) {
                     if (data.success) {
                         alert('Row updated successfully!');
                         // Revert cells to text after saving
-                        revertRowToText(cells, updatedData);
-                        button.textContent = 'Update';
+                        cells.each(function (index) {
+                            $(this).text(updatedData[Object.keys(updatedData)[index + 1]]);
+                        });
+                        button.textContent = '수정';
                     } else {
                         alert('Error updating row: ' + data.message);
                     }
-                })
-                .catch(error => {
+                },
+                error: function (xhr, status, error) {
                     console.error('Error:', error);
                     alert('Error updating row: ' + error.message);
-                });
+                }
+            });
         } else {
             // Change text content to input fields for editing
             changeRowToInputs(cells);
@@ -319,13 +320,12 @@
         }
     }
 
-    // Function to change row cells to input fields
+    // input 필드로 변경
     function changeRowToInputs(cells) {
         for (let i = 3; i < cells.length; i++) {
             if (cells[i].querySelector('input') === null) {
-                const currentText = cells[i].textContent;
-                console.log(i, cells[i], currentText)
-                cells[i].innerHTML = `<input type="text" class="form-control" value="${currentText}">`;
+                const currentText = cells[i].textContent.trim();
+                cells[i].innerHTML = '<input type="text" class="form-control" value="' + currentText + '">';
             }
         }
     }
@@ -350,4 +350,6 @@
         cells[18].innerHTML = updatedData.weight2;
         cells[19].innerHTML = updatedData.weight3;
     }
+
+
 </script>

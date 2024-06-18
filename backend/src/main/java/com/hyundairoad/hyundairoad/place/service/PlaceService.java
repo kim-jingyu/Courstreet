@@ -27,7 +27,7 @@ public interface PlaceService {
     /**
      * 장소 수정
      */
-    void update(Place place);
+    void modify(Place place);
 
     /**
      * 장소 ID로 하나의 장소 조회

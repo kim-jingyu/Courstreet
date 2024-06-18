@@ -48,6 +48,11 @@ public class PlaceController {
         return "redirect:/place/list";
     }
 
+    /**
+     * 장소 삭제
+     * @param id
+     * @return
+     */
     @PostMapping("/remove/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id) {
         try {
@@ -58,4 +63,14 @@ public class PlaceController {
         }
     }
 
+    @PostMapping("/modify/{id}")
+    public ResponseEntity<?> modify(@PathVariable Long id, Place place) {
+        try {
+            System.out.println(place);
+            service.modify(place);
+            return ResponseEntity.ok().body("Success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+        }
+    }
 }
