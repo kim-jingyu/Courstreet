@@ -1,4 +1,6 @@
 import { AudioOutlined } from '@ant-design/icons';
+import { useRecoilState } from 'recoil';
+import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import { Input, Space } from 'antd';
 import * as G from '../CourseCreateComponent.style';
 
@@ -6,6 +8,8 @@ const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 function SelectPlace() {
+  const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
+
   return (
     <>
       <G.ComponentTitle>장소 선택</G.ComponentTitle>
