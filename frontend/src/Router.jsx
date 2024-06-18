@@ -42,8 +42,13 @@ const router = createBrowserRouter([
       {
         path: PATH.Login,
         element: <PAGE.Login />,
-        errorElement: <PAGE.NotFound />
-      }
+        errorElement: <PAGE.NotFound />,
+      },
+      {
+        path: PATH.PwFind,
+        element: <PAGE.PasswordFind />,
+        errorElement: <PAGE.NotFound />,
+      },
     ],
     errorElement: <PAGE.NotFound />,
   },
