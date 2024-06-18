@@ -19,3 +19,10 @@ export const ageCategoryState = atom({
   key: 'ageCategoryState',
   default: 0,
 });
+
+export const selectedPlacesState = atom({
+  key: 'selectedPlacesState',
+  default: [],
+});
+
+
