@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hyundairoad.hyundairoad.course.mapper.CoursePlaceMapper">
+
+    <resultMap id="coursePlaceResultMap" type="com.hyundairoad.hyundairoad.course.domain.dto.CoursePlaceDto">
+        <id property="coursePlaceId" column="course_place_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="placeId" column="place_id"/>
+        <result property="memo" column="memo"/>
+        <result property="rank" column="rank"/>
+        <result property="image" column="image"/>
+    </resultMap>
+
+    <insert id="createCoursePlace" parameterType="com.hyundairoad.hyundairoad.course.domain.vo.CoursePlace" useGeneratedKeys="true" keyProperty="coursePlaceId">
+        INSERT INTO COURSE_PLACE (COURSE_PLACE_ID, COURSE_ID, PLACE_ID, MEMO, RANK, IMAGE)
+        VALUES (COURSE_PLACE_SEQ.NEXTVAL, #{courseId}, #{placeId}, #{memo}, #{rank}, #{image})
+    </insert>
+
+    <delete id="deleteCoursePlaceById" parameterType="long">
+        DELETE FROM COURSE_PLACE WHERE COURSE_PLACE_ID = #{coursePlaceId}
+    </delete>
+
+    <select id="getCoursePlacesByCourseId" resultMap="coursePlaceResultMap" parameterType="long">
+        SELECT * FROM COURSE_PLACE WHERE COURSE_ID = #{courseId}
+    </select>
+
+    <select id="getCoursePlaceById" resultMap="coursePlaceResultMap" parameterType="long">
+        SELECT * FROM COURSE_PLACE WHERE COURSE_PLACE_ID = #{coursePlaceId}
+    </select>
+</mapper>
