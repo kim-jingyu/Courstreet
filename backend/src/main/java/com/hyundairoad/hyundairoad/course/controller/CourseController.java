@@ -1,6 +1,7 @@
 package com.hyundairoad.hyundairoad.course.controller;
 
 import com.hyundairoad.hyundairoad.course.domain.dto.CourseDetailDto;
+import com.hyundairoad.hyundairoad.course.domain.dto.CreateCourseDto;
 import com.hyundairoad.hyundairoad.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,12 @@ import java.util.List;
 public class CourseController {
 
     private final CourseService courseService;
+
+    @PostMapping
+    public ResponseEntity<Void> createCourse(@RequestBody CreateCourseDto createCourseDto) {
+        courseService.createCourse(createCourseDto);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/{courseId}")
     public ResponseEntity<CourseDetailDto> getCourseDetailsById(@PathVariable Long courseId, @RequestParam Long memberId) {
