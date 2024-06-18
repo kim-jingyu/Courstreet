@@ -36,8 +36,8 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public void update(Place place) {
-
+    public void modify(Place place) {
+        mapper.update(place);
     }
 
     @Override
