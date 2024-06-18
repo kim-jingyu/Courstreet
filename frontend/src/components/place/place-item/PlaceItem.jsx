@@ -19,7 +19,7 @@ const CheckBox = styled.img`
 function PlaceItem({ isSelected, srcImg, title, star, category, info }) {
   return (
     <LikeContainer>
-      <LikeItem>
+      <LikeItem style={{paddingRight: '20px'}}>
         <ItemImage src={srcImg} alt="Five Guys" />
         <ItemDetails>
           <ItemTitle>{title}</ItemTitle>
@@ -29,7 +29,7 @@ function PlaceItem({ isSelected, srcImg, title, star, category, info }) {
           </ItemRating>
           <FooterDetails>{info}</FooterDetails>
         </ItemDetails>
-        <CheckBox src={isSelected ? CheckActive : CheckInactive} />
+        <CheckBox style={{width: '45px'}} src={isSelected ? CheckActive : CheckInactive} />
       </LikeItem>
     </LikeContainer>
   );
