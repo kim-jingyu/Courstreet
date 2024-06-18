@@ -40,12 +40,26 @@ export const ItemFooter = styled.div`
 `;
 
 export const UserContainer = styled.div`
+  width: 100%;
   display: flex; 
   flex-direction: row; 
-  justify-content: flex-start; 
+  justify-content: space-between; 
   align-items: center;
   margin-bottom: 10px;
 `
+
+export const LeftContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const HeartIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+export const HeartIcon = styled.img``;
 
 export const UserIcon = styled.div`
   position: relative;
