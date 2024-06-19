@@ -124,4 +124,44 @@
         VALUES (COURSE_PLACE_SEQ.NEXTVAL, #{courseId}, #{placeId}, #{memo}, #{rank}, #{image})
     </insert>
 
+    <update id="updateCourse">
+        UPDATE COURSE
+        SET
+            MEMBER_ID = #{memberId},
+            TITLE = #{title},
+            CONTENT = #{content},
+            START_TIME = #{startTime},
+            END_TIME = #{endTime},
+            WITH_WHOM = #{withWhom},
+            THEME = #{theme},
+            VISIBILITY = #{visibility, typeHandler=com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler}
+        WHERE COURSE_ID = #{courseId}
+    </update>
+
+    <update id="updateCoursePlace">
+        UPDATE COURSE_PLACE
+        SET
+            PLACE_ID = #{placeId},
+            MEMO = #{memo},
+            RANK = #{rank},
+            IMAGE = #{image}
+        WHERE COURSE_PLACE_ID = #{coursePlaceId}
+    </update>
+
+    <delete id="deleteCoursePlaceById">
+        DELETE FROM COURSE_PLACE WHERE COURSE_PLACE_ID = #{coursePlaceId}
+    </delete>
+
+    <select id="getCoursePlacesByCourseId" resultType="com.hyundairoad.hyundairoad.course.domain.dto.CoursePlaceDto">
+        SELECT
+            course_place_id,
+            course_id,
+            place_id,
+            memo,
+            rank,
+            image
+        FROM course_place
+        WHERE course_id = #{courseId}
+    </select>
+
 </mapper>
