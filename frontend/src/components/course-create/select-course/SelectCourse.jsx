@@ -40,7 +40,10 @@ function SelectCourse() {
         onChange={(changeContent)}
         value={content}
       />
+      
+      {/* 장소 계획 */}
       <PlacePlan />
+
       <NextButton>코스 생성하기</NextButton>
     </>
   );
