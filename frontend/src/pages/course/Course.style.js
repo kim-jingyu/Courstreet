@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import active from '/src/assets/course-create-active.png';
-import inactive from '/src/assets/course-create-inactive.png';
+import active from '/src/assets/icons/course-create-active.png';
+import inactive from '/src/assets/icons/course-create-inactive.png';
 
 export const CreateBtn = styled.img`
   position: fixed;

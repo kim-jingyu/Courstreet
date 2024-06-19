@@ -1,6 +1,6 @@
 import { Carousel } from 'antd';
-import carousel1 from '/src/assets/carousel1.png';
-import carousel2 from '/src/assets/carousel2.png';
+import carousel1 from '/src/assets/icons/carousel1.png';
+import carousel2 from '/src/assets/icons/carousel2.png';
 
 const contentStyle = {
   display: 'flex',

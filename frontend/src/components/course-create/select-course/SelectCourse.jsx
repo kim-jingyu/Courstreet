@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ComponentTitle, NextButton } from '../CourseCreateComponent.style';
 import * as S from './SelectCourse.style';
-import addPhoto from '/src/assets/add-photo.png'
+import addPhoto from '/src/assets/icons/add-photo.png'
 import PlacePlan from '../../place/place-plan/PlacePlan';
 
 function SelectCourse() {

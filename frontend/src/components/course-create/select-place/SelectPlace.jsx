@@ -1,39 +1,38 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
-import { selectedPlacesState } from '/src/recoils/CourseAtoms';
+import { selectedPlaceIdsState, searchedPlacesState } from '/src/recoils/PlaceAtoms';
 import { Input } from 'antd';
 import PlaceItem from '../../place/place-item/PlaceItem';
 
 import * as G from '../CourseCreateComponent.style';
-import FiveGuysImg from '/src/assets/fiveguys.png';
-import StarbucksImg from '/src/assets/starbucks.png';
+import FiveGuysImg from '/src/assets/icons/fiveguys.png';
+import StarbucksImg from '/src/assets/icons/starbucks.png';
+import { searchedPlacesKeywordState } from '/src/recoils/PlaceAtoms';
 
 const { Search } = Input;
-const onSearch = (value, _e, info) => console.log(info?.source, value);
-
-const dummy = [
-  { id: 1, srcImg: FiveGuysImg, title: '파이브가이즈(Five Guys)', star: '4.3', category: '식당', info: 'B2 | 10:30 ~ 22:00' },
-  { id: 2, srcImg: StarbucksImg, title: '스타벅스(Starbucks)', star: '4.3', category: '카페', info: 'B2 | 10:30 ~ 22:00' },
-  { id: 3, srcImg: FiveGuysImg, title: '파이브가이즈(Five Guys)', star: '4.3', category: '식당', info: 'B2 | 10:30 ~ 22:00' },
-  { id: 4, srcImg: StarbucksImg, title: '스타벅스(Starbucks)', star: '4.3', category: '카페', info: 'B2 | 10:30 ~ 22:00' },
-  { id: 5, srcImg: FiveGuysImg, title: '파이브가이즈(Five Guys)', star: '4.3', category: '식당', info: 'B2 | 10:30 ~ 22:00' },
-  { id: 6, srcImg: StarbucksImg, title: '스타벅스(Starbucks)', star: '4.3', category: '카페', info: 'B2 | 10:30 ~ 22:00' },
-];
 
 function SelectPlace() {
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
-  const [places, setPlaces] = useRecoilState(selectedPlacesState);
-  const pickPlace = (idx) => {
-    places.includes(idx) ? setPlaces(places.filter((e) => e != idx)) : setPlaces([...places, idx]);
+  const searchedPlace = useRecoilValue(searchedPlacesState);
+
+  const [selectedPlaceIds, setSelectedPlaceIds] = useRecoilState(selectedPlaceIdsState);
+  const pickPlace = (PLACE_ID) => {
+    selectedPlaceIds.includes(PLACE_ID)
+      ? setSelectedPlaceIds(selectedPlaceIds.filter((e) => e != PLACE_ID))
+      : setSelectedPlaceIds([...selectedPlaceIds, PLACE_ID]);
+  };
+
+  const [_, setSearchedKeyword] = useRecoilState(searchedPlacesKeywordState);
+  const onSearch = (value, e, info) => {
+    setSearchedKeyword(value);
   };
 
   return (
     <>
-      <G.ComponentTitle>장소 선택</G.ComponentTitle>
-      <h1>지도</h1>
       <Search
-        placeholder="장소명을 입력하세요"
-        onSearch={onSearch}
+        placeholder="장소명 입력"
+        onChange={(e) => onSearch(e.target.value)}
+        // onSearch={onSearch}
         size="large"
         style={{
           margin: '0 auto',
@@ -41,16 +40,16 @@ function SelectPlace() {
         }}
       />
       <br /> <br /> <br /> <br />
-      {dummy.map(({ id, srcImg, title, star, category, info }, idx) => (
-        <div onClick={() => pickPlace(idx)}>
+      {searchedPlace.map(({ PLACE_ID, NAME, PHONE, START_TIME, END_TIME, LOCATION, CATEGORY }) => (
+        <div onClick={() => pickPlace(PLACE_ID)}>
           <PlaceItem
-            key={id}
-            isSelected={places.includes(idx)}
-            srcImg={srcImg}
-            title={title}
-            star={star}
-            category={category}
-            info={info}
+            key={PLACE_ID}
+            isSelected={selectedPlaceIds.includes(PLACE_ID)}
+            srcImg={FiveGuysImg}
+            title={NAME}
+            star={'4.3'}
+            category={CATEGORY}
+            info={START_TIME}
           />
         </div>
       ))}

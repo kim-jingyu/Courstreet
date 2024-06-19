@@ -1,4 +1,4 @@
-import hyunadaiFooter from '/src/assets/hyundai-footer.png';
+import hyunadaiFooter from '/src/assets/icons/hyundai-footer.png';
 
 function Footer() {
   return (

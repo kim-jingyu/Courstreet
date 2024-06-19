@@ -10,8 +10,8 @@ import {
 } from '../place-liked/PlaceLiked.style';
 import { StarFilled } from '@ant-design/icons';
 import styled from 'styled-components';
-import CheckInactive from '/src/assets/check-circle-inactive.png'
-import CheckActive from '/src/assets/check-circle-active.png'
+import CheckInactive from '/src/assets/icons/check-circle-inactive.png'
+import CheckActive from '/src/assets/icons/check-circle-active.png'
 
 const CheckBox = styled.img`
 `

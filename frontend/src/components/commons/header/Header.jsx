@@ -3,8 +3,8 @@ import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 
 import * as S from './Header.style';
-import arrowLeft from '/src/assets/header-arrow-left.png';
-import arrowRight from '/src/assets/header-arrow-right.png';
+import arrowLeft from '/src/assets/icons/header-arrow-left.png';
+import arrowRight from '/src/assets/icons/header-arrow-right.png';
 
 const prevText = ['나가기', '카테고리', '장소 선택'];
 const postText = ['장소 선택', '코스 생성', '작성 완료'];
