@@ -7,9 +7,9 @@ import PlacePlan from '../../place/place-plan/PlacePlan';
 function SelectCourse() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
   const changeTitle = (val) => {
     if (val.length < 31) setTitle(val);
-    console.log(val);
   };
   const changeContent = (event) => {
     if (event.target.value.length > 500) {
@@ -24,7 +24,7 @@ function SelectCourse() {
     <>
       <ComponentTitle>코스 생성</ComponentTitle>
       <S.CourseTitle
-        placeholder="(제목)"
+        placeholder="제목"
         onChange={(e) => changeTitle(e.target.value)}
         value={title}
         autoFocus

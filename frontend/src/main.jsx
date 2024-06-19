@@ -6,9 +6,9 @@ import router from './Router.jsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RecoilRoot>
       <RouterProvider router={router} />
     </RecoilRoot>
-  </React.StrictMode>,
+  // </React.StrictMode>
 );
