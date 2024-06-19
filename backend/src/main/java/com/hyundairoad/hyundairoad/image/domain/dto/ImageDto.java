@@ -1,4 +1,4 @@
-package com.hyundairoad.hyundairoad.image.domain.vo;
+package com.hyundairoad.hyundairoad.image.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class Image {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ImageDto {
     private Long imageId;
     private Long memberId;
     private Long placeId;
