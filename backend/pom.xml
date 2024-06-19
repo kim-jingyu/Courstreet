@@ -15,6 +15,8 @@
         <org.springframework-version>5.3.36</org.springframework-version>
         <org.aspectj-version>1.9.0</org.aspectj-version>
         <org.slf4j-version>1.7.25</org.slf4j-version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <dependencies>
         <!-- Spring -->
@@ -150,7 +152,7 @@
         </dependency>
         <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
-            <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId> <!--  jdbc4에서 jdbc4.1로 변경  -->
             <version>1.16</version>
         </dependency>
 
@@ -194,6 +196,13 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.20</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
         </dependency>
 
     </dependencies>
