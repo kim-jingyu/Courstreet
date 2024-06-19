@@ -17,6 +17,6 @@ public class Member {
     private String name;
     private String nickname;
     private int age;
-    // 성
-    // 역할
+    private SEX sex;
+    private ROLE role;
 }

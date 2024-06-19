@@ -7,13 +7,13 @@ import com.hyundairoad.hyundairoad.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/courses", produces = "application/json;charset=UTF-8")
 @RequiredArgsConstructor
 public class CourseController {
-
     private final CourseService courseService;
 
     @PostMapping
@@ -30,7 +30,7 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseDetailDto>> getAllCourses(@RequestParam Long memberId) {
-        List<CourseDetailDto> courseDetailDtos = courseService.getAllCourses(memberId);
+        List<CourseDetailDto> courseDetailDtos = courseService.getCoursesWithMember(memberId);
         return ResponseEntity.ok(courseDetailDtos);
     }
 

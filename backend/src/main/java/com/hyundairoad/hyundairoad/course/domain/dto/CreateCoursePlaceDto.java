@@ -15,5 +15,4 @@ public class CreateCoursePlaceDto {
     private Long placeId;
     private String memo;
     private int rank;
-    private String image;
 }

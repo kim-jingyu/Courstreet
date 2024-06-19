@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+    <select id="getImageListById" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, originalName, savedName
+        FROM image
+        WHERE image_id = #{imageId}
+    </select>
+    <select id="getImageListWithCoursePlace" parameterType="Long" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, originalName, savedName
+        FROM image
+        WHERE course_place_id = #{coursePlaceId}
+    </select>
+    <select id="getImageListWithPlace" parameterType="Long" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, originalName, savedName
+        FROM image
+        WHERE place_id = #{placeId}
+    </select>
+    <select id="getImageListWithMember" parameterType="Long" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, originalName, savedName
+        FROM image
+        WHERE member_id = #{memberId}
+    </select>
+</mapper>

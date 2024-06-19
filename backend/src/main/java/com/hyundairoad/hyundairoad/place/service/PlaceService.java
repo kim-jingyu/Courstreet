@@ -1,36 +1,40 @@
 package com.hyundairoad.hyundairoad.place.service;
 
 import com.hyundairoad.hyundairoad.place.domain.Place;
+import com.hyundairoad.hyundairoad.place.domain.dto.LikedPlaceDTO;
+import com.hyundairoad.hyundairoad.place.mapper.PlaceMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface PlaceService {
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class PlaceService {
+    private final PlaceMapper placeMapper;
 
-    /**
-     * 장소 전체 조회
-     * @return
-     */
-    List<Place> getList();
+    @Transactional(readOnly = true)
+    public List<Place> getList() {
+        return placeMapper.getList();
+    }
 
-    /**
-     * 장소 생성
-     * @param place
-     */
-    void register(Place place);
+    public void register(Place place) {
+        System.out.println(place);
+        placeMapper.insert(place);
+    }
 
-    /**
-     * 장소 삭제
-     * @param placeId
-     */
-    void remove(Long placeId);
+    public void remove(Long placeId) {
+        placeMapper.delete(placeId);
+    }
 
-    /**
-     * 장소 수정
-     */
-    void update(Place place);
+    public void update(Place place) {
 
-    /**
-     * 장소 ID로 하나의 장소 조회
-     */
-    Place getPlaceByPlaceId(Long placeId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<LikedPlaceDTO> getLikedPlacesByMemberId(Long memberId) {
+        return placeMapper.getLikedPlacesByMemberId(memberId);
+    }
 }

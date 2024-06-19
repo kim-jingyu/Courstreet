@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface CourseMapper {
-    List<CourseDetailDto> getAllCourses(Long memberId);
+    List<CourseDetailDto> getCoursesById(Long memberId);
     CourseDetailDto getCourseDetailsById(@Param("courseId") Long courseId, @Param("memberId") Long memberId);
     void insertCourse(CreateCourseDto createCourseDto);
     void insertCoursePlace(CreateCoursePlaceDto createCoursePlaceDto);
@@ -15,4 +15,6 @@ public interface CourseMapper {
     void updateCoursePlace(CoursePlaceDto coursePlaceDto);
     void deleteCoursePlaceById(Long coursePlaceId);
     List<CoursePlaceDto> getCoursePlacesByCourseId(Long courseId);
+    List<LikedCourseResponseDTO> getLikedCoursesByMemberId(Long memberId);
+    List<CourseResponseDTO> getCoursesWithComments(Long memberId);
 }
