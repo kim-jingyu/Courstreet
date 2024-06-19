@@ -1,11 +1,10 @@
 import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import SelectCategory from '/src/components/course-create/select-category/SelectCategory';
-import SelectPlace from '/src/components/course-create/select-place/SelectPlace';
 import SelectCourse from '/src/components/course-create/select-course/SelectCourse';
-import PlaceMap from '../../components/place/place-map/PlaceMap';
+import Place from '../place/Place';
 
-const Pages = [<SelectCategory />, <><PlaceMap /><SelectPlace /></>, <SelectCourse />];
+const Pages = [<SelectCategory />, <Place />, <SelectCourse />];
 
 function CourseCreate() { 
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
