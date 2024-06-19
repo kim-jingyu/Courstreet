@@ -16,20 +16,20 @@ import CheckActive from '/src/assets/icons/check-circle-active.png'
 const CheckBox = styled.img`
 `
 
-function PlaceItem({ isSelected, srcImg, title, star, category, info }) {
+function PlaceItem({ isSelected, srcImg, name, star, category, info }) {
   return (
     <LikeContainer>
       <LikeItem style={{paddingRight: '20px'}}>
         <ItemImage src={srcImg} alt="Five Guys" />
         <ItemDetails>
-          <ItemTitle>{title}</ItemTitle>
+          <ItemTitle>{name}</ItemTitle>
           <ItemRating>
             <StarFilled style={{ color: '#FADB14' }} /> {star}
             <ItemTag>{category}</ItemTag>
           </ItemRating>
           <FooterDetails>{info}</FooterDetails>
         </ItemDetails>
-        <CheckBox style={{width: '45px'}} src={isSelected ? CheckActive : CheckInactive} />
+        <CheckBox style={{width: '32px'}} src={isSelected ? CheckActive : CheckInactive} />
       </LikeItem>
     </LikeContainer>
   );
