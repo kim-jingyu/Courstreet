@@ -3,7 +3,7 @@ import { withCategoryState, themeCategoryState, genderCategoryState, ageCategory
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import * as S from './SelectCategory.style';
 import * as G from '../CourseCreateComponent.style';
-import instagramLogo from '/src/assets/instagram-logo.png';
+import instagramLogo from '/src/assets/icons/instagram-logo.png';
 
 function SelectCategory() {
   const [currWith, setCurrWith] = useRecoilState(withCategoryState);

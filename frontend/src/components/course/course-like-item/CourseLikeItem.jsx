@@ -14,7 +14,7 @@ import {
   HeartIconContainer,
   LeftContainer,
 } from '../course-item/CourseItem.style';
-import heartIcon from '/src/assets/heart.png';
+import heartIcon from '/src/assets/icons/heart.png';
 
 function CourseLikeItem() {
   return (

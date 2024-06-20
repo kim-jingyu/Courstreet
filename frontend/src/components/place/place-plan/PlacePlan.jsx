@@ -14,11 +14,11 @@ import {
 } from '../place-liked/PlaceLiked.style';
 import * as S from './PlacePlan.style';
 import { StarFilled } from '@ant-design/icons';
-import FiveGuysImg from '/src/assets/fiveguys.png';
-import StarbucksImg from '/src/assets/starbucks.png';
-import DeleteActive from '/src/assets/delete-round-active.png';
-import DeleteInactive from '/src/assets/delete-round-inactive.png';
-import AddPlace from '/src/assets/add-circle.png';
+import FiveGuysImg from '/src/assets/icons/fiveguys.png';
+import StarbucksImg from '/src/assets/icons/starbucks.png';
+import DeleteActive from '/src/assets/icons/delete-round-active.png';
+import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';
+import AddPlace from '/src/assets/icons/add-circle.png';
 
 const dummy = [
   {

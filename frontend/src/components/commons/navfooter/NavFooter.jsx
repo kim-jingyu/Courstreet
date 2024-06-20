@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import * as S from './NavFooter.style';
-import navHome from '/src/assets/nav-home.png';
-import navPlace from '/src/assets/nav-place.png';
-import navMypage from '/src/assets/nav-mypage.png';
+import navHome from '/src/assets/icons/nav-home.png';
+import navPlace from '/src/assets/icons/nav-place.png';
+import navMypage from '/src/assets/icons/nav-mypage.png';
 
 function NavFooter() {
   const navigate = useNavigate();

@@ -10,9 +10,9 @@ import {
   LikeContainer,
   LikeItem,
 } from './PlaceLiked.style';
-import StarbucksImg from '/src/assets/starbucks.png';
-import heartIcon from '/src/assets/heart.png';
-import FiveGuysImg from '/src/assets/fiveguys.png';
+import StarbucksImg from '/src/assets/icons/starbucks.png';
+import heartIcon from '/src/assets/icons/heart.png';
+import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import { StarFilled } from '@ant-design/icons';
 
 function PlaceLiked() {

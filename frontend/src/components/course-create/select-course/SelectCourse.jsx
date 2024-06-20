@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ComponentTitle, NextButton } from '../CourseCreateComponent.style';
 import * as S from './SelectCourse.style';
-import addPhoto from '/src/assets/add-photo.png'
+import addPhoto from '/src/assets/icons/add-photo.png'
 import PlacePlan from '../../place/place-plan/PlacePlan';
 
 function SelectCourse() {
@@ -40,7 +40,10 @@ function SelectCourse() {
         onChange={(changeContent)}
         value={content}
       />
+      
+      {/* 장소 계획 */}
       <PlacePlan />
+
       <NextButton>코스 생성하기</NextButton>
     </>
   );
