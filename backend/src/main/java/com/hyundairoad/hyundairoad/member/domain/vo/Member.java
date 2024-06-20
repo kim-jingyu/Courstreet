@@ -18,8 +18,8 @@ public class Member {
     private String name;
     private String nickname;
     private int age;
-    private SEX sex;
-    private ROLE role;
+    private Sex sex;
+    private Role role;
     private String provider;
     private String providerId;
 }

@@ -1,22 +1,27 @@
 package com.hyundairoad.hyundairoad.global.config;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+@Slf4j
 @Getter
 @Configuration
+@PropertySource("classpath:application.yml")
 public class EmailConfig {
     @Value("${mail.google.host}")
     private String host;
-
-    @Value("${mail.google.port}")
-    private String port;
 
     @Value("${mail.google.username}")
     private String username;
@@ -24,11 +29,14 @@ public class EmailConfig {
     @Value("${mail.google.password}")
     private String password;
 
+    @Value("${mail.google.port}")
+    private int port;
+
     @Bean
     public JavaMailSender mailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
-        mailSender.setPort(Integer.parseInt(port));
+        mailSender.setPort(port);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
 
@@ -45,4 +53,14 @@ public class EmailConfig {
 
         return mailSender;
     }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer properties(Environment env) {
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+        yaml.setResources(new ClassPathResource("application.yml"));
+        propertySourcesPlaceholderConfigurer.setProperties(yaml.getObject());
+        return propertySourcesPlaceholderConfigurer;
+    }
+
 }

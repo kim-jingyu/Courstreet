@@ -1,16 +1,11 @@
 package com.hyundairoad.hyundairoad.member.controller.api;
 
-import com.hyundairoad.hyundairoad.member.domain.dto.LoginDTO;
 import com.hyundairoad.hyundairoad.member.domain.dto.SignupDTO;
-import com.hyundairoad.hyundairoad.member.domain.vo.Member;
-import com.hyundairoad.hyundairoad.member.exception.InvalidLoginException;
 import com.hyundairoad.hyundairoad.member.exception.InvalidSignupException;
 import com.hyundairoad.hyundairoad.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.hyundairoad.hyundairoad.constants.ErrorMsg.INVALID_LOGIN;
 import static com.hyundairoad.hyundairoad.constants.ErrorMsg.INVALID_SIGNUP;
 
 @RestController
@@ -31,19 +25,6 @@ public class MemberApiController {
     @GetMapping("/")
     public String getMember() {
         return "member";
-    }
-
-    @GetMapping("/login")
-    public ResponseEntity<Void> login(@Validated LoginDTO loginDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new InvalidLoginException(INVALID_LOGIN);
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String role = authentication.getAuthorities().iterator().next().getAuthority();
-        Member loginMember = memberService.getLoginMemberByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-
-        return null;
     }
 
     @PostMapping("/signup")

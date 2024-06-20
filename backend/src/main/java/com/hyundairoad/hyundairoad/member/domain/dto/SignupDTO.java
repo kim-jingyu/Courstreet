@@ -1,6 +1,6 @@
 package com.hyundairoad.hyundairoad.member.domain.dto;
 
-import com.hyundairoad.hyundairoad.member.domain.vo.SEX;
+import com.hyundairoad.hyundairoad.member.domain.vo.Sex;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -14,6 +14,6 @@ public class SignupDTO {
     private String password;
     private String name;
     private String nickname;
-    private SEX sex;
+    private Sex sex;
     private Integer age;
 }
