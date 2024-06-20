@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/login", "/signup").permitAll()
-                        .requestMatchers("/admin").hasRole(Role.ADMIN.name())
-                        .requestMatchers("/mypage/**").hasAnyRole(Role.ADMIN.name(), Role.ADMIN.name())
+                        .requestMatchers("/admin").hasRole(Role.admin.name())
+                        .requestMatchers("/mypage/**").hasAnyRole(Role.admin.name(), Role.admin.name())
                         .anyRequest().authenticated())
                 .oauth2Login((auth) -> auth.loginPage("/login")
                         .defaultSuccessUrl("/")

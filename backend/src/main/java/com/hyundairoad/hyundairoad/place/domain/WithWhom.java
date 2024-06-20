@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum WithWhom {
     ALONE("혼자"),
-    FRIEND("친구와"),
-    LOVE("연인과"),
-    CHILDREN("아이와"),
-    PARENTS("부모님과");
+    FRIEND("친구"),
+    LOVE("연인"),
+    CHILDREN("아이"),
+    PARENTS("부모님");
 
     private final String withWhom;
 }

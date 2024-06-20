@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Visibility {
-    PUBLIC("공개"),
-    PRIVATE("비공개");
+    PUBLIC("Y"),
+    PRIVATE("N");
 
     private final String value;
 }
