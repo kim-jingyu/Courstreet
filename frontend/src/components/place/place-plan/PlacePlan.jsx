@@ -179,7 +179,7 @@ function PlacePlan() {
       </S.AddButton>
       <br /> <br /> <br />
 
-      <Modal title="Title" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+      <Modal title="삭제" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
         <p>{modalText}</p>
       </Modal>
     </>

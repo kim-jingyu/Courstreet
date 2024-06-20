@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 70px;
+  height: 55px;
   font-size: 1.2rem;
   background-color: white;
   border-bottom: 1px solid #452324;

@@ -1,13 +1,19 @@
 import CourseItem from '/src/components/course/course-item/CourseItem';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TodayPick from '/src/components/course/today-pick/TodayPick';
 import { Select, Space } from 'antd';
 import * as S from './Course.style';
 import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
+import courseAPI from '/src/api/course/courseAPI.jsx';
 
 function Course() {
   const navigate = useNavigate();
+  const goDetail = (index) => {
+    console.log(index);
+    navigate(`/coursedetail`)
+  }
+
   const goCreate = () => navigate('/coursecreate');
 
   const handleChange = (value) => console.log(`selected ${value}`);
@@ -20,6 +26,15 @@ function Course() {
   };
 
   const [contents, setContents] = useState([1, 2, 3, 4, 5]);
+
+  // const [contents, setContents] = useState([]);
+  // useEffect(() => {
+  //   courseAPI(1).then(response => {
+  //     setContents(response.data);
+  //     }).catch(error => {
+  //         console.error('Error fetching the hello message:', error);
+  //     });
+  // }, []);
 
   return (
     <>
@@ -56,8 +71,9 @@ function Course() {
         </CategorySelector>
       </Section>
 
-      {contents.map((v, i) => (
-        <CourseItem key={i} />
+
+      {contents.map((course, index) => (
+        <CourseItem key={index} course={course} onClick={()=>goDetail(index)}/>
       ))}
 
       <S.CreateBtn onClick={goCreate} />
