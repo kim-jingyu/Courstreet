@@ -1,5 +1,6 @@
 package com.hyundairoad.hyundairoad.image.mapper;
 
+import com.hyundairoad.hyundairoad.image.domain.dto.ImageDto;
 import com.hyundairoad.hyundairoad.image.domain.vo.Image;
 import org.apache.ibatis.annotations.Mapper;
 
