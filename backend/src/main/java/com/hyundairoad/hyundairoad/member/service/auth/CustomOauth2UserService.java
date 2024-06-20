@@ -1,7 +1,7 @@
 package com.hyundairoad.hyundairoad.member.service.auth;
 
 import com.hyundairoad.hyundairoad.member.domain.vo.Member;
-import com.hyundairoad.hyundairoad.member.domain.vo.ROLE;
+import com.hyundairoad.hyundairoad.member.domain.vo.Role;
 import com.hyundairoad.hyundairoad.member.domain.vo.auth.CustomOauth2UserDetails;
 import com.hyundairoad.hyundairoad.member.domain.vo.auth.GoogleUserDetails;
 import com.hyundairoad.hyundairoad.member.domain.vo.auth.KakaoUserDetails;
@@ -59,7 +59,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
                     .name(name)
                     .provider(provider)
                     .providerId(providerId)
-                    .role(ROLE.NORMAL)
+                    .role(Role.NORMAL)
                     .build();
             memberMapper.save(member);
         } else {

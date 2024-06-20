@@ -26,6 +26,7 @@
         FROM member
         WHERE email = #{email}
     </select>
+
 </mapper>
 
 

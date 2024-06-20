@@ -32,6 +32,10 @@ public class MemberService {
         memberMapper.signup(signupDTO);
     }
 
+    public void like() {
+
+    }
+
     @Transactional(readOnly = true)
     public void getMemberLiked(Long memberId) {
 
