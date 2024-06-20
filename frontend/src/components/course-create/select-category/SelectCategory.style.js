@@ -11,7 +11,7 @@ export const CategorySelector = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px 10px;
+  margin: 5px;
   padding: 5px 15px;
   border-radius: 20px;
   border: 1px solid ${COLOR.HDDarkBrown};

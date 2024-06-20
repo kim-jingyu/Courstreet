@@ -7,3 +7,8 @@ export const getAllPlace = () => {
 export const getLikePlace = () => {
   return instance.get('/api/place/mylike', {});
 };
+
+export const getPlaceDetail = (placeId) => {
+  return instance.get('/api/place/' + placeId, {
+  });
+};

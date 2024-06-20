@@ -39,7 +39,15 @@ export const ItemTitle = styled.div`
   font-size: 0.9rem;
   font-weight: bold;
   margin-bottom: 5px;
+  align-items: center;
+  justify-content: left;
+  display: flex;
 `;
+
+export const ItemInfo = styled.img`
+  margin-left: 4px;
+  width: 7%;
+`
 
 export const ItemRating = styled.div`
   font-size: 0.7rem;

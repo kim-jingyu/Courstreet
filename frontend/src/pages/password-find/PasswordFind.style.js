@@ -5,7 +5,7 @@ export const Container = styled.div`
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  // font-family: Arial, sans-serif;
 `;
 
 export const Header = styled.div`
