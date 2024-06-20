@@ -20,7 +20,6 @@ public class CustomOAuth2AuthenticationSuccessHandler implements AuthenticationS
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", generateToken(authentication));
         writer.write(new ObjectMapper().writeValueAsString(tokenMap));
-        writer.flush();
     }
 
     private String generateToken(Authentication authentication) {
