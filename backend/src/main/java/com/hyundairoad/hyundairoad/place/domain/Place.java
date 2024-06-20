@@ -1,13 +1,8 @@
 package com.hyundairoad.hyundairoad.place.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Getter
@@ -22,13 +17,18 @@ public class Place {
     private LocalDateTime startTime;
     @DateTimeFormat(pattern = "HH:mm")
     private LocalDateTime endTime;
-    private int startAge;
-    private int endAge;
-    private WithWhom withWhom;
+    private LocalDateTime startAge;
+    private LocalDateTime endAge;
+    private String withWhom;
     private int floor;
     private String location;
-    private Category category;
-    private List<ThemeWeight> themeWeight;
+    private String category;
+    private String theme1;
+    private String theme2;
+    private String theme3;
+    private int weight1;
+    private int weight2;
+    private int weight3;
 }
 
 

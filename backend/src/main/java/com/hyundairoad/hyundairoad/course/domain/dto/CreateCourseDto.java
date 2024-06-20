@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -16,8 +17,8 @@ public class CreateCourseDto {
     private Long memberId;
     private String title;
     private String content;
-    private int startTime;
-    private int endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String withWhom;
     private String theme;
     private Boolean visibility;

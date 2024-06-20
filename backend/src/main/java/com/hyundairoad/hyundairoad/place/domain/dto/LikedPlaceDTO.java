@@ -10,7 +10,7 @@ public class LikedPlaceDTO {
     private Long placeId;
     private String name;
     private Integer star;
-    private Category category;
+    private String category;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int floor;
