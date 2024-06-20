@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hyundairoad.hyundairoad.place.mapper.PlaceMapper">
-    <select id="getList" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
+    <select id="getListPaging" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
         SELECT PLACE_ID,
                NAME,
                PHONE,
@@ -14,7 +14,6 @@
                WITH_WHOM,
                FLOOR,
                LOCATION,
-               TYPE,
                CATEGORY,
                THEME1,
                THEME2,
@@ -25,6 +24,7 @@
         FROM PLACE
         WHERE PLACE_ID > 0
         ORDER BY PLACE_ID DESC
+             LIMIT #{limit} OFFSET #{offset}
     </select>
 
     <insert id="insert">
@@ -38,7 +38,6 @@
                           WITH_WHOM,
                           FLOOR,
                           LOCATION,
-                          TYPE,
                           CATEGORY,
                           THEME1,
                           THEME2,
@@ -56,7 +55,6 @@
                 #{withWhom},
                 #{floor},
                 #{location},
-                #{type},
                 #{category},
                 #{theme1},
                 #{theme2},
@@ -69,5 +67,48 @@
     <delete id="delete">
         DELETE FROM PLACE WHERE PLACE_ID = #{placeId}
     </delete>
+
+    <update id="update">
+        UPDATE PLACE SET
+                         NAME = #{name},
+                         PHONE = #{phone},
+                         START_TIME = #{startTime},
+                         END_TIME = #{endTime},
+                         START_AGE = #{startAge},
+                         END_AGE = #{endAge},
+                         WITH_WHOM = #{withWhom},
+                         FLOOR = #{floor},
+                         LOCATION = #{location},
+                         CATEGORY = #{category},
+                         THEME1 = #{theme1},
+                         THEME2 = #{theme2},
+                         THEME3 = #{theme3},
+                         WEIGHT1 = #{weight1},
+                         WEIGHT2 = #{weight2},
+                         WEIGHT3 = #{weight3}
+        WHERE PLACE_ID = #{placeId}
+    </update>
+
+    <select id="getPlaceByPlaceId" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
+        SELECT PLACE_ID,
+               NAME,
+               PHONE,
+               START_TIME,
+               END_TIME,
+               START_AGE,
+               END_AGE,
+               WITH_WHOM,
+               FLOOR,
+               LOCATION,
+               CATEGORY,
+               THEME1,
+               THEME2,
+               THEME3,
+               WEIGHT1,
+               WEIGHT2,
+               WEIGHT3
+        FROM PLACE
+        WHERE PLACE_ID = #{placeId}
+    </select>
 
 </mapper>

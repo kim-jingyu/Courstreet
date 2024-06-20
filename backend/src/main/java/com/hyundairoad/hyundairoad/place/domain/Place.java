@@ -19,7 +19,6 @@ public class Place {
     private String withWhom;
     private int floor;
     private String location;
-    private String type;
     private String category;
     private String theme1;
     private String theme2;

@@ -11,6 +11,7 @@ public interface PlaceService {
      * @return
      */
     List<Place> getList();
+    List<Place> getListPaging(int limit, int offset);
 
     /**
      * 장소 생성

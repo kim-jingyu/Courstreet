@@ -21,7 +21,12 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<Place> getList() {
-        return mapper.getList();
+        return null;
+    }
+
+    @Override
+    public List<Place> getListPaging(int limit, int offset) {
+        return mapper.getListPaging(limit, offset);
     }
 
     @Override
@@ -37,11 +42,11 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void update(Place place) {
-
+        mapper.update(place);
     }
 
     @Override
     public Place getPlaceByPlaceId(Long placeId) {
-        return null;
+        return mapper.getPlaceByPlaceId(placeId);
     }
 }
