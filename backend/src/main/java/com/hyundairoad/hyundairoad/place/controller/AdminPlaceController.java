@@ -9,10 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 @Controller
 @RequestMapping("/admin/place")
 @RequiredArgsConstructor
@@ -27,25 +23,12 @@ public class AdminPlaceController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute Place place, @RequestParam("time1") String startTime,
-                           @RequestParam("time2") String endTime) {
-        // LocalTime 변환 후 설정
-        LocalTime startLocalTime = LocalTime.parse(startTime);
-        LocalTime endLocalTime = LocalTime.parse(endTime);
-
-        LocalDate currentDate = LocalDate.now();
-        LocalDateTime startDateTime = LocalDateTime.of(currentDate, startLocalTime);
-        LocalDateTime endDateTime = LocalDateTime.of(currentDate, endLocalTime);
-
-        place.setStartTime(startDateTime);
-        place.setEndTime(endDateTime);
-
+    public ResponseEntity<?> register(@RequestBody Place place) {
         service.register(place);
-
-        return "redirect:/admin/place/list";
+        return ResponseEntity.ok().body("Success");
     }
 
-    @PostMapping("/remove/{id}")
+    @DeleteMapping("/remove/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id) {
         try {
             service.remove(id);

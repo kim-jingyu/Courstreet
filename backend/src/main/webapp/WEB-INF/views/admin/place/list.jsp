@@ -50,7 +50,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding: 0 !important;
+            padding: 0.5rem 0 !important;
         }
         nav.navbar {
             position: fixed;
@@ -59,6 +59,14 @@
             z-index: 1000;
         }
     </style>
+    <!-- jQuery 먼저 로드 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/7n2nE2+5ir2V1+PS0zlNQ2FPLkF6SoIfjpHjoD" crossorigin="anonymous"></script>
+    <!-- DataTables CSS 및 JS 로드 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap CSS 및 JS 로드 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -217,11 +225,6 @@
     </div>
 </div>
 
-</body>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#placeTable').DataTable({
@@ -245,7 +248,6 @@
 
     $('#addPlaceForm').on('submit', function(event) {
         event.preventDefault();
-        // 장소 추가 로직 처리
         const place = {
             name: $('#placeName').val(),
             phone: $('#placePhone').val(),
@@ -305,7 +307,7 @@
         if (confirm('정말 삭제하시겠습니까?')) {
             $.ajax({
                 url: '/admin/place/remove/' + placeId,
-                type: 'POST',
+                type: 'DELETE',
                 success: function(response) {
                     location.reload();
                 },
@@ -317,7 +319,72 @@
     }
 
     function editPlace(placeId) {
-        // 수정 기능 구현
+        // 장소 수정 로직 구현
+        // 기존 장소 정보를 가져와서 폼에 채운 뒤, 변경 사항을 제출할 수 있도록 합니다.
+        $.ajax({
+            url: '/admin/place/' + placeId,
+            type: 'GET',
+            success: function(response) {
+                $('#placeName').val(response.name);
+                $('#placePhone').val(response.phone);
+                $('#placeStartTime').val(response.startTime);
+                $('#placeEndTime').val(response.endTime);
+                $('#placeStartAge').val(response.startAge);
+                $('#placeEndAge').val(response.endAge);
+                $('#placeWithWhom').val(response.withWhom);
+                $('#placeFloor').val(response.floor);
+                $('#placeLocation').val(response.location);
+                $('#placeCategory').val(response.category);
+                $('#placeTheme1').val(response.theme1);
+                $('#placeTheme2').val(response.theme2);
+                $('#placeTheme3').val(response.theme3);
+                $('#placeWeight1').val(response.weight1);
+                $('#placeWeight2').val(response.weight2);
+                $('#placeWeight3').val(response.weight3);
+
+                $('#addPlaceModal').modal('show');
+
+                $('#addPlaceForm').off('submit').on('submit', function(event) {
+                    event.preventDefault();
+                    const updatedPlace = {
+                        placeId: placeId,
+                        name: $('#placeName').val(),
+                        phone: $('#placePhone').val(),
+                        startTime: $('#placeStartTime').val(),
+                        endTime: $('#placeEndTime').val(),
+                        startAge: $('#placeStartAge').val(),
+                        endAge: $('#placeEndAge').val(),
+                        withWhom: $('#placeWithWhom').val(),
+                        floor: $('#placeFloor').val(),
+                        location: $('#placeLocation').val(),
+                        category: $('#placeCategory').val(),
+                        theme1: $('#placeTheme1').val(),
+                        theme2: $('#placeTheme2').val(),
+                        theme3: $('#placeTheme3').val(),
+                        weight1: $('#placeWeight1').val(),
+                        weight2: $('#placeWeight2').val(),
+                        weight3: $('#placeWeight3').val()
+                    };
+
+                    $.ajax({
+                        url: '/admin/place/update',
+                        type: 'PUT',
+                        data: JSON.stringify(updatedPlace),
+                        contentType: 'application/json; charset=UTF-8',
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                });
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
     }
 </script>
+</body>
 </html>
