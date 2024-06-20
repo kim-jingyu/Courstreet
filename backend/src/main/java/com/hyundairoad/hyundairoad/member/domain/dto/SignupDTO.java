@@ -1,15 +1,19 @@
 package com.hyundairoad.hyundairoad.member.domain.dto;
 
-import jakarta.validation.constraints.Email;
+import com.hyundairoad.hyundairoad.member.domain.vo.SEX;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class SignupDTO {
-    @Email
-    private String email;
+    @NotBlank(message = "ID를 입력해주세요.")
+    private String loginId;
+    @NotBlank(message = "비밀번호를 입력하세요.")
+    @Min(value = 8)
     private String password;
     private String name;
     private String nickname;
-    private String sex;
+    private SEX sex;
     private Integer age;
 }
