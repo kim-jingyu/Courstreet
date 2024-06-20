@@ -1,6 +1,7 @@
 package com.hyundairoad.hyundairoad;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.*;
 import javax.servlet.http.*;

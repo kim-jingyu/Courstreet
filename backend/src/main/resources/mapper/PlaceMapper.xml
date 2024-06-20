@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hyundairoad.hyundairoad.place.mapper.PlaceMapper">
-    <select id="getList" resultType="com.hyundairoad.hyundairoad.place.domain.Place">
+    <select id="selectAllPlaceList" resultType="com.hyundairoad.hyundairoad.place.domain.vo.Place">
         SELECT PLACE_ID,
                NAME,
                PHONE,
@@ -14,7 +14,6 @@
                WITH_WHOM,
                FLOOR,
                LOCATION,
-               TYPE,
                CATEGORY,
                THEME1,
                THEME2,
@@ -91,5 +90,92 @@
             WEIGHT3    = = #{weight3}
         where PLACE_ID = 1;
     </update>
+
+    <select id="selectPlaceStarList" resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
+        SELECT
+            p.PLACE_ID,
+            p.NAME,
+            p.PHONE,
+            p.START_TIME,
+            p.END_TIME,
+            p.FLOOR,
+            p.LOCATION,
+            p.CATEGORY,
+            ROUND(NVL(avg_rating, 0.0), 1) AS RATE
+        FROM
+            place p
+                LEFT JOIN
+            (
+                SELECT
+                    PLACE_ID,
+                    AVG(RATE) AS avg_rating
+                FROM
+                    MEMBER_PLACE_STAR
+                GROUP BY
+                    PLACE_ID
+            ) mps ON p.PLACE_ID = mps.PLACE_ID
+    </select>
+
+    <select id="selectPlaceStarByMemberId" parameterType="Long"
+            resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
+        SELECT
+            p.PLACE_ID,
+            p.NAME,
+            p.PHONE,
+            p.START_TIME,
+            p.END_TIME,
+            p.FLOOR,
+            p.LOCATION,
+            p.CATEGORY,
+            ROUND(NVL(mps.avg_rating, 0), 1) AS RATE
+        FROM
+            place p
+                LEFT JOIN
+            (
+                SELECT
+                    PLACE_ID,
+                    AVG(RATE) AS avg_rating
+                FROM
+                    MEMBER_PLACE_STAR
+                GROUP BY
+                    PLACE_ID
+            ) mps ON p.PLACE_ID = mps.PLACE_ID
+                LEFT JOIN
+            member_place_like mpl ON p.PLACE_ID = mpl.PLACE_ID
+        WHERE
+            mpl.MEMBER_ID = #{memberId}
+
+    </select>
+
+    <select id="selectPlaceStarByPlaceId" parameterType="Long"
+            resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
+        SELECT
+            p.PLACE_ID,
+            p.NAME,
+            p.PHONE,
+            p.START_TIME,
+            p.END_TIME,
+            p.FLOOR,
+            p.LOCATION,
+            p.CATEGORY,
+            ROUND(NVL(mps.avg_rating, 0), 1) AS RATE
+        FROM
+            place p
+                LEFT JOIN
+            (
+                SELECT
+                    PLACE_ID,
+                    AVG(RATE) AS avg_rating
+                FROM
+                    MEMBER_PLACE_STAR
+                GROUP BY
+                    PLACE_ID
+            ) mps ON p.PLACE_ID = mps.PLACE_ID
+                LEFT JOIN
+            member_place_like mpl ON p.PLACE_ID = mpl.PLACE_ID
+        WHERE
+            p.PLACE_ID = #{placeId}
+
+    </select>
 
 </mapper>

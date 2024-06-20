@@ -267,30 +267,30 @@
         const cells = row.querySelectorAll('td');
 
         if (button.textContent === '저장') {
-            // If 'Save' is clicked, gather the data and send it to the server
+
+
             const updatedData = {
-                id: id,
+                placeId: parseInt(id, 10),
                 name: cells[3].querySelector('input').value,
                 phone: cells[4].querySelector('input').value,
-                startTime: cells[5].querySelector('input').value,
-                endTime: cells[6].querySelector('input').value,
-                startAge: cells[7].querySelector('input').value,
-                endAge: cells[8].querySelector('input').value,
+                startTime: '1990-01-01 ' + cells[5].querySelector('input').value + ":00",
+                endTime: '1990-01-01 ' + cells[6].querySelector('input').value + ":00",
+                startAge: parseInt(cells[7].querySelector('input').value, 10),
+                endAge: parseInt(cells[8].querySelector('input').value, 10),
                 withWhom: cells[9].querySelector('input').value,
-                floor: cells[10].querySelector('input').value,
+                floor: parseInt(cells[10].querySelector('input').value, 10),
                 location: cells[11].querySelector('input').value,
                 type: cells[12].querySelector('input').value,
                 category: cells[13].querySelector('input').value,
                 theme1: cells[14].querySelector('input').value,
                 theme2: cells[15].querySelector('input').value,
                 theme3: cells[16].querySelector('input').value,
-                weight1: cells[17].querySelector('input').value,
-                weight2: cells[18].querySelector('input').value,
-                weight3: cells[19].querySelector('input').value,
+                weight1: parseInt(cells[17].querySelector('input').value, 10),
+                weight2: parseInt(cells[18].querySelector('input').value, 10),
+                weight3: parseInt(cells[19].querySelector('input').value, 10)
             };
             console.log(updatedData)
 
-            // Send the updated data to the server using the Fetch API
             $.ajax({
                 url: '/place/modify/' + id,
                 type: 'POST',

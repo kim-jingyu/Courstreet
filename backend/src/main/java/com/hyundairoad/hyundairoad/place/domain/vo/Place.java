@@ -1,7 +1,8 @@
-package com.hyundairoad.hyundairoad.place.domain;
+package com.hyundairoad.hyundairoad.place.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 
@@ -10,16 +11,15 @@ public class Place {
     private Long placeId;
     private String name;
     private String phone;
-    @DateTimeFormat(pattern = "HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime startTime;
-    @DateTimeFormat(pattern = "HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime endTime;
     private int startAge;
     private int endAge;
     private String withWhom;
     private int floor;
     private String location;
-    private String type;
     private String category;
     private String theme1;
     private String theme2;

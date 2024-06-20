@@ -12,6 +12,10 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="http://localhost:5173"/>
+    </mvc:cors>
+
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/" />
         <beans:property name="suffix" value=".jsp" />

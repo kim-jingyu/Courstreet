@@ -1,6 +1,7 @@
 package com.hyundairoad.hyundairoad.place.controller;
 
-import com.hyundairoad.hyundairoad.place.domain.Place;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hyundairoad.hyundairoad.place.domain.vo.Place;
 import com.hyundairoad.hyundairoad.place.service.PlaceService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -25,7 +26,7 @@ public class PlaceController {
 
     @GetMapping("/list")
     public void list(Model model) {
-        model.addAttribute("list", service.getList());
+        model.addAttribute("list", service.getAllPlaceList());
     }
 
     @PostMapping("/register")
@@ -64,9 +65,15 @@ public class PlaceController {
     }
 
     @PostMapping("/modify/{id}")
-    public ResponseEntity<?> modify(@PathVariable Long id, Place place) {
+    public ResponseEntity<?> modify(@PathVariable Long id, @RequestBody String jsonData) {
         try {
-            System.out.println(place);
+            System.out.println(jsonData);
+            ObjectMapper mapper = new ObjectMapper();
+            Place place = mapper.readValue(jsonData, Place.class);
+
+
+            System.out.println("===");
+            System.out.println(place.toString());
             service.modify(place);
             return ResponseEntity.ok().body("Success");
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.hyundairoad.hyundairoad.place.service.impl;
 
-import com.hyundairoad.hyundairoad.place.domain.Place;
+import com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto;
+import com.hyundairoad.hyundairoad.place.domain.vo.Place;
 import com.hyundairoad.hyundairoad.place.mapper.PlaceMapper;
 import com.hyundairoad.hyundairoad.place.service.PlaceService;
 import lombok.AllArgsConstructor;
@@ -20,13 +21,12 @@ public class PlaceServiceImpl implements PlaceService {
 
 
     @Override
-    public List<Place> getList() {
-        return mapper.getList();
+    public List<Place> getAllPlaceList() {
+        return mapper.selectAllPlaceList();
     }
 
     @Override
     public void register(Place place) {
-        System.out.println(place);
         mapper.insert(place);
     }
 
@@ -41,7 +41,18 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Place getPlaceByPlaceId(Long placeId) {
-        return null;
+    public PlaceStarDto getPlaceByPlaceId(Long placeId) {
+
+        return mapper.selectPlaceStarByPlaceId(placeId);
+    }
+
+    @Override
+    public List<PlaceStarDto> getPlaceStarList() {
+        return mapper.selectPlaceStarList();
+    }
+
+    @Override
+    public List<PlaceStarDto> getPlaceStarByMemberId(Long memberId) {
+        return mapper.selectPlaceStarByMemberId(memberId);
     }
 }
