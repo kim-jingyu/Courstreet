@@ -16,11 +16,9 @@ import CheckActive from '/src/assets/icons/check-circle-active.png';
 
 const CheckBox = styled.img``;
 
-function PlaceItem({ isSelected, srcImg, name, star, category, info }) {
-  // 현재 URL
+function PlaceItem({ isSelected, srcImg, name, rate, category, info }) {
   const location = useLocation();
   const currentUrl = location.pathname;
-  
   return (
     <LikeContainer>
       <LikeItem style={{ paddingRight: '20px' }}>
@@ -28,7 +26,7 @@ function PlaceItem({ isSelected, srcImg, name, star, category, info }) {
         <ItemDetails>
           <ItemTitle>{name}</ItemTitle>
           <ItemRating>
-            <StarFilled style={{ color: '#FADB14' }} /> {star}
+            <StarFilled style={{ color: '#FADB14' }} /> {rate}
             <ItemTag>{category}</ItemTag>
           </ItemRating>
           <FooterDetails>{info}</FooterDetails>

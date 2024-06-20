@@ -6,6 +6,7 @@ import NavFooter from './components/commons/navfooter/NavFooter';
 import { OutletWrapper } from './App.style.js';
 
 function App() {
+
   return (
     <>
       <Header />

@@ -14,46 +14,36 @@ import StarbucksImg from '/src/assets/icons/starbucks.png';
 import heartIcon from '/src/assets/icons/heart.png';
 import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import { StarFilled } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { getLikePlace } from '/src/api/place/placeAPI.jsx';
 
 function PlaceLiked() {
+  const [place, setPlace] = useState([]);
+
+  useEffect(() => {
+    getLikePlace().then(response => {
+      setPlace(response.data);
+      }).catch(error => {
+          console.error('Error fetching the hello message:', error);
+      });
+  }, []);
+
   return (
     <LikeContainer>
-      <LikeItem>
-        <ItemImage src={FiveGuysImg} alt="Five Guys" />
-        <ItemDetails>
-          <ItemTitle>파이브가이즈(Five Guys)</ItemTitle>
-          <ItemRating>
-            <StarFilled style={{ color: '#FADB14' }} /> 4.3
-            <ItemTag>식당</ItemTag>
-          </ItemRating>
-          <FooterDetails>B2 | 10:30 ~ 22:00</FooterDetails>
-        </ItemDetails>
-        <HeartIcon src={heartIcon} />
-      </LikeItem>
-      <LikeItem>
-        <ItemImage src={StarbucksImg} alt="Starbucks" />
-        <ItemDetails>
-          <ItemTitle>스타벅스(Starbucks)</ItemTitle>
-          <ItemRating>
-            <StarFilled style={{ color: '#FADB14' }} /> 4.3
-            <ItemTag>카페</ItemTag>
-          </ItemRating>
-          <FooterDetails>B2 | 10:30 ~ 22:00</FooterDetails>
-        </ItemDetails>
-        <HeartIcon src={heartIcon} />
-      </LikeItem>
-      <LikeItem>
-        <ItemImage src={FiveGuysImg} alt="Five Guys" />
-        <ItemDetails>
-          <ItemTitle>파이브가이즈(Five Guys)</ItemTitle>
-          <ItemRating>
-            <StarFilled style={{ color: '#FADB14' }} /> 4.3
-            <ItemTag>식당</ItemTag>
-          </ItemRating>
-          <FooterDetails>B2 | 10:30 ~ 22:00</FooterDetails>
-        </ItemDetails>
-        <HeartIcon src={heartIcon} />
-      </LikeItem>
+      {place.map(item => (
+        <LikeItem key={item.id}>
+          <ItemImage src={item.imageSrc} alt={item.name} />
+          <ItemDetails>
+            <ItemTitle>{item.name}</ItemTitle>
+            <ItemRating>
+              <StarFilled style={{ color: '#FADB14' }} /> {item.rating}
+              <ItemTag>{item.category}</ItemTag>
+            </ItemRating>
+            <FooterDetails>{item.location}</FooterDetails>
+          </ItemDetails>
+          <HeartIcon src={heartIcon} />
+        </LikeItem>
+      ))}
     </LikeContainer>
   );
 }

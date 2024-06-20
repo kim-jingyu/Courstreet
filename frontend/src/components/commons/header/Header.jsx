@@ -7,7 +7,7 @@ import arrowLeft from '/src/assets/icons/header-arrow-left.png';
 import arrowRight from '/src/assets/icons/header-arrow-right.png';
 
 const prevText = ['나가기', '카테고리', '장소 선택'];
-const postText = ['장소 선택', '코스 생성', '작성 완료'];
+const postText = ['장소 선택', '', '작성 완료'];
 
 function Header() {
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
