@@ -22,7 +22,7 @@ public class AdminPlaceController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("list", service.getListPaging(10, 0));
+        model.addAttribute("list", service.getList());
         return "admin/place/list";
     }
 

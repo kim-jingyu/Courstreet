@@ -4,6 +4,7 @@ import com.hyundairoad.hyundairoad.place.domain.Place;
 import com.hyundairoad.hyundairoad.place.mapper.PlaceMapper;
 import com.hyundairoad.hyundairoad.place.service.PlaceService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +13,15 @@ import java.util.List;
 
 @Log
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PlaceServiceImpl implements PlaceService {
 
-    @Autowired
-    private PlaceMapper mapper;
+    private final PlaceMapper mapper;
 
 
     @Override
     public List<Place> getList() {
-        return null;
+        return mapper.getList();
     }
 
     @Override
