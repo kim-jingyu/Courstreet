@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class LikedPlaceDTO {
     private Long placeId;
     private String name;
-    private Double star;
+    private Integer star;
     private Category category;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

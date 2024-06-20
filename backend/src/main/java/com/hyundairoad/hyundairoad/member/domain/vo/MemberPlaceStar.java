@@ -13,5 +13,5 @@ public class MemberPlaceStar {
     private Long memberPlaceStarId;
     private Long memberId;
     private Long placeId;
-    private Double rate;
+    private Integer rate;
 }

@@ -59,7 +59,7 @@ public class CustomOauth2UserService extends DefaultOAuth2UserService {
                     .name(name)
                     .provider(provider)
                     .providerId(providerId)
-                    .role(Role.NORMAL)
+                    .role(Role.user)
                     .build();
             memberMapper.save(member);
         } else {

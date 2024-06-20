@@ -6,7 +6,6 @@ import com.hyundairoad.hyundairoad.place.mapper.PlaceMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -21,7 +20,6 @@ public class PlaceService {
     }
 
     public void register(Place place) {
-        System.out.println(place);
         placeMapper.insert(place);
     }
 
@@ -29,12 +27,17 @@ public class PlaceService {
         placeMapper.delete(placeId);
     }
 
-    public void update(Place place) {
-
-    }
-
     @Transactional(readOnly = true)
     public List<LikedPlaceDTO> getLikedPlacesByMemberId(Long memberId) {
         return placeMapper.getLikedPlacesByMemberId(memberId);
+    }
+
+    @Transactional
+    public void update(Place place) {
+        placeMapper.update(place);
+    }
+
+    public Place getPlaceByPlaceId(Long placeId) {
+        return placeMapper.getPlaceByPlaceId(placeId);
     }
 }
