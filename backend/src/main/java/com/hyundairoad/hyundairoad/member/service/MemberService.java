@@ -2,8 +2,10 @@ package com.hyundairoad.hyundairoad.member.service;
 
 import com.hyundairoad.hyundairoad.member.domain.dto.MemberDTO;
 import com.hyundairoad.hyundairoad.member.domain.dto.SignupDTO;
+import com.hyundairoad.hyundairoad.member.domain.vo.Member;
 import com.hyundairoad.hyundairoad.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,19 +14,22 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberMapper memberMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(readOnly = true)
     public MemberDTO getMember(Long memberId) {
         return memberMapper.getMemberById(memberId);
     }
 
-    public void login() {
-
+    @Transactional(readOnly = true)
+    public Member getLoginMemberByEmail(String email) {
+        return memberMapper.getMemberByEmail(email);
     }
 
     public void signup(SignupDTO signupDTO) {
+        if (memberMapper.getMemberByLoginId(signupDTO.getLoginId()) != null) return;
+        signupDTO.setPassword(bCryptPasswordEncoder.encode(signupDTO.getPassword()));
         memberMapper.signup(signupDTO);
-
     }
 
     @Transactional(readOnly = true)
