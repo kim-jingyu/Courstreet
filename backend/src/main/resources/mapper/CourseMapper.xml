@@ -75,7 +75,7 @@
             c.course_id = #{courseId}
     </select>
 
-    <select id="getAllCourses" resultMap="courseResultMap">
+    <select id="getCoursesById" resultMap="courseResultMap">
         SELECT
             c.course_id,
             c.member_id,
@@ -164,4 +164,23 @@
         WHERE course_id = #{courseId}
     </select>
 
+    <select id="getLikedCoursesByMemberId" resultType="LikedCourseResponseDTO">
+        SELECT c.course_id, c.title, c.content, c.start_time, c.end_time, p.place_id, p.image_id, p.memo, p.rank
+        FROM course c
+            JOIN course_place p
+            ON c.course_id = p.course_id
+        WHERE member_id = #{memberId}
+    </select>
+
+    <select id="getCoursesWithComments" resultType="CourseResponseDTO">
+        SELECT c.course_id, c.title, c.content, c.start_time, c.end_time, c.with_whom, c.main_theme, c.visibility, i.original_name, i.saved_name
+        FROM course c
+            JOIN comment t
+            ON c.course_id = t.course_id
+            JOIN course_place p
+            ON c.course_id = p.course_id
+            JOIN image i
+            ON p.image_id = i.image_id
+        WHERE c.member_id = #{memberId}
+    </select>
 </mapper>

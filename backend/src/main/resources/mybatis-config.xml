@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
         <!-- 자동으로 카멜케이스 규칙으로 변환 -->
@@ -9,4 +7,37 @@
         <setting name="cacheEnabled" value="false"/>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
+
+    <typeAliases>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.MemberDTO" alias="MemberDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.LoginDTO" alias="LoginDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.SignupDTO" alias="SignupDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.FindPwDTO" alias="FindPwDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.MemberLikedResponseDTO" alias="MemberLikedResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.EmailCheckDTO" alias="EmailCheckDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.dto.EmailRequestDto" alias="EmailRequestDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.vo.Member" alias="Member"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.vo.MemberCourseLike" alias="MemberCourseLike"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.vo.MemberPlaceStar" alias="MemberPlaceStar"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.member.domain.vo.Member" alias="Member"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.image.domain.vo.Image" alias="Image"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.image.domain.dto.ImageResponseDTO" alias="ImageResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.CourseDetailDto" alias="CourseDetailDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.CoursePlaceDto" alias="CoursePlaceDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.CourseResponseDTO" alias="CourseResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.CreateCourseDto" alias="CreateCourseDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.CreateCoursePlaceDto" alias="CreateCoursePlaceDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.LikedCourseResponseDTO" alias="LikedCourseResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.dto.UpdateCourseDto" alias="UpdateCourseDto"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.vo.Course" alias="Course"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.vo.Visibility" alias="Visibility"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.course.domain.vo.CoursePlace" alias="CoursePlace"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.mypage.domain.dto.MyPageCourseResponseDTO" alias="MyPageCourseResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.mypage.domain.dto.MyPagePlaceResponseDTO" alias="MyPagePlaceResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.mypage.domain.dto.MyPageMyCourseDTO" alias="MyPageMyCourseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.mypage.domain.dto.MyPageLikedCourseResponseDTO" alias="MyPageLikedCourseResponseDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.place.domain.dto.LikedPlaceDTO" alias="LikedPlaceDTO"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.place.domain.Place" alias="Place"/>
+        <typeAlias type="com.hyundairoad.hyundairoad.image.mapper.ImageMapper" alias="ImageMapper"/>
+    </typeAliases>
 </configuration>

@@ -178,4 +178,14 @@
 
     </select>
 
+    <select id="getLikedPlacesByMemberId" parameterType="Long" resultType="LikedPlaceDTO">
+        SELECT l.place_id, p.name, s.rate, p.category, p.start_time, p.end_time, p.floor
+        FROM place p
+                 JOIN member_place_like l
+                      ON l.place_id = p.place_id
+                 JOIN member_place_star s
+                      ON s.place_id = p.place_id
+        WHERE l.member_id = #{memberId}
+    </select>
+
 </mapper>

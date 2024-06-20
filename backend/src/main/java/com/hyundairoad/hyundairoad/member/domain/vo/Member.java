@@ -12,11 +12,14 @@ import lombok.NoArgsConstructor;
 public class Member {
     private Long memberId;
     private Long imageId;
+    private String loginId; // google_1234567890
     private String email;
     private String password;
     private String name;
     private String nickname;
     private int age;
-    // 성
-    // 역할
+    private Sex sex;
+    private Role role;
+    private String provider;
+    private String providerId;
 }
