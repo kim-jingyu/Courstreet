@@ -8,9 +8,18 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <!-- MultipartResolver 설정 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="20971520"/> <!-- 20MB -->
+        <beans:property name="maxInMemorySize" value="1048576"/> <!-- 1MB -->
+    </beans:bean>
+
     <mvc:annotation-driven />
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
+
+
 
     <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/" />

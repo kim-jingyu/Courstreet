@@ -11,4 +11,5 @@ public interface ImageMapper {
     List<Image> getImageListWithCoursePlace(Long coursePlaceId);
     List<Image> getImageListWithPlace(Long placeId);
     List<Image> getImageListWithMember(Long memberId);
+    void insertImage(ImageDto imageDto);
 }

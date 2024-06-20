@@ -21,4 +21,10 @@
         FROM image
         WHERE member_id = #{memberId}
     </select>
+
+    <insert id="insertImage">
+        INSERT INTO image (image_id, member_id, place_id, course_place_id, saved_name, original_name)
+        VALUES (IMAGE_ID_SEQ.NEXTVAL, #{memberId}, #{placeId}, #{coursePlaceId}, #{savedName}, #{originalName})
+    </insert>
+
 </mapper>
