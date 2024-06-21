@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import './CourseItem.style'
 import { Container, DateRange, Dot, ImageBox, ImageGrid, ItemContainer, ItemFooter, UserIcon, UserName, ItemTitle, UserContainer } from './CourseItem.style';
 
-function CourseItem() {
-    return (
-      <Container>
+function CourseItem({ course, goDetail }) {
+
+  return (
+      <Container onClick={goDetail}>
         <ItemContainer>
           <ImageGrid>
             <ImageBox />
@@ -14,11 +16,11 @@ function CourseItem() {
           <UserIcon />
           <ItemFooter>
             <UserContainer>
-              <UserName>JADEN님의 일정</UserName>
+              <UserName>{course.MEMBER_ID}</UserName>
               <Dot>·</Dot>
               <DateRange>2박 3일</DateRange>
             </UserContainer>
-            <ItemTitle>6일전 예약한 무작정 일본여행</ItemTitle>
+            <ItemTitle>{course.CONTENT}</ItemTitle>
           </ItemFooter>
         </ItemContainer>
       </Container>

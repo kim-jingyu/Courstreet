@@ -2,7 +2,7 @@ const PATH = {
   Course: '/',
   Signup: '/signup',
   CourseCreate: '/coursecreate',
-  CourseDetail: '/coursedetail',
+  CourseDetail: '/coursedetail/:courseId',
   MyPage: '/mypage',
   Place: '/place',
   NotFound: '/notfound',

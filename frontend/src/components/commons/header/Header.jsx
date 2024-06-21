@@ -17,7 +17,7 @@ function Header() {
   const currentUrl = location.pathname;
 
   const goPrev = () => {
-    if (currentUrl === '/mypage' || currentUrl === '/place') navigate('/');
+    if (currentUrl !== '/coursecreate') navigate('/');
     else if (currentUrl == '/coursecreate') {
       if (currPage == 0) navigate('/');
       else if (currPage == 1) setCurrPage(0);

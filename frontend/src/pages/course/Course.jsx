@@ -1,28 +1,32 @@
 import CourseItem from '/src/components/course/course-item/CourseItem';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { courseDummyState } from '/src/recoils/CourseAtoms';
+
+import CourseItem from '/src/components/course/course-item/CourseItem';
 import TodayPick from '/src/components/course/today-pick/TodayPick';
+
+import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
 import { Select, Space } from 'antd';
 import * as S from './Course.style';
-import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
+
+import { Input } from 'antd';
+const { Search } = Input;
 import courseAPI from '/src/api/course/courseAPI.jsx';
 
 function Course() {
-  const navigate = useNavigate();
-  const goDetail = (index) => {
-    console.log(index);
-    navigate(`/coursedetail`)
-  }
+  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
 
+  const navigate = useNavigate();
   const goCreate = () => navigate('/coursecreate');
+  const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
 
   const handleChange = (value) => console.log(`selected ${value}`);
-  
+
   const [currTheme, setCurrTheme] = useState([]);
   const pickTheme = (val) => {
-    currTheme.includes(val)
-    ? setCurrTheme(currTheme.filter((e) => e != val))
-    : setCurrTheme([...currTheme, val]);
+    currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
   };
 
   const [contents, setContents] = useState([1, 2, 3, 4, 5]);
@@ -40,7 +44,8 @@ function Course() {
     <>
       <TodayPick />
 
-      <Space wrap>
+      <Space wrap
+      style={{display: 'flex', justifyContent: 'space-between'}}>
         <Select
           defaultValue="최신순"
           style={{ width: 120 }}
@@ -49,6 +54,14 @@ function Course() {
             { value: 1, label: '최신순' },
             { value: 2, label: '인기순' },
           ]}
+        />
+
+        {/* 검색창 */}
+        <Search
+          placeholder=""
+          onChange={(e) => onSearch(e.target.value)}
+          size="normal"
+          style={{width: '260px'}}
         />
       </Space>
       <br />
@@ -71,9 +84,8 @@ function Course() {
         </CategorySelector>
       </Section>
 
-
-      {contents.map((course, index) => (
-        <CourseItem key={index} course={course} onClick={()=>goDetail(index)}/>
+      {courseDummy.map((course) => (
+        <CourseItem key={course.COURSE_ID} course={course} goDetail={() => goDetail(course.COURSE_ID)} />
       ))}
 
       <S.CreateBtn onClick={goCreate} />
