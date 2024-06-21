@@ -1,9 +1,52 @@
-function CourseDetail() {
+import { useState } from 'react';
+import { ComponentTitle, NextButton } from '/src/components/course-create/CourseCreateComponent.style';
+import * as S from './CourseDetail.style';
+import addPhoto from '/src/assets/icons/add-photo.png'
+import PlacePlan from '/src/components/place/place-plan/PlacePlan';
+
+function SelectDetail() {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const changeTitle = (val) => {
+    if (val.length < 31) setTitle(val);
+  };
+  const changeContent = (event) => {
+    if (event.target.value.length > 500) {
+      return;
+    }
+    event.target.style.height = 'auto';
+    event.target.style.height =  event.target.scrollHeight + 'px';
+    setContent(event.target.value);
+  };
+
   return (
     <>
-      <h1>Hello CourseDetail</h1>
+      <ComponentTitle>코스 생성</ComponentTitle>
+      <S.CourseTitle
+        placeholder="제목"
+        onChange={(e) => changeTitle(e.target.value)}
+        value={title}
+        autoFocus
+      />
+
+      <S.TitleImage>
+        <img src={addPhoto} alt="" />
+      </S.TitleImage>
+
+      <S.CourseContent
+        className="textarea"
+        placeholder="내용(500자)"
+        onChange={(changeContent)}
+        value={content}
+      />
+      
+      {/* 장소 계획 */}
+      <PlacePlan />
+
+      <NextButton>코스 생성하기</NextButton>
     </>
   );
 }
 
-export default CourseDetail;
+export default SelectDetail;

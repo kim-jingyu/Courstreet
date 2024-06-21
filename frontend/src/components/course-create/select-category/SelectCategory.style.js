@@ -11,12 +11,14 @@ export const CategorySelector = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px;
+  margin: 5px 5px;
   padding: 5px 15px;
   border-radius: 20px;
-  border: 1px solid ${COLOR.HDDarkBrown};
+  border: 1.5px solid ${COLOR.HDDarkBrown};
   background-color: ${({ isselected }) => (isselected === 1 ? COLOR.HDDarkBrown : 'white')};
   color: ${({ isselected }) => (isselected === 1 ? 'white' : COLOR.HDDarkBrown)};
+
+  font-weight: 600;
 `;
 
 export const CategoryImage = styled.img``;
