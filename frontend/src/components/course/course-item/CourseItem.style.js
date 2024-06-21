@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Container = styled.div`
   margin: auto;
   /* padding: 20px; */
@@ -42,7 +43,7 @@ export const UserContainer = styled.div`
   width: 100%;
   display: flex; 
   flex-direction: row; 
-  justify-content: space-between; 
+  justify-content: flex-start; 
   align-items: center;
   margin-bottom: 10px;
 `
@@ -59,9 +60,13 @@ export const HeartIconContainer = styled.div`
 `;
 
 export const HeartIcon = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 10px;
+  width: 10%;
+  background-position: center;
+  margin-left: auto;
+`;
+
+export const MoreIcon = styled.img`
+  width: 10%;
 `;
 
 export const UserIcon = styled.div`
@@ -95,4 +100,21 @@ export const ItemTitle = styled.div`
   font-weight: bold;
   color: #2d2d2d;
   margin: 3px 0 6px;
+`;
+
+export const ModalBtn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  button {
+    width: 100%;
+    height: 50%;
+    font-size: 23px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+  }
 `;
