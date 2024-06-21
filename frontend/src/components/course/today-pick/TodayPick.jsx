@@ -44,8 +44,8 @@ const textstyle = {
 function TodayPick() {
   return (
     <>
-      <div style={{ margin: '17px auto 20px 10px', fontSize: '22px', fontWeight: '900', textAlign: 'center' }}>
-        <img src={pinImg} style={{width: '25px', margin: '0 4px'}}></img>
+      <div style={{ margin: '-1px auto 22px 6px', fontSize: '22px', fontWeight: '900', display: 'flex', alignItems: 'center' }}>
+        <img src={pinImg} style={{width: '25px', margin: '0px 4px'}}></img>
         오늘의 픽
       </div>
       <Carousel autoplay arrows infinite={true}>

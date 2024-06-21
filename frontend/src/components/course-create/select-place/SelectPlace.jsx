@@ -42,7 +42,6 @@ function SelectPlace() {
 
   return (
     <>
-      <G.ComponentTitle>장소 선택</G.ComponentTitle>
       <h1>지도</h1>
       <Search
         placeholder="장소명을 입력하세요"

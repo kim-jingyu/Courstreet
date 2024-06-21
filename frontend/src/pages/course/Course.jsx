@@ -45,17 +45,15 @@ function Course() {
     <>
       {/* <CourseLikeItem /> */}
       <TodayPick />
-      <br />
 
-      <div style={{ display: 'flex', flexDirection: 'column', padding: '0 15px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ overflowX: 'auto' }}>
           <div
             style={{
               display: 'flex',
-              justifyContent: 'space-evenly',
               width: '860px',
-              height: '50px',
-              marginLeft: '-5px',
+              height: '58px',
+              margin: '10px 0 0 -10px',
             }}
           >
             <CategorySelector isselected={+currTheme.includes(1)} onClick={() => pickTheme(1)}>
@@ -75,13 +73,12 @@ function Course() {
             </CategorySelector>
           </div>
         </div>
-        <br />
 
-        <Space wrap style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Space wrap style={{ display: 'flex', justifyContent: 'space-between', marginTop: '5px' }}>
           {/* 정렬 조건 */}
           <Select
             defaultValue="최신순"
-            style={{ width: 120, height: 40 }}
+            style={{ width: 90, height: 40 }}
             onChange={handleChange}
             options={[
               { value: 1, label: '최신순' },
@@ -89,7 +86,7 @@ function Course() {
             ]}
           />
           {/* 검색창 */}
-          <Search placeholder="" onChange={(e) => onSearch(e.target.value)} size="large" style={{ width: '260px' }} />
+          <Search placeholder="" onChange={(e) => onSearch(e.target.value)} size="large" style={{ width: '280px' }} />
         </Space>
         <br />
 
