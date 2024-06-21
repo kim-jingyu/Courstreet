@@ -91,7 +91,57 @@
         where PLACE_ID = 1;
     </update>
 
-    <select id="selectPlaceStarList" resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
+    <select id="selectAllPlaceStarList" resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarLikeDTO">
+        SELECT
+        p.PLACE_ID,
+        p.NAME,
+        p.PHONE,
+        p.START_TIME,
+        p.END_TIME,
+        p.FLOOR,
+        p.LOCATION,
+        p.CATEGORY,
+        ROUND(NVL(mps.avg_rating, 0), 1) AS RATE,
+        <choose>
+            <when test="memberid == null">
+                'false' AS liked
+            </when>
+            <otherwise>
+                CASE
+                WHEN mpl.PLACE_ID IS NOT NULL THEN 'true'
+                ELSE 'false'
+                END AS liked
+            </otherwise>
+        </choose>
+        FROM
+        place p
+        LEFT JOIN
+        (
+        SELECT
+        PLACE_ID,
+        AVG(RATE) AS avg_rating
+        FROM
+        MEMBER_PLACE_STAR
+        GROUP BY
+        PLACE_ID
+        ) mps ON p.PLACE_ID = mps.PLACE_ID
+        <if test="memberid != null">
+            LEFT JOIN
+            (
+            SELECT
+            PLACE_ID
+            FROM
+            member_place_like
+            WHERE
+            MEMBER_ID = #{memberid}
+            ) mpl ON p.PLACE_ID = mpl.PLACE_ID
+        </if>
+        ORDER BY
+        p.PLACE_ID
+    </select>
+
+    <select id="getLikedPlacesByMemberId" parameterType="Long"
+            resultType="com.hyundairoad.hyundairoad.place.domain.dto.LikedPlaceDTO">
         SELECT
             p.PLACE_ID,
             p.NAME,
@@ -101,7 +151,8 @@
             p.FLOOR,
             p.LOCATION,
             p.CATEGORY,
-            ROUND(NVL(avg_rating, 0.0), 1) AS RATE
+            ROUND(NVL(mps.avg_rating, 0), 1) AS RATE,
+            'true' AS liked
         FROM
             place p
                 LEFT JOIN
@@ -114,78 +165,29 @@
                 GROUP BY
                     PLACE_ID
             ) mps ON p.PLACE_ID = mps.PLACE_ID
-    </select>
-
-    <select id="selectPlaceStarByMemberId" parameterType="Long"
-            resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
-        SELECT
-            p.PLACE_ID,
-            p.NAME,
-            p.PHONE,
-            p.START_TIME,
-            p.END_TIME,
-            p.FLOOR,
-            p.LOCATION,
-            p.CATEGORY,
-            ROUND(NVL(mps.avg_rating, 0), 1) AS RATE
-        FROM
-            place p
-                LEFT JOIN
+                INNER JOIN
             (
                 SELECT
-                    PLACE_ID,
-                    AVG(RATE) AS avg_rating
-                FROM
-                    MEMBER_PLACE_STAR
-                GROUP BY
                     PLACE_ID
-            ) mps ON p.PLACE_ID = mps.PLACE_ID
-                LEFT JOIN
-            member_place_like mpl ON p.PLACE_ID = mpl.PLACE_ID
-        WHERE
-            mpl.MEMBER_ID = #{memberId}
-
-    </select>
-
-    <select id="selectPlaceStarByPlaceId" parameterType="Long"
-            resultType="com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto">
-        SELECT
-            p.PLACE_ID,
-            p.NAME,
-            p.PHONE,
-            p.START_TIME,
-            p.END_TIME,
-            p.FLOOR,
-            p.LOCATION,
-            p.CATEGORY,
-            ROUND(NVL(mps.avg_rating, 0), 1) AS RATE
-        FROM
-            place p
-                LEFT JOIN
-            (
-                SELECT
-                    PLACE_ID,
-                    AVG(RATE) AS avg_rating
                 FROM
-                    MEMBER_PLACE_STAR
-                GROUP BY
-                    PLACE_ID
-            ) mps ON p.PLACE_ID = mps.PLACE_ID
-                LEFT JOIN
-            member_place_like mpl ON p.PLACE_ID = mpl.PLACE_ID
-        WHERE
-            p.PLACE_ID = #{placeId}
-
+                    member_place_like
+                WHERE
+                    MEMBER_ID = #{memberid}
+            ) mpl ON p.PLACE_ID = mpl.PLACE_ID
+        ORDER BY
+            p.PLACE_ID
     </select>
 
-    <select id="getLikedPlacesByMemberId" parameterType="Long" resultType="LikedPlaceDTO">
-        SELECT l.place_id, p.name, s.rate, p.category, p.start_time, p.end_time, p.floor
-        FROM place p
-                 JOIN member_place_like l
-                      ON l.place_id = p.place_id
-                 JOIN member_place_star s
-                      ON s.place_id = p.place_id
-        WHERE l.member_id = #{memberId}
-    </select>
+
+
+<!--    <select id="getLikedPlacesByMemberId" parameterType="Long" resultType="LikedPlaceDTO">-->
+<!--        SELECT l.place_id, p.name, s.rate, p.category, p.start_time, p.end_time, p.floor-->
+<!--        FROM place p-->
+<!--                 JOIN member_place_like l-->
+<!--                      ON l.place_id = p.place_id-->
+<!--                 JOIN member_place_star s-->
+<!--                      ON s.place_id = p.place_id-->
+<!--        WHERE l.member_id = #{memberId}-->
+<!--    </select>-->
 
 </mapper>

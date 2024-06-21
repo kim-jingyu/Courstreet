@@ -1,22 +1,22 @@
 package com.hyundairoad.hyundairoad.place.mapper;
 
-import com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarDto;
-import com.hyundairoad.hyundairoad.place.domain.vo.Place;
+import com.hyundairoad.hyundairoad.place.domain.Place;
+import com.hyundairoad.hyundairoad.place.domain.dto.LikedPlaceDTO;
+import com.hyundairoad.hyundairoad.place.domain.dto.PlaceStarLikeDTO;
 
 import java.util.List;
 
 public interface PlaceMapper {
-    List<Place> selectAllPlaceList();
 
     void insert(Place place);
 
-    void delete(Long placeId);
-
     void update(Place place);
 
-    List<PlaceStarDto> selectPlaceStarList();
+    void delete(Long placeId);
 
-    List<PlaceStarDto> selectPlaceStarByMemberId(Long memberId);
+    List<Place> selectAllPlaceList();
 
-    PlaceStarDto selectPlaceStarByPlaceId(Long placeId);
+    List<PlaceStarLikeDTO> selectAllPlaceStarList(Long memberId);
+
+    List<LikedPlaceDTO> selectPlaceStarByMemberId(Long memberId);
 }

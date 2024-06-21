@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class PlaceStarDto {
+public class PlaceStarLikeDTO {
     private Long placeId;
     private String name;
     private String phone;
@@ -17,5 +17,6 @@ public class PlaceStarDto {
     private int floor;
     private String location;
     private String category;
-    private float rate;
+    private double rate;
+    private boolean liked;
 }

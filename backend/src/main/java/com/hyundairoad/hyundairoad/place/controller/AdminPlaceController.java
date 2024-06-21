@@ -16,18 +16,33 @@ public class AdminPlaceController {
 
     private final PlaceService service;
 
+    /**
+     * 관리자 장소 조회
+     * @param model
+     * @return
+     */
     @GetMapping("/list")
     public String list(Model model) {
-        model.addAttribute("list", service.getList());
+        model.addAttribute("list", service.getAllList());
         return "admin/place/list";
     }
 
+    /**
+     * 관리자 장소 등록
+     * @param place
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Place place) {
         service.register(place);
         return ResponseEntity.ok().body("Success");
     }
 
+    /**
+     * 관리자 장소 삭제
+     * @param id
+     * @return
+     */
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<?> remove(@PathVariable Long id) {
         try {
@@ -38,6 +53,11 @@ public class AdminPlaceController {
         }
     }
 
+    /**
+     * 관리자 장소 수정
+     * @param place
+     * @return
+     */
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody Place place) {
         try {
@@ -48,6 +68,11 @@ public class AdminPlaceController {
         }
     }
 
+    /**
+     * 관리자 장소 삭제
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getPlaceById(@PathVariable Long id) {
         Place place = service.getPlaceByPlaceId(id);
