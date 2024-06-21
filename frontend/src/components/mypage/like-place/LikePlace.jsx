@@ -17,6 +17,8 @@ function LikePlace() {
         </FilterContainer>
         <LikeContainer>
           <PlaceLiked />
+          <PlaceLiked />
+          <PlaceLiked />
         </LikeContainer>
       </>
     </>

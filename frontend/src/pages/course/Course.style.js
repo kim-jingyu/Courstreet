@@ -1,17 +1,13 @@
 import styled from 'styled-components';
 import active from '/src/assets/icons/course-create-active.png';
-import inactive from '/src/assets/icons/course-create-inactive.png';
+import homeCreate from '/src/assets/icons/home-create.png';
 
 export const CreateBtn = styled.img`
   position: fixed;
-  bottom: 100px;
+  bottom: 40px;
   right: 15px;
 
-  width: 60px;
-  height: 60px;
+  height: 50px;
   z-index: 100;
-  content: url(${inactive});
-  &:hover {
-    content: url(${active});
-  }
+  content: url(${homeCreate});
 `;

@@ -48,9 +48,17 @@ function Course() {
       <TodayPick />
       <br />
 
-      <div style={{display:'flex', flexDirection: 'column', padding: '0 15px'}}>
+      <div style={{ display: 'flex', flexDirection: 'column', padding: '0 15px' }}>
         <div style={{ overflowX: 'auto' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '890px', height: '50px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              width: '860px',
+              height: '50px',
+              marginLeft: '-5px',
+            }}
+          >
             <CategorySelector isselected={+currTheme.includes(1)} onClick={() => pickTheme(1)}>
               #SNS 핫플레이스
             </CategorySelector>
@@ -74,7 +82,7 @@ function Course() {
           {/* 정렬 조건 */}
           <Select
             defaultValue="최신순"
-            style={{ width: 120 }}
+            style={{ width: 120, height: 40 }}
             onChange={handleChange}
             options={[
               { value: 1, label: '최신순' },
@@ -82,7 +90,7 @@ function Course() {
             ]}
           />
           {/* 검색창 */}
-          <Search placeholder="" onChange={(e) => onSearch(e.target.value)} size="normal" style={{ width: '260px' }} />
+          <Search placeholder="" onChange={(e) => onSearch(e.target.value)} size="large" style={{ width: '260px' }} />
         </Space>
         <br />
 
@@ -90,7 +98,7 @@ function Course() {
           <CourseItem key={course.COURSE_ID} course={course} goDetail={() => goDetail(course.COURSE_ID)} />
         ))}
 
-        <S.CreateBtn onClick={goCreate} />
+          <S.CreateBtn onClick={goCreate} />
       </div>
     </>
   );

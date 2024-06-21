@@ -1,7 +1,6 @@
 import './App.style.js';
 import { Outlet } from 'react-router-dom';
 import Header from './components/commons/header/Header';
-import NavFooter from './components/commons/navfooter/NavFooter';
 import { OutletWrapper } from './App.style.js';
 
 function App() {
@@ -12,7 +11,6 @@ function App() {
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
-      <NavFooter />
     </>
   );
 }

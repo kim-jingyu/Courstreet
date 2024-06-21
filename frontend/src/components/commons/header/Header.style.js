@@ -30,6 +30,6 @@ export const SectionImg = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
 `;

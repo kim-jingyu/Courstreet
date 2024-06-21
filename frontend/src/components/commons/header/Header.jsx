@@ -10,13 +10,14 @@ import * as S from './Header.style';
 import arrowLeft from '/src/assets/icons/header-arrow-left.png';
 import arrowRight from '/src/assets/icons/header-arrow-right.png';
 
-const prevText = ['나가기', '카테고리', '장소 선택'];
-const postText = ['장소 선택', '', '작성 완료'];
-
 function Header() {
+  const navigate = useNavigate();
+  const goPlace = () => navigate('/place');
+  const goCourse = () => navigate('/');
+  const goMypage = () => navigate('/mypage');
+
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
 
-  const navigate = useNavigate();
   const location = useLocation();
   const currentUrl = location.pathname;
 
@@ -37,25 +38,11 @@ function Header() {
   };
 
   return (
-    <>
-      <S.Container>
-        <S.SectionImg src={navPlace} />
-        <S.SectionImg src={navPlace} />
-        <S.SectionImg src={navPlace} />
-        {/* {currentUrl === '/' || (
-          <S.Section onClick={goPrev}>
-            <img src={arrowLeft} style={{ marginRight: '6px' }}></img>
-            {prevText[currPage]}
-          </S.Section>
-        )}
-        {currentUrl === '/coursecreate' && (
-          <S.Section onClick={goPost}>
-            {postText[currPage]}
-            <img src={arrowRight} style={{ marginLeft: '6px' }}></img>
-          </S.Section>
-        )} */}
-      </S.Container>
-    </>
+    <S.Container>
+      <S.SectionImg onClick={goPlace} src={navPlace} style={{ width: '40px', height: '40px', margin: '0 0 3px 10px' }} />
+      <S.SectionImg onClick={goCourse} src={navHome} />
+      <S.SectionImg onClick={goMypage} src={navMypage} style={{ width: '60px', height: '60px' }} />
+    </S.Container>
   );
 }
 

@@ -10,7 +10,7 @@ const contentStyle = {
   margin: '0 auto',
   padding: 0,
   // width: '100%',
-  height: '280px',
+  height: '300px',
   backgroundImage: `url(${carousel1})`, // 이미지 파일 경로 설정
   backgroundSize: 'cover', // 배경 이미지 크기 설정
 };
@@ -21,7 +21,7 @@ const contentStyle2 = {
   alignItems: 'center',
   margin: '0 auto',
   padding: 0,
-  // width: '100%',
+  width: '100%',
   height: '300px',
   backgroundImage: `url(${carousel2})`, // 이미지 파일 경로 설정
   backgroundSize: 'cover', // 배경 이미지 크기 설정
@@ -44,7 +44,7 @@ const textstyle = {
 function TodayPick() {
   return (
     <>
-      <div style={{ margin: '15px auto 26px 10px', fontSize: '22px', fontWeight: '900', textAlign: 'center' }}>
+      <div style={{ margin: '17px auto 20px 10px', fontSize: '22px', fontWeight: '900', textAlign: 'center' }}>
         <img src={pinImg} style={{width: '25px', margin: '0 4px'}}></img>
         오늘의 픽
       </div>
