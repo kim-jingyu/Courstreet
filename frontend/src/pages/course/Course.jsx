@@ -1,4 +1,3 @@
-import CourseItem from '/src/components/course/course-item/CourseItem';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
