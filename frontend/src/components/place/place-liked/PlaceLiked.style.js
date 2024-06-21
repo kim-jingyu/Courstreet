@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const HeartIcon = styled.img`
-  width: 15px;
-  height: 15px;
-  margin-bottom: 52px;
+  width: 25px;
+  height: 25px;
   margin-right: 20px;
 `;
 

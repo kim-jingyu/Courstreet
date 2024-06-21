@@ -8,6 +8,7 @@ import {
   searchedPlacesKeywordState,
 } from '/src/recoils/PlaceAtoms';
 
+import {FixedContainer, ScrollableContainer} from './Place.style.js';
 import PlaceMap from '/src/components/place/place-map/PlaceMap';
 import PlaceItem from '/src/components/place/place-item/PlaceItem';
 
@@ -42,9 +43,11 @@ function Place() {
 
   return (
     <>
+    <FixedContainer>
       {/* 지도 */}
       <PlaceMap />
       {/* 검색창 */}
+      <div style={{textAlign: "center"}}>
       <Search
         placeholder="장소명 입력"
         onChange={(e) => onSearch(e.target.value)}
@@ -54,20 +57,27 @@ function Place() {
           width: '90%',
         }}
       />
-      
+      </div>
+      </FixedContainer>
+      <ScrollableContainer>
       {/* 장소들 */}
-      {searchedPlace.map(({ place_id, name, start_time, floor, location, category }) => (
+      {searchedPlace.map(({ place_id, name, phone, start_time, end_time, floor, location, category, rate, liked }) => (
         <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
           <PlaceItem
             isSelected={selectedPlaceIds.includes(place_id)}
             srcImg={FiveGuysImg}
             name={name}
-            star={'4.3'}
+            phone={phone}
+            star
+            rate={rate}
             category={category}
-            info={start_time}
+            startTime={start_time}
+            endTime={end_time}
+            liked={liked}
           />
         </div>
       ))}
+      </ScrollableContainer>
       <G.NextButton onClick={() => setCurrPage(2)}>일정 생성하기</G.NextButton>
     </>
   );

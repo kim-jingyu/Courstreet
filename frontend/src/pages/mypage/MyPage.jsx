@@ -6,12 +6,15 @@ import PlaceLiked from '/src/components/place/place-liked/PlaceLiked';
 
 function MyPage() {
   return (
-    <Container>
+    // <Container>
+    <>
       <Header>
         <Title>마이페이지</Title>
       </Header>
       <LikePlace></LikePlace>
-    </Container>
+      </>
+    // </Container>
+    
   );
 }
 

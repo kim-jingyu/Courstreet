@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Modal } from 'antd';
 import './CourseItem.style';
 import {
   Container,
@@ -12,10 +14,37 @@ import {
   UserName,
   ItemTitle,
   UserContainer,
+  HeartIcon,
+  MoreIcon,
+  ModalBtn
 } from './CourseItem.style';
+import heartEmpty from '/src/assets/icons/heartEmpty.png';
+import heartFilled from '/src/assets/icons/heartFilled.png';
+import more from '/src/assets/icons/more.png';
 
 function CourseItem({ course, goDetail }) {
+
+    // 좋아요 클릭
+    const [isLiked, setIsLiked] = useState(course.liked);
+    const toggleLiked = (event) => {
+      event.stopPropagation();
+      setIsLiked(!isLiked);
+    };
+
+    const [open, setOpen] = useState(false);
+    const [modalText, setModalText] = useState([]);
+    // 모달 오픈
+    const showModal = (course_id) => {
+      setModalText(course_id);
+      setOpen(true);
+    };
+    // 모달 취소 클릭
+    const handleCancel = () => {
+      setOpen(false);
+    };
+
   return (
+    <>
     <Container onClick={goDetail}>
       <ItemContainer>
         <ImageGrid>
@@ -28,6 +57,9 @@ function CourseItem({ course, goDetail }) {
         <ItemFooter>
           <UserContainer>
             <UserName>{course.MEMBER_ID}님의 일정</UserName>
+            <HeartIcon src={isLiked ? heartFilled : heartEmpty} onClick={toggleLiked} />
+            {/*TODO 로그인한 아이디와 동일할 때만 MoreIcon show*/}
+            <MoreIcon src={more} onClick={() => showModal(course.COURSE_ID)}></MoreIcon>
           </UserContainer>
           <ItemTitle>{course.TITLE}</ItemTitle>
           <div
@@ -47,6 +79,15 @@ function CourseItem({ course, goDetail }) {
         </ItemFooter>
       </ItemContainer>
     </Container>
+
+<Modal open={open} onCancel={handleCancel} footer={null} centered width={150} closable={false}>
+  <ModalBtn>
+      <button>수정</button>
+      <br/>
+      <button>삭제</button>
+  </ModalBtn>
+</Modal>
+</>
   );
 }
 
