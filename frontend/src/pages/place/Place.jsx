@@ -48,13 +48,13 @@ function Place() {
       <Search
         placeholder="장소명 입력"
         onChange={(e) => onSearch(e.target.value)}
-        size="normal"
+        size="large"
         style={{
-          margin: '0 auto',
-          width: '80%',
+          margin: '5px auto 15px',
+          width: '90%',
         }}
       />
-      <br /> <br />
+      
       {/* 장소들 */}
       {searchedPlace.map(({ place_id, name, start_time, floor, location, category }) => (
         <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import {
   FooterDetails,
   ItemDetails,
@@ -16,7 +16,6 @@ import * as S from './PlacePlan.style';
 import { StarFilled } from '@ant-design/icons';
 import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import StarbucksImg from '/src/assets/icons/starbucks.png';
-import DeleteActive from '/src/assets/icons/delete-round-active.png';
 import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';
 import AddPlace from '/src/assets/icons/add-circle.png';
 
@@ -156,7 +155,7 @@ function PlacePlan() {
                           <S.TrashButton src={DeleteInactive} onClick={()=> (showModal(), setDeletedIdx(id))} />
                         </LikeItem>
                         <S.Content
-                          placeholder="메모 입력하기"
+                          placeholder="메모 입력"
                           onChange={(event) => changeContent(event.target.value, id)}
                           value={content}
                         />
