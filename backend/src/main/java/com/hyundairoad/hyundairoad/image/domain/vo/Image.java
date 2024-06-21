@@ -14,6 +14,7 @@ public class Image {
     private Long memberId;
     private Long placeId;
     private Long coursePlaceId;
+    private Long courseId;
     private String originalName;
     private String savedName;
 }
