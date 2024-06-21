@@ -2,6 +2,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 
+import navPlace from '/src/assets/icons/nav-place.png';
+import navHome from '/src/assets/icons/nav-home.png';
+import navMypage from '/src/assets/icons/nav-mypage.png';
+
 import * as S from './Header.style';
 import arrowLeft from '/src/assets/icons/header-arrow-left.png';
 import arrowRight from '/src/assets/icons/header-arrow-right.png';
@@ -35,7 +39,10 @@ function Header() {
   return (
     <>
       <S.Container>
-        {currentUrl === '/' || (
+        <S.SectionImg src={navPlace} />
+        <S.SectionImg src={navPlace} />
+        <S.SectionImg src={navPlace} />
+        {/* {currentUrl === '/' || (
           <S.Section onClick={goPrev}>
             <img src={arrowLeft} style={{ marginRight: '6px' }}></img>
             {prevText[currPage]}
@@ -46,7 +53,7 @@ function Header() {
             {postText[currPage]}
             <img src={arrowRight} style={{ marginLeft: '6px' }}></img>
           </S.Section>
-        )}
+        )} */}
       </S.Container>
     </>
   );

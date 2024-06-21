@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  // max-width: 350px;
-  // margin: auto;
-  padding: 10px;
-  // font-family: Arial, sans-serif;
+  margin: auto;
+  /* padding: 20px; */
+  font-family: Arial, sans-serif;
 `;
 
 export const ItemContainer = styled.div`
-  // width: 320px;
+  width: 380px;
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
