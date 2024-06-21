@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import COLOR from '/src/constants/color';
 
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 export const CourseTitle = styled.input`
   display: flex;
   align-items: center;

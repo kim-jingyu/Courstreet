@@ -18,6 +18,7 @@ import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import StarbucksImg from '/src/assets/icons/starbucks.png';
 import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';
 import AddPlace from '/src/assets/icons/add-circle.png';
+import { useLocation } from 'react-router-dom';
 
 const dummy = [
   {
@@ -77,6 +78,10 @@ const dummy = [
 ];
 
 function PlacePlan() {
+  const location = useLocation();
+  const currentUrl = location.pathname;
+  const isDraggable = currentUrl.startsWith('/coursecreate');
+
   const [plans, setPlans] = useState([]);
   const [items, setItems] = useState(dummy);
   const [deletedIdx, setDeletedIdx] = useState(0);
@@ -100,7 +105,7 @@ function PlacePlan() {
   // 아이템 추가
   const addPlace = () => {
     console.log('add Item!');
-  }
+  };
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -129,16 +134,15 @@ function PlacePlan() {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
+        <Droppable droppableId={'droppable'}>
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {items.map(({ id, srcImg, title, star, category, info, content }, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
+                <Draggable key={id} draggableId={id} index={index} isDragDisabled={!isDraggable}>
                   {(provided, snapshot) => (
                     <S.Wrapper ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                       <S.Order>
                         <S.Circle>{index + 1}</S.Circle>
-                        <S.Line style={{ border: 'none', height: '10px' }}></S.Line>
                         <S.Line></S.Line>
                       </S.Order>
                       <LikeContainer key={id} style={{ width: '80%' }}>
@@ -152,13 +156,17 @@ function PlacePlan() {
                             </ItemRating>
                             <FooterDetails>{info}</FooterDetails>
                           </ItemDetails>
-                          <S.TrashButton src={DeleteInactive} onClick={()=> (showModal(), setDeletedIdx(id))} />
+                          <S.TrashButton src={DeleteInactive} onClick={() => (showModal(), setDeletedIdx(id))} />
                         </LikeItem>
-                        <S.Content
-                          placeholder="메모 입력"
-                          onChange={(event) => changeContent(event.target.value, id)}
-                          value={content}
-                        />
+                        {isDraggable ? (
+                          <S.Content
+                            placeholder="메모 입력"
+                            onChange={(event) => changeContent(event.target.value, id)}
+                            value={content}
+                          />
+                        ) : (
+                          <S.ContentDiv>{content}</S.ContentDiv>
+                        )}
                       </LikeContainer>
                     </S.Wrapper>
                     // </div>
@@ -170,14 +178,14 @@ function PlacePlan() {
           )}
         </Droppable>
       </DragDropContext>
-      
-      <br /> 
-      <S.AddButton onClick={addPlace}>
-        <img style={{width: '40px', height: '40px'}} src={AddPlace} />
-        <div style={{fontSize: '14px'}}>장소 추가하기</div>
-      </S.AddButton>
+      <br />
+      {isDraggable && (
+        <S.AddButton onClick={addPlace}>
+          <img style={{ width: '40px', height: '40px' }} src={AddPlace} />
+          <div style={{ fontSize: '14px' }}>장소 추가하기</div>
+        </S.AddButton>
+      )}
       <br /> <br /> <br />
-
       <Modal title="삭제" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
         <p>{modalText}</p>
       </Modal>

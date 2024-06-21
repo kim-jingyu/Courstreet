@@ -21,7 +21,7 @@ function SelectCourse() {
   };
 
   return (
-    <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <S.Container>
       <S.CourseTitle placeholder="(제목)" onChange={(e) => changeTitle(e.target.value)} value={title} />
 
       <S.TitleImage>
@@ -32,7 +32,8 @@ function SelectCourse() {
 
       {/* 장소 계획 */}
       <PlacePlan />
-    </div>
+
+    </S.Container>
   );
 }
 
