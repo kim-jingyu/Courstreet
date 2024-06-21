@@ -16,7 +16,6 @@ function PlaceMap() {
 
   return (
     <>
-      <G.ComponentTitle>장소 선택</G.ComponentTitle>
       <br />
       <S.Wrapper>
         <S.Floors>

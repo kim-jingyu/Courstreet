@@ -7,8 +7,6 @@ import navHome from '/src/assets/icons/nav-home.png';
 import navMypage from '/src/assets/icons/nav-mypage.png';
 
 import * as S from './Header.style';
-import arrowLeft from '/src/assets/icons/header-arrow-left.png';
-import arrowRight from '/src/assets/icons/header-arrow-right.png';
 
 function Header() {
   const navigate = useNavigate();

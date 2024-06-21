@@ -2,18 +2,28 @@ import { useState } from 'react';
 import { Button, message, Steps } from 'antd';
 import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
+import arrowLeft from '/src/assets/icons/header-arrow-left.png';
+import arrowRight from '/src/assets/icons/header-arrow-right.png';
 
 const steps = [
   {
     title: '카테고리',
   },
   {
-    title: '일정 선택',
+    title: '장소 선택',
   },
   {
     title: '코스 생성',
   },
 ];
+
+const buttonStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '18px',
+  fontFamily: 'Happiness-Sans-Bold'
+}
 
 function SelectHeader() {
   // 컴포넌트 이동
@@ -75,24 +85,22 @@ function SelectHeader() {
       >
         {current === 0 && <div></div>}
         {current > 0 && (
-          <Button
-            style={{
-              margin: '0 8px',
-            }}
-            onClick={goPrev}
-          >
-            {`<`}
-          </Button>
+          <div style={buttonStyle} onClick={goPrev}>
+            <img src={arrowLeft} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+            이전
+          </div>
         )}
         {current < steps.length - 1 && (
-          <Button type="primary" onClick={goNext}>
-            {`>`}
-          </Button>
+          <div style={buttonStyle} onClick={goNext}>
+            {`다음`}
+            <img src={arrowRight} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+          </div>
         )}
         {current === steps.length - 1 && (
-          <Button type="primary" onClick={createCourse}>
+          <div style={buttonStyle} onClick={createCourse}>
             {`생성`}
-          </Button>
+            <img src={arrowRight} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+          </div>
         )}
       </div>
       <br /> <br />
