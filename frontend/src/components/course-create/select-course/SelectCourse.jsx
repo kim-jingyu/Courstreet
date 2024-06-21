@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ComponentTitle, NextButton } from '../CourseCreateComponent.style';
 import * as S from './SelectCourse.style';
-import addPhoto from '/src/assets/icons/add-photo.png'
+import addPhoto from '/src/assets/icons/add-photo.png';
 import PlacePlan from '../../place/place-plan/PlacePlan';
 
 function SelectCourse() {
@@ -16,36 +16,23 @@ function SelectCourse() {
       return;
     }
     event.target.style.height = 'auto';
-    event.target.style.height =  event.target.scrollHeight + 'px';
+    event.target.style.height = event.target.scrollHeight + 'px';
     setContent(event.target.value);
   };
 
   return (
-    <>
-      <ComponentTitle>코스 생성</ComponentTitle>
-      <S.CourseTitle
-        placeholder="제목"
-        onChange={(e) => changeTitle(e.target.value)}
-        value={title}
-        autoFocus
-      />
+    <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <S.CourseTitle placeholder="(제목)" onChange={(e) => changeTitle(e.target.value)} value={title} />
 
       <S.TitleImage>
         <img src={addPhoto} alt="" />
       </S.TitleImage>
 
-      <S.CourseContent
-        className="textarea"
-        placeholder="내용(500자)"
-        onChange={(changeContent)}
-        value={content}
-      />
-      
+      <S.CourseContent placeholder="내용 입력" onChange={changeContent} value={content} />
+
       {/* 장소 계획 */}
       <PlacePlan />
-
-      <NextButton>코스 생성하기</NextButton>
-    </>
+    </div>
   );
 }
 
