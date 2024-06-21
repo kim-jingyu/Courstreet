@@ -8,6 +8,8 @@ export const PostButton = styled.button`
   cursor: pointer;
   background-color: #555;
   color: white;
+  background-color: ${props => props.active ? '#00805A' : '#f0f0f0'};
+  color: ${props => props.active ? '#f0f0f0' : '#000000'};
 `;
 
 export const PlaceButton = styled.button`
@@ -18,4 +20,7 @@ export const PlaceButton = styled.button`
   cursor: pointer;
   background-color: #00805a;
   color: white;
+  background-color: ${props => props.active ? '#00805A' : '#f0f0f0'};
+  color: ${props => props.active ? '#f0f0f0' : '#000000'};
+
 `;

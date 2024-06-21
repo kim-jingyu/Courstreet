@@ -29,6 +29,7 @@ const dummy = [
     category: '식당',
     info: 'B2 | 10:30 ~ 22:00',
     content: '',
+    liked: "true"
   },
   {
     id: '2',
@@ -38,6 +39,8 @@ const dummy = [
     category: '카페',
     info: 'B2 | 10:30 ~ 22:00',
     content: '',
+    liked: "true"
+
   },
   {
     id: '3',

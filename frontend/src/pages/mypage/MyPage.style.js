@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  // width: 350px;
-  // margin: auto;
-  // padding: 20px;
-  // font-family: Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  top: 70px;
 `;
 
 export const Header = styled.div`

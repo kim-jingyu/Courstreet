@@ -56,15 +56,19 @@ function Place() {
       />
       <br /> <br />
       {/* 장소들 */}
-      {searchedPlace.map(({ place_id, name, start_time, floor, location, category }) => (
+      {searchedPlace.map(({ place_id, name, phone, start_time, end_time, floor, location, category, rate, liked }) => (
         <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
           <PlaceItem
             isSelected={selectedPlaceIds.includes(place_id)}
             srcImg={FiveGuysImg}
             name={name}
-            star={'4.3'}
+            phone={phone}
+            star
+            rate={rate}
             category={category}
-            info={start_time}
+            startTime={start_time}
+            endTime={end_time}
+            liked={liked}
           />
         </div>
       ))}

@@ -10,8 +10,8 @@ export const Tab = styled.div`
   padding: 10px;
   cursor: pointer;
   font-size: 1rem;
-  color: #555;
-  border-bottom: none;
+  color: ${props => props.active ? '#00805a' : '#555'};
+  border-bottom: ${props => props.active ? '2px solid #00805a' : 'none'};
 `;
 
 export const LikeTab = styled.div`
@@ -19,7 +19,9 @@ export const LikeTab = styled.div`
   cursor: pointer;
   font-size: 1rem;
   color: #00805a;
-  border-bottom: 2px solid #00805a;
+  color: ${props => props.active ? '#00805a' : '#555'};
+  border-bottom: ${props => props.active ? '2px solid #00805a' : 'none'};
+
 `;
 
 export const FilterContainer = styled.div`
