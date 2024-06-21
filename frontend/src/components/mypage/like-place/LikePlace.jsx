@@ -8,28 +8,22 @@ import CourseItem from '../../course/course-item/CourseItem';
 function LikePlace() {
   // 탭 활성화
   const [activeTab, setActiveTab] = useState('likedPlaces');
-  const [curritem, setIT] = useState([]);
-  // const courelist
-  // const placelist
+  const [activeLikeTab, setActiveLikeTab] = useState(true);
 
-
-
-  // 탭에 따른 데이터 가져오기
   const fetchData = (tab) => {
-    // 각 탭에 따른 데이터 로직을 구현
     switch (tab) {
-      case 'courses':
+      case 'myCourses':
         return [
           {
+            MEMBER_ID: 10,
             course_id: 1,
             title: '나의 코스 1',
             description: '코스 1 설명',
             duration: '2 hours',
             difficulty: 'Intermediate',
-            liked: true
+            liked: true,
           },
           // TODO 데이터 추가
-          // setIT([..res, ...itemList]]
         ];
       case 'likedPlaces':
         return [
@@ -42,19 +36,20 @@ function LikePlace() {
             end_time: '10:00 PM',
             floor: 1,
             phone: '02-1234-5678',
-            liked: true
+            liked: true,
           },
           // TODO 데이터 추가
         ];
-      case 'myComments':
+      case 'likeCourses':
         return [
           {
+            MEMBER_ID: 10,
             course_id: 1,
             title: '나의 코스 1',
             description: '코스 1 설명',
             duration: '2 hours',
             difficulty: 'Intermediate',
-            liked: true
+            liked: true,
           },
           // TODO 데이터 추가
         ];
@@ -62,87 +57,71 @@ function LikePlace() {
         return [];
     }
   };
+
   const [data, setData] = useState(fetchData(activeTab));
+
+  // 탭이 변경될 때마다 해당 탭에 맞는 데이터를 다시 가져오기
   useEffect(() => {
-    // 탭이 변경될 때마다 해당 탭에 맞는 데이터를 다시 가져오기
     setData(fetchData(activeTab));
   }, [activeTab]);
 
   // 탭 클릭 시 핸들러
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    if (tab === 'likeCourses' || tab === 'likedPlaces') {
+      setActiveLikeTab(true);
+    } else {
+      setActiveLikeTab(false);
+    }
   };
 
-
-
-  // 좋아요 필터
-  const [showPlaceItems, setShowPlaceItems] = useState(true);
-  const [showCourseItems, setShowCourseItems] = useState(true);
-
-  const handlePostButtonClick = () => {
-    setcurritem([...post, ...curr])
-    setcurritem(curr.sort((a, b) => a.likedDate - b.likeDate))
-    setShowPlaceItems(!showPlaceItems);
-  };
-
-  const handlePlaceButtonClick = () => {
-    setShowCourseItems(!showCourseItems);
-  };
   return (
     <>
       <Tabs>
-        <Tab active={activeTab === 'courses'} onClick={() => handleTabClick('courses')}>나의 코스</Tab>
-        <LikeTab active={activeTab === 'likedPlaces'} onClick={() => handleTabClick('likedPlaces')}>좋아요</LikeTab>
-        <Tab active={activeTab === 'myComments'} onClick={() => handleTabClick('myComments')}>나의 댓글</Tab>
+        <Tab active={activeTab === 'myCourses'} onClick={() => handleTabClick('myCourses')}>나의 코스</Tab>
+        <LikeTab active={activeLikeTab} onClick={() => handleTabClick('likeCourses')}>좋아요</LikeTab>
       </Tabs>
-      <>
-        <FilterContainer>
-        {activeTab === 'likedPlaces' && (
-            <>
-              <PostButton active={showPlaceItems} onClick={handlePostButtonClick}>코스</PostButton>
-              <PlaceButton active={showCourseItems} onClick={handlePlaceButtonClick}>장소</PlaceButton>
-            </>
-          )}
-        </FilterContainer>
 
-          <div>
-          {activeTab === 'likedPlaces' && (
-            <LikeContainer>
-            {showPlaceItems && data.map(({ place_id, name, start_time, end_time, floor, location, rate, category, phone, liked }) => (
-                <PlaceItem
-                  key={place_id}
-                  isSelected={false}
-                  srcImg={null}
-                  name={name}
-                  rate={rate}
-                  category={category}
-                  startTime={start_time}
-                  endTime={end_time}
-                  floor={floor}
-                  phone={phone}
-                  liked={liked}
-                  isModal={false}
-                />
-              ))}
-              {showCourseItems && <CourseItem />}
-            </LikeContainer>
-          )}
-          {(activeTab === 'courses' || activeTab === 'myComments') && (
-            <LikeContainer>
-              {data.map((item) => (
-                <CourseItem
-                  key={item.course_id}
-                  title={item.title}
-                  description={item.description}
-                  duration={item.duration}
-                  difficulty={item.difficulty}
-                  liked={item.liked}
-                />
-              ))}
-            </LikeContainer>
-          )}
-        </div>
-      </>
+      {activeTab !== 'myCourses' && (
+        <FilterContainer>
+          <PlaceButton active={activeTab === 'likedPlaces'} onClick={() => handleTabClick('likedPlaces')}>장소</PlaceButton>
+          <PostButton active={activeTab === 'likeCourses'} onClick={() => handleTabClick('likeCourses')}>코스</PostButton>
+        </FilterContainer>
+      )}
+
+      <div>
+        {activeTab === 'likedPlaces' && (
+          <LikeContainer>
+            {data.map(({ place_id, name, start_time, end_time, floor, location, rate, category, phone, liked }) => (
+              <PlaceItem
+                key={place_id}
+                isSelected={false}
+                srcImg={null}
+                name={name}
+                rate={rate}
+                category={category}
+                startTime={start_time}
+                endTime={end_time}
+                floor={floor}
+                phone={phone}
+                liked={liked}
+                isModal={false}
+              />
+            ))}
+          </LikeContainer>
+        )}
+
+        { (activeTab === 'likeCourses' || activeTab === 'myCourses') && (
+          <LikeContainer>
+            {data.map((item) => (
+              <CourseItem
+                course={item}
+                key={item.course_id}
+              />
+            ))}
+          </LikeContainer>
+        )}
+      </div>
     </>
   );
 }

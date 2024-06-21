@@ -58,7 +58,11 @@ export const HeartIconContainer = styled.div`
   margin-right: 10px;
 `;
 
-export const HeartIcon = styled.img``;
+export const HeartIcon = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+`;
 
 export const UserIcon = styled.div`
   position: relative;

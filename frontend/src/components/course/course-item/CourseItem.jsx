@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import './CourseItem.style';
 import {
   Container,
@@ -12,9 +13,20 @@ import {
   UserName,
   ItemTitle,
   UserContainer,
+  HeartIcon,
 } from './CourseItem.style';
+import heartEmpty from '/src/assets/icons/heartEmpty.png';
+import heartFilled from '/src/assets/icons/heartFilled.png';
 
 function CourseItem({ course, goDetail }) {
+
+    // 좋아요 클릭
+    const [isLiked, setIsLiked] = useState(course.liked);
+    const toggleLiked = (event) => {
+      event.stopPropagation();
+      setIsLiked(!isLiked);
+    };
+
   return (
     <Container onClick={goDetail}>
       <ItemContainer>
@@ -28,6 +40,7 @@ function CourseItem({ course, goDetail }) {
         <ItemFooter>
           <UserContainer>
             <UserName>{course.MEMBER_ID}님의 일정</UserName>
+            <HeartIcon src={isLiked ? heartFilled : heartEmpty} onClick={toggleLiked} />
           </UserContainer>
           <ItemTitle>{course.TITLE}</ItemTitle>
           <div
