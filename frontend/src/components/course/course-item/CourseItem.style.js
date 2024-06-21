@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  // max-width: 350px;
-  // margin: auto;
-  padding: 10px;
-  // font-family: Arial, sans-serif;
+  margin: auto;
+  /* padding: 20px; */
 `;
 
 export const ItemContainer = styled.div`
-  // width: 320px;
+  width: 380px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
 `;
 
 export const ImageGrid = styled.div`
@@ -34,7 +33,7 @@ export const ItemFooter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 10px 20px;
+  padding: 0px 25px 20px;
   margin-top:-15px;
   background-color: #fff;
 `;
@@ -88,8 +87,8 @@ export const DateRange = styled.span`
 `;
 
 export const ItemTitle = styled.div`
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: bold;
   color: #2d2d2d;
-  margin: 5px 0;
+  margin: 3px 0 6px;
 `;

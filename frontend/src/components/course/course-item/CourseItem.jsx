@@ -1,28 +1,53 @@
-import './CourseItem.style'
-import { Container, DateRange, Dot, ImageBox, ImageGrid, ItemContainer, ItemFooter, UserIcon, UserName, ItemTitle, UserContainer } from './CourseItem.style';
+import { useNavigate } from 'react-router-dom';
+import './CourseItem.style';
+import {
+  Container,
+  DateRange,
+  Dot,
+  ImageBox,
+  ImageGrid,
+  ItemContainer,
+  ItemFooter,
+  UserIcon,
+  UserName,
+  ItemTitle,
+  UserContainer,
+} from './CourseItem.style';
 
-function CourseItem() {
-    return (
-      <Container>
-        <ItemContainer>
-          <ImageGrid>
-            <ImageBox />
-            <ImageBox />
-            <ImageBox />
-            <ImageBox />
-          </ImageGrid>
-          <UserIcon />
-          <ItemFooter>
-            <UserContainer>
-              <UserName>JADEN님의 일정</UserName>
-              <Dot>·</Dot>
-              <DateRange>2박 3일</DateRange>
-            </UserContainer>
-            <ItemTitle>6일전 예약한 무작정 일본여행</ItemTitle>
-          </ItemFooter>
-        </ItemContainer>
-      </Container>
-    )
+function CourseItem({ course, goDetail }) {
+  return (
+    <Container onClick={goDetail}>
+      <ItemContainer>
+        <ImageGrid>
+          <ImageBox />
+          <ImageBox />
+          <ImageBox />
+          <ImageBox />
+        </ImageGrid>
+        <UserIcon />
+        <ItemFooter>
+          <UserContainer>
+            <UserName>{course.MEMBER_ID}님의 일정</UserName>
+          </UserContainer>
+          <ItemTitle>{course.TITLE}</ItemTitle>
+          <div
+            style={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              height: '3em', // 2줄 높이 (글꼴 크기에 따라 조정 필요)
+              lineHeight: '1.5em', // 줄 높이 (글꼴 크기에 따라 조정 필요)
+              fontSize: '15px'
+            }}
+          >
+            {course.CONTENT}
+          </div>
+        </ItemFooter>
+      </ItemContainer>
+    </Container>
+  );
 }
 
 export default CourseItem;
