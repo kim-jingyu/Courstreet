@@ -14,6 +14,7 @@ import java.util.List;
 public class CourseDetailDto {
     private Long courseId;
     private Long memberId;
+    private Long imageId;
     private String memberName;
     private String memberImage;
     private String title;

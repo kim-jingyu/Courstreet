@@ -22,5 +22,7 @@ public class CreateCourseDto {
     private String withWhom;
     private String theme;
     private Boolean visibility;
+    private String savedName;
+    private String originalName;
     private List<CreateCoursePlaceDto> coursePlaces;
 }

@@ -1,3 +1,4 @@
+/*
 package com.hyundairoad.hyundairoad.member.service;
 
 import com.hyundairoad.hyundairoad.global.config.EmailConfig;
@@ -88,3 +89,4 @@ public class MailSendService {
         return String.valueOf(new Random().nextInt(899999) + 100000);
     }
 }
+*/

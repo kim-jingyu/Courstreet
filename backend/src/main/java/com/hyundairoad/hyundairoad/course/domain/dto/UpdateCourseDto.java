@@ -15,6 +15,7 @@ import java.util.List;
 public class UpdateCourseDto {
     private Long courseId;
     private Long memberId;
+    private Long imageId;
     private String title;
     private String content;
     private LocalDateTime startTime;
@@ -22,5 +23,7 @@ public class UpdateCourseDto {
     private String withWhom;
     private String theme;
     private Boolean visibility;
+    private String savedName;
+    private String originalName;
     private List<CoursePlaceDto> coursePlaces;
 }

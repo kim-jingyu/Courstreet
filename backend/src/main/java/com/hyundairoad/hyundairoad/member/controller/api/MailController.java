@@ -1,3 +1,4 @@
+/*
 package com.hyundairoad.hyundairoad.member.controller.api;
 
 import com.hyundairoad.hyundairoad.member.domain.dto.EmailCheckDTO;
@@ -19,7 +20,8 @@ import static com.hyundairoad.hyundairoad.constants.ErrorMsg.INVALID_EMAIL;
 public class MailController {
     private final MailSendService mailSendService;
 
-    @PostMapping("/mailSend")
+    */
+/*@PostMapping("/mailSend")
     public ResponseEntity<Void> mailSend(@Validated EmailRequestDto emailRequestDto) {
         log.info("이메일 인증 이메일: {}", emailRequestDto.getEmail());
         mailSendService.sendMimeMessage(emailRequestDto.getEmail());
@@ -33,5 +35,7 @@ public class MailController {
             throw new InvalidEmailException(INVALID_EMAIL);
         }
         return ResponseEntity.ok().build();
-    }
+    }*//*
+
 }
+*/

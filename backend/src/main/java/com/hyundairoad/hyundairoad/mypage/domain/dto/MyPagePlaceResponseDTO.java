@@ -17,8 +17,8 @@ import java.util.List;
 @Builder
 public class MyPagePlaceResponseDTO {
     private String name;
-    private Double star;
-    private Category category;
+    private Integer star;
+    private String category;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int floor;

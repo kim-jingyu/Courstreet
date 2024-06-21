@@ -27,13 +27,13 @@ public class MemberApiController {
         return "member";
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@Validated SignupDTO signupDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new InvalidSignupException(INVALID_SIGNUP);
-        }
-
-        memberService.signup(signupDTO);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/signup")
+//    public ResponseEntity<Void> signup(@Validated SignupDTO signupDTO, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            throw new InvalidSignupException(INVALID_SIGNUP);
+//        }
+//
+//        memberService.signup(signupDTO);
+//        return ResponseEntity.ok().build();
+//    }
 }

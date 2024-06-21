@@ -13,6 +13,8 @@ public class CreateCoursePlaceDto {
     private Long coursePlaceId;
     private Long courseId;
     private Long placeId;
+    private String savedName;
+    private String originalName;
     private String memo;
     private int rank;
 }

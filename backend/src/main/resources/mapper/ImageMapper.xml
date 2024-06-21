@@ -21,10 +21,28 @@
         FROM image
         WHERE member_id = #{memberId}
     </select>
-
-    <insert id="insertImage">
-        INSERT INTO image (image_id, member_id, place_id, course_place_id, saved_name, original_name)
-        VALUES (IMAGE_ID_SEQ.NEXTVAL, #{memberId}, #{placeId}, #{coursePlaceId}, #{savedName}, #{originalName})
+    <select id="getImagesByCourseId" parameterType="Long" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, course_id, original_name, saved_name
+        FROM image
+        WHERE course_id = #{courseId}
+    </select>
+    <insert id="insertImage" useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+        INSERT INTO image (image_id, member_id, place_id, course_place_id, course_id, saved_name, original_name)
+        VALUES (IMAGE_ID_SEQ.NEXTVAL, #{memberId}, #{placeId}, #{coursePlaceId}, #{courseId}, #{savedName}, #{originalName})
     </insert>
-
+    <select id="getImageById" resultType="Image">
+        SELECT image_id, member_id, place_id, course_place_id, course_id, original_name, saved_name
+        FROM image
+        WHERE image_id = #{imageId}
+    </select>
+    <update id="updateImage">
+        UPDATE image
+        SET
+            original_name = #{originalName},
+            saved_name = #{savedName}
+        WHERE image_id = #{imageId}
+    </update>
+    <delete id="deleteImage">
+        DELETE FROM image WHERE image_id = #{imageId}
+    </delete>
 </mapper>

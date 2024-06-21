@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.hyundairoad.hyundairoad.course.mapper.CourseMapper">
 
@@ -11,26 +10,22 @@
         <result property="memberImage" column="member_image"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="startTime" column="start_time" javaType="java.lang.Integer"/>
-        <result property="endTime" column="end_time" javaType="java.lang.Integer"/>
+        <result property="startTime" column="start_time" javaType="java.time.LocalDateTime"/>
+        <result property="endTime" column="end_time" javaType="java.time.LocalDateTime"/>
         <result property="withWhom" column="with_whom"/>
         <result property="theme" column="theme"/>
         <result property="visibility" column="visibility" typeHandler="com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler"/>
+        <result property="imageId" column="image_id"/>
         <result property="courseImage" column="course_image"/>
         <result property="likeCount" column="like_count"/>
         <result property="liked" column="liked"/>
-        <result property="commentId" column="comment_id"/>
-        <result property="commentCount" column="comment_count"/>
-        <result property="commentUserName" column="comment_user_name"/>
-        <result property="commentUserImage" column="comment_user_image"/>
-        <result property="commentContent" column="comment_content"/>
         <collection property="coursePlaces" ofType="com.hyundairoad.hyundairoad.course.domain.dto.CoursePlaceDto">
             <id property="coursePlaceId" column="course_place_id"/>
             <result property="courseId" column="course_id"/>
             <result property="placeId" column="place_id"/>
             <result property="memo" column="memo"/>
             <result property="rank" column="rank"/>
-            <result property="image" column="image"/>
+            <result property="imageName" column="image"/>
         </collection>
     </resultMap>
 
@@ -39,7 +34,7 @@
             c.course_id,
             c.member_id,
             m.name AS member_name,
-            i.original AS member_image,
+            mi.original_name AS member_image,
             c.title,
             c.content,
             c.start_time,
@@ -47,30 +42,23 @@
             c.with_whom,
             c.theme,
             c.visibility,
-            ci.original AS course_image,
+            ci.image_id,
+            ci.original_name AS course_image,
             (SELECT COUNT(*) FROM member_course_like WHERE course_id = c.course_id) AS like_count,
             (CASE WHEN EXISTS (SELECT 1 FROM member_course_like WHERE course_id = c.course_id AND member_id = #{memberId}) THEN 'Y' ELSE 'N' END) AS liked,
-            com.comment_id,
-            (SELECT COUNT(*) FROM comments WHERE course_id = c.course_id) AS comment_count,
-            cm.name AS comment_user_name,
-            img.original AS comment_user_image,
-            com.content AS comment_content,
             cp.course_place_id,
             cp.course_id,
             cp.place_id,
             cp.memo,
             cp.rank,
-            cp.image
+            cpi.original_name AS image
         FROM
             course c
                 JOIN member m ON c.member_id = m.member_id
-                LEFT JOIN image i ON m.image_id = i.image_id
+                LEFT JOIN image mi ON m.member_id = mi.member_id
                 LEFT JOIN course_place cp ON c.course_id = cp.course_id
                 LEFT JOIN image cpi ON cp.course_place_id = cpi.course_place_id
-                LEFT JOIN comments com ON c.course_id = com.course_id
-                LEFT JOIN member cm ON com.member_id = cm.member_id
-                LEFT JOIN image img ON cm.image_id = img.image_id
-                LEFT JOIN image ci ON c.course_id = ci.image_id
+                LEFT JOIN image ci ON c.course_id = ci.course_id
         WHERE
             c.course_id = #{courseId}
     </select>
@@ -80,7 +68,7 @@
             c.course_id,
             c.member_id,
             m.name AS member_name,
-            i.original AS member_image,
+            mi.original_name AS member_image,
             c.title,
             c.content,
             c.start_time,
@@ -88,80 +76,99 @@
             c.with_whom,
             c.theme,
             c.visibility,
-            ci.original AS course_image,
+            ci.image_id,
+            ci.original_name AS course_image,
             (SELECT COUNT(*) FROM member_course_like WHERE course_id = c.course_id) AS like_count,
             (CASE WHEN EXISTS (SELECT 1 FROM member_course_like WHERE course_id = c.course_id AND member_id = #{memberId}) THEN 'Y' ELSE 'N' END) AS liked,
-            com.comment_id,
-            (SELECT COUNT(*) FROM comments WHERE course_id = c.course_id) AS comment_count,
-            cm.name AS comment_user_name,
-            img.original AS comment_user_image,
-            com.content AS comment_content,
             cp.course_place_id,
             cp.course_id,
             cp.place_id,
             cp.memo,
             cp.rank,
-            cp.image
+            cpi.original_name AS image
         FROM
             course c
                 JOIN member m ON c.member_id = m.member_id
-                LEFT JOIN image i ON m.image_id = i.image_id
+                LEFT JOIN image mi ON m.member_id = mi.member_id
                 LEFT JOIN course_place cp ON c.course_id = cp.course_id
                 LEFT JOIN image cpi ON cp.course_place_id = cpi.course_place_id
-                LEFT JOIN comments com ON c.course_id = com.course_id
-                LEFT JOIN member cm ON com.member_id = cm.member_id
-                LEFT JOIN image img ON cm.image_id = img.image_id
-                LEFT JOIN image ci ON c.course_id = ci.image_id
+                LEFT JOIN image ci ON c.course_id = ci.course_id
+        WHERE
+            c.member_id = #{memberId}
     </select>
 
     <insert id="insertCourse" useGeneratedKeys="true" keyProperty="courseId" keyColumn="course_id">
         INSERT INTO course (course_id, member_id, title, content, start_time, end_time, with_whom, theme, visibility)
-        VALUES (COURSE_SEQ.NEXTVAL, #{memberId}, #{title}, #{content}, #{startTime}, #{endTime}, #{withWhom}, #{theme}, #{visibility, typeHandler=com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler})
+        VALUES (COURSE_ID_SEQ.NEXTVAL, #{memberId}, #{title}, #{content}, #{startTime}, #{endTime}, #{withWhom}, #{theme}, #{visibility, typeHandler=com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler})
     </insert>
 
     <insert id="insertCoursePlace" useGeneratedKeys="true" keyProperty="coursePlaceId" keyColumn="course_place_id">
-        INSERT INTO course_place (course_place_id, course_id, place_id, memo, rank, image)
-        VALUES (COURSE_PLACE_SEQ.NEXTVAL, #{courseId}, #{placeId}, #{memo}, #{rank}, #{image})
+        INSERT INTO course_place (course_place_id, course_id, place_id, memo, rank)
+        VALUES (COURSE_PLACE_ID_SEQ.NEXTVAL, #{courseId}, #{placeId}, #{memo}, #{rank})
+    </insert>
+
+    <insert id="insertCourseImage" useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+        INSERT INTO image (image_id, course_id, original_name, saved_name)
+        VALUES (IMAGE_ID_SEQ.NEXTVAL, #{courseId}, #{originalName}, #{savedName})
+    </insert>
+
+    <insert id="insertCoursePlaceImage" useGeneratedKeys="true" keyProperty="imageId" keyColumn="image_id">
+        INSERT INTO image (image_id, course_place_id, original_name, saved_name)
+        VALUES (IMAGE_ID_SEQ.NEXTVAL, #{coursePlaceId}, #{originalName}, #{savedName})
     </insert>
 
     <update id="updateCourse">
-        UPDATE COURSE
+        UPDATE course
         SET
-            MEMBER_ID = #{memberId},
-            TITLE = #{title},
-            CONTENT = #{content},
-            START_TIME = #{startTime},
-            END_TIME = #{endTime},
-            WITH_WHOM = #{withWhom},
-            THEME = #{theme},
-            VISIBILITY = #{visibility, typeHandler=com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler}
-        WHERE COURSE_ID = #{courseId}
+            member_id = #{memberId},
+            title = #{title},
+            content = #{content},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            with_whom = #{withWhom},
+            theme = #{theme},
+            visibility = #{visibility, typeHandler=com.hyundairoad.hyundairoad.typehandler.BooleanTypeHandler}
+        WHERE course_id = #{courseId}
     </update>
 
     <update id="updateCoursePlace">
-        UPDATE COURSE_PLACE
+        UPDATE course_place
         SET
-            PLACE_ID = #{placeId},
-            MEMO = #{memo},
-            RANK = #{rank},
-            IMAGE = #{image}
-        WHERE COURSE_PLACE_ID = #{coursePlaceId}
+            place_id = #{placeId},
+            memo = #{memo},
+            rank = #{rank}
+        WHERE course_place_id = #{coursePlaceId}
     </update>
 
     <delete id="deleteCoursePlaceById">
-        DELETE FROM COURSE_PLACE WHERE COURSE_PLACE_ID = #{coursePlaceId}
+        DELETE FROM course_place WHERE course_place_id = #{coursePlaceId}
     </delete>
+
+    <delete id="deleteCoursePlacesByCourseId">
+        DELETE FROM course_place WHERE course_id = #{courseId}
+    </delete>
+
+    <delete id="deleteCourseById">
+        DELETE FROM course WHERE course_id = #{courseId}
+    </delete>
+
+    <select id="getCoursePlaceIdsByCourseId" resultType="Long">
+        SELECT course_place_id FROM course_place WHERE course_id = #{courseId}
+    </select>
 
     <select id="getCoursePlacesByCourseId" resultType="com.hyundairoad.hyundairoad.course.domain.dto.CoursePlaceDto">
         SELECT
-            course_place_id,
-            course_id,
-            place_id,
-            memo,
-            rank,
-            image
-        FROM course_place
-        WHERE course_id = #{courseId}
+            cp.course_place_id,
+            cp.course_id,
+            cp.place_id,
+            cp.memo,
+            cp.rank,
+            i.original_name AS image
+        FROM
+            course_place cp
+                LEFT JOIN image i ON cp.course_place_id = i.course_place_id
+        WHERE
+            cp.course_id = #{courseId}
     </select>
 
     <select id="getLikedCoursesByMemberId" resultType="LikedCourseResponseDTO">

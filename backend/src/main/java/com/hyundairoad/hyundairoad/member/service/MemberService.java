@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberMapper memberMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(readOnly = true)
     public MemberDTO getMember(Long memberId) {
@@ -26,11 +26,11 @@ public class MemberService {
         return memberMapper.getMemberByEmail(email);
     }
 
-    public void signup(SignupDTO signupDTO) {
-        if (memberMapper.getMemberByLoginId(signupDTO.getLoginId()) != null) return;
-        signupDTO.setPassword(bCryptPasswordEncoder.encode(signupDTO.getPassword()));
-        memberMapper.signup(signupDTO);
-    }
+//    public void signup(SignupDTO signupDTO) {
+//        if (memberMapper.getMemberByLoginId(signupDTO.getLoginId()) != null) return;
+//        signupDTO.setPassword(bCryptPasswordEncoder.encode(signupDTO.getPassword()));
+//        memberMapper.signup(signupDTO);
+//    }
 
     public void like() {
 

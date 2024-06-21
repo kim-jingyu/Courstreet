@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class CoursePlaceDto {
     private Long coursePlaceId;
     private Long courseId;
-    private Long imageId;
     private Long placeId;
+    private Long imageId;
+    private String imageName;
     private String memo;
     private int rank;
 }

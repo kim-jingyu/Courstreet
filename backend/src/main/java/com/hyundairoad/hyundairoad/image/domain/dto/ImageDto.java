@@ -14,6 +14,7 @@ public class ImageDto {
     private Long memberId;
     private Long placeId;
     private Long coursePlaceId;
+    private Long courseId;
     private String savedName;
     private String originalName;
 }

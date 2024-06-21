@@ -7,7 +7,8 @@ import com.hyundairoad.hyundairoad.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,9 +17,17 @@ import java.util.List;
 public class CourseController {
     private final CourseService courseService;
 
-    @PostMapping
-    public ResponseEntity<Void> createCourse(@RequestBody CreateCourseDto createCourseDto) {
-        courseService.createCourse(createCourseDto);
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
+
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<Void> createCourse(
+            @RequestPart("course") CreateCourseDto createCourseDto,
+            @RequestPart("courseImage") MultipartFile courseImageFile,
+            @RequestPart("coursePlaceImages") List<MultipartFile> coursePlaceImageFiles) throws IOException {
+        courseService.createCourse(createCourseDto, courseImageFile, coursePlaceImageFiles);
         return ResponseEntity.ok().build();
     }
 
@@ -34,9 +43,25 @@ public class CourseController {
         return ResponseEntity.ok(courseDetailDtos);
     }
 
-    @PutMapping("/{courseId}")
-    public ResponseEntity<Void> updateCourse(@PathVariable Long courseId, @RequestBody UpdateCourseDto updateCourseDto) {
-        courseService.updateCourse(updateCourseDto.toBuilder().courseId(courseId).build());
+    @PutMapping(value = "/{courseId}", consumes = {"multipart/form-data"})
+    public ResponseEntity<Void> updateCourse(
+            @PathVariable Long courseId,
+            @RequestPart("course") UpdateCourseDto updateCourseDto,
+            @RequestPart("courseImage") MultipartFile courseImageFile,
+            @RequestPart("coursePlaceImages") List<MultipartFile> coursePlaceImageFiles) throws IOException {
+        courseService.updateCourse(updateCourseDto.toBuilder().courseId(courseId).build(), courseImageFile, coursePlaceImageFiles);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable Long courseId) {
+        courseService.deleteCourse(courseId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/place/{coursePlaceId}")
+    public ResponseEntity<Void> deleteCoursePlace(@PathVariable Long coursePlaceId) {
+        courseService.deleteCoursePlace(coursePlaceId);
         return ResponseEntity.ok().build();
     }
 }

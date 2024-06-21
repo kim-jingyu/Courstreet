@@ -23,9 +23,9 @@ public class CourseResponseDTO {
     private String content;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private WithWhom withWhom;
-    private Theme mainTheme;
-    private Visibility visibility;
+    private String withWhom;
+    private String theme;
+    private Boolean visibility;
     private String imgOriginalName;
     private String imgSavedName;
     private List<CoursePlace> coursePlaces;
