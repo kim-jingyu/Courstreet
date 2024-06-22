@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import PlaceItem from '../../place/place-item/PlaceItem';
 import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab } from '../like-post/LikePost.style';
 import { PostButton, PlaceButton } from './LikePlace.style';
 import CourseItem from '../../course/course-item/CourseItem';
+import {
+  searchedPlacesState,
+} from '/src/recoils/PlaceAtoms';
+
 
 
 function LikePlace() {
@@ -10,6 +15,9 @@ function LikePlace() {
   const [activeTab, setActiveTab] = useState('likedPlaces');
   const [activeLikeTab, setActiveLikeTab] = useState(true);
 
+  // 좋아하는 장소만 보기
+  const likePlace = useRecoilValue(searchedPlacesState);
+  const likePlaces = likePlace.filter(dummy => dummy.liked)
   const fetchData = (tab) => {
     switch (tab) {
       case 'myCourses':
@@ -92,21 +100,21 @@ function LikePlace() {
       <div>
         {activeTab === 'likedPlaces' && (
           <LikeContainer>
-            {data.map(({ place_id, name, start_time, end_time, floor, location, rate, category, phone, liked }) => (
-              <PlaceItem
-                key={place_id}
-                isSelected={false}
-                srcImg={null}
-                name={name}
-                rate={rate}
-                category={category}
-                startTime={start_time}
-                endTime={end_time}
-                floor={floor}
-                phone={phone}
-                liked={liked}
-                isModal={false}
-              />
+            {likePlaces.map(({ place_id, name, phone, start_time, end_time, floor, location, category, rate, liked }) => (
+              <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
+                <PlaceItem
+                  srcImg={`/places/${place_id}.png`}
+                  name={name}ㅖ
+                  phone={phone}
+                  star={rate}
+                  rate={rate}
+                  category={category}
+                  startTime={start_time}
+                  endTime={end_time}
+                  liked={liked}
+                  floor={floor}
+                />
+              </div>
             ))}
           </LikeContainer>
         )}
