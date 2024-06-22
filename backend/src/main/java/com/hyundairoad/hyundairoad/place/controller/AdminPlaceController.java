@@ -67,19 +67,4 @@ public class AdminPlaceController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
         }
     }
-
-    /**
-     * 관리자 장소 삭제
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getPlaceById(@PathVariable Long id) {
-        Place place = service.getPlaceByPlaceId(id);
-        if (place != null) {
-            return ResponseEntity.ok(place);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Place not found");
-        }
-    }
 }
