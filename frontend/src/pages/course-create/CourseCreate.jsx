@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import SelectCategory from '/src/components/course-create/select-category/SelectCategory';
@@ -7,13 +8,21 @@ import SelectHeader from '/src/components/course-create/select-header/SelectHead
 
 const Pages = [<SelectCategory />, <Place />, <SelectCourse />];
 
-function CourseCreate() { 
+function CourseCreate() {
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
 
-  return (<>
-  <SelectHeader />
-  {Pages[currPage]}
-  </>);
+  useEffect(() => {
+    return () => {
+      setCurrPage(0);
+    };
+  }, []);
+
+  return (
+    <>
+      <SelectHeader />
+      {Pages[currPage]}
+    </>
+  );
 }
 
 export default CourseCreate;

@@ -1,5 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { coursePlaceDummyState } from '/src/recoils/CourseAtoms';
+import { placeDummyState } from '/src/recoils/PlaceAtoms';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Modal } from 'antd';
 import {
@@ -18,7 +21,6 @@ import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import StarbucksImg from '/src/assets/icons/starbucks.png';
 import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';
 import AddPlace from '/src/assets/icons/add-circle.png';
-import { useLocation } from 'react-router-dom';
 
 const dummy = [
   {
@@ -29,7 +31,7 @@ const dummy = [
     category: '식당',
     info: 'B2 | 10:30 ~ 22:00',
     content: '',
-    liked: "true"
+    liked: 'true',
   },
   {
     id: '2',
@@ -39,8 +41,7 @@ const dummy = [
     category: '카페',
     info: 'B2 | 10:30 ~ 22:00',
     content: '',
-    liked: "true"
-
+    liked: 'true',
   },
   {
     id: '3',
@@ -51,36 +52,30 @@ const dummy = [
     info: 'B2 | 10:30 ~ 22:00',
     content: '',
   },
-  {
-    id: '4',
-    srcImg: StarbucksImg,
-    title: '스타벅스(Starbucks)',
-    star: '4.3',
-    category: '카페',
-    info: 'B2 | 10:30 ~ 22:00',
-    content: '',
-  },
-  {
-    id: '5',
-    srcImg: FiveGuysImg,
-    title: '파이브가이즈(Five Guys)',
-    star: '4.3',
-    category: '식당',
-    info: 'B2 | 10:30 ~ 22:00',
-    content: '',
-  },
-  {
-    id: '6',
-    srcImg: StarbucksImg,
-    title: '스타벅스(Starbucks)',
-    star: '4.3',
-    category: '카페',
-    info: 'B2 | 10:30 ~ 22:00',
-    content: '',
-  },
 ];
 
 function PlacePlan() {
+  const { courseId } = useParams();
+  const [coursePlaceDummy, setCoursePlaceDummy] = useRecoilState(coursePlaceDummyState);
+  const [coursePlace, setCoursePlace] = useState({});
+  const [placeDummy, setPlaceDummy] = useRecoilState(placeDummyState);
+  const [places, setPlaces] = useState([]);
+
+  useEffect(() => {
+    if (courseId === undefined) return;
+    const res = coursePlaceDummy.find((coursePlace) => coursePlace.COURSE_ID === parseInt(courseId));
+    setCoursePlace(res);
+    setPlaces([]);
+    for (const [PLACE_ID, MEMO] of res.PLACES) {
+      const place = placeDummy.find((place) => place.place_id === PLACE_ID);
+      setPlaces((prev) => [...prev, { info: place, memo: MEMO }]);
+    }
+  }, [courseId]);
+
+  useEffect(() => {
+    console.log(places);
+  }, [places]);
+
   const location = useLocation();
   const currentUrl = location.pathname;
   const isDraggable = currentUrl.startsWith('/coursecreate');
@@ -140,39 +135,42 @@ function PlacePlan() {
         <Droppable droppableId={'droppable'}>
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
-              {items.map(({ id, srcImg, title, star, category, info, content }, index) => (
-                <Draggable key={id} draggableId={id} index={index} isDragDisabled={!isDraggable}>
+              {/* {items.map(({ id, srcImg, title, star, category, info, content, }, index) => ( */}
+              {places.map(({ info, memo }, index) => (
+                <Draggable key={info.place_id} draggableId={info.place_id} index={index} isDragDisabled={!isDraggable}>
                   {(provided, snapshot) => (
                     <S.Wrapper ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                       <S.Order>
                         <S.Circle>{index + 1}</S.Circle>
                         <S.Line></S.Line>
                       </S.Order>
-                      <LikeContainer key={id} style={{ width: '80%' }}>
+                      <LikeContainer key={info.place_id} style={{ width: '80%' }}>
                         <LikeItem>
-                          <ItemImage src={srcImg} alt="Five Guys" />
+                          <ItemImage src={`/places/${info.place_id}.png`} />
                           <ItemDetails>
-                            <ItemTitle>{title}</ItemTitle>
+                            <ItemTitle>{info.name}</ItemTitle>
                             <ItemRating>
-                              <StarFilled style={{ color: '#FADB14' }} /> {star}
-                              <ItemTag>{category}</ItemTag>
+                              {/* <StarFilled style={{ color: '#FADB14' }} /> {info.rate} */}
+                              <ItemTag>{info.category}</ItemTag>
                             </ItemRating>
-                            <FooterDetails>{info}</FooterDetails>
+                            <FooterDetails>{info.phone}</FooterDetails>
                           </ItemDetails>
-                          <S.TrashButton src={DeleteInactive} onClick={() => (showModal(), setDeletedIdx(id))} />
+                          <S.TrashButton
+                            src={DeleteInactive}
+                            onClick={() => (showModal(), setDeletedIdx(info.place_id))}
+                          />
                         </LikeItem>
                         {isDraggable ? (
                           <S.Content
                             placeholder="메모 입력"
-                            onChange={(event) => changeContent(event.target.value, id)}
-                            value={content}
+                            onChange={(event) => changeContent(event.target.value, info.place_id)}
+                            value={memo}
                           />
                         ) : (
-                          <S.ContentDiv>{content}</S.ContentDiv>
+                          <S.ContentDiv>{memo}</S.ContentDiv>
                         )}
                       </LikeContainer>
                     </S.Wrapper>
-                    // </div>
                   )}
                 </Draggable>
               ))}
