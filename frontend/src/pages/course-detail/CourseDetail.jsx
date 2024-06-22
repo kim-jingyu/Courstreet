@@ -23,7 +23,7 @@ function SelectDetail() {
       <S.Container>
         <S.CourseTitle>{course.TITLE}</S.CourseTitle>
         <S.TitleImage>
-          <img src={`/courses/${course.IMAGE}.png`} />
+          <img src={`/courses/${course.COURSE_ID}.jpg`} />
         </S.TitleImage>
 
         <S.CourseContent>{course.CONTENT}</S.CourseContent>
