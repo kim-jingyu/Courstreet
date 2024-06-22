@@ -48,7 +48,7 @@ function CourseItem({ course, goDetail }) {
       <Container onClick={goDetail}>
         <ItemContainer>
           <ImageBox>
-            <img src={`/courses/${course.IMAGE}.png`}></img>
+            <img src={`/courses/${course.COURSE_ID}.jpg`}></img>
           </ImageBox>
           <UserIcon />
           <ItemFooter>

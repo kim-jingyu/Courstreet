@@ -28,7 +28,7 @@ function LikePlace() {
 
   // 내 코스만 보기
   const myCourse = useRecoilValue(courseDummyState);
-  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID = 1)
+  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID === 1)
 
   const fetchData = (tab) => {
     switch (tab) {
@@ -131,7 +131,7 @@ function LikePlace() {
           </LikeContainer>
         )}
 
-        {(activeTab === 'likeCourses' ()) && (
+        {(activeTab === 'likeCourses') && (
           <LikeContainer>
             {likeCourses.map((item) => (
               <CourseItem
