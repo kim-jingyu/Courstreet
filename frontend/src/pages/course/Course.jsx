@@ -20,7 +20,14 @@ function Course() {
   const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
 
   const navigate = useNavigate();
-  const goCreate = () => navigate('/coursecreate');
+  const goCreate = () => {
+    const username = localStorage.getItem('username');
+    if (username === null) {
+      navigate('/login')
+      return
+    }
+    navigate('/coursecreate');
+  };
   const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
 
   const handleChange = (value) => console.log(`selected ${value}`);
@@ -29,8 +36,6 @@ function Course() {
   const pickTheme = (val) => {
     currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
   };
-
-  const [contents, setContents] = useState([1, 2, 3, 4, 5]);
 
   // const [contents, setContents] = useState([]);
   // useEffect(() => {
@@ -94,7 +99,7 @@ function Course() {
           <CourseItem key={course.COURSE_ID} course={course} goDetail={() => goDetail(course.COURSE_ID)} />
         ))}
 
-          <S.CreateBtn onClick={goCreate} />
+        <S.CreateBtn onClick={goCreate} />
       </div>
     </>
   );

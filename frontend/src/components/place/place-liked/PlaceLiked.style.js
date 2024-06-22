@@ -16,6 +16,7 @@ export const LikeItem = styled.div`
   align-items: center;
   margin-bottom: 20px;
   padding: 2px 10px;
+  width: 310px;
   border: 1px solid #ccc;
   box-shadow: 0px 4px 4px 0px #a8a9ad;
   border-radius: 10px;
