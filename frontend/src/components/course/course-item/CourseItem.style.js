@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export const Container = styled.div`
   margin: auto;
@@ -26,8 +25,15 @@ export const ImageGrid = styled.div`
 
 export const ImageBox = styled.div`
   width: 100%;
-  padding-top: 50%;
-  background-color: #ccc;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 박스에 맞게 채움 */
+  }
 `;
 
 export const ItemFooter = styled.div`
@@ -35,18 +41,18 @@ export const ItemFooter = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 0px 25px 20px;
-  margin-top:-15px;
+  margin-top: -15px;
   background-color: #fff;
 `;
 
 export const UserContainer = styled.div`
   width: 100%;
-  display: flex; 
-  flex-direction: row; 
-  justify-content: flex-start; 
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
-`
+`;
 
 export const LeftContainer = styled.div`
   display: flex;
@@ -88,7 +94,7 @@ export const UserName = styled.span`
 export const Dot = styled.span`
   margin-left: 10px;
   margin-right: 10px;
-`
+`;
 
 export const DateRange = styled.span`
   font-size: 0.8rem;
@@ -96,7 +102,7 @@ export const DateRange = styled.span`
 `;
 
 export const ItemTitle = styled.div`
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   color: #2d2d2d;
   margin: 3px 0 6px;

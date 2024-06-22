@@ -93,7 +93,7 @@ function SelectHeader() {
         {current < steps.length - 1 && (
           <div style={buttonStyle} onClick={goNext}>
             {`다음`}
-            <img src={arrowRight} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+            <img src={arrowRight} style={{height: '16px', margin: '0 5px'}} />
           </div>
         )}
         {current === steps.length - 1 && (

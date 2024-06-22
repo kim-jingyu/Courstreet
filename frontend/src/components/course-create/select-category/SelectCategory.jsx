@@ -52,7 +52,7 @@ function SelectCategory() {
       <div style={CalenderStyle}>
         <Calendar fullscreen={false} onSelect={onSelect} />
       </div>
-      <TimePicker.RangePicker use12Hours format="h:mm a" onChange={onTimeChange} size="large" />
+      <TimePicker.RangePicker placeholder={['방문예정시간', '방문종료시간']} use12Hours format="h:mm a" onChange={onTimeChange} size="large" />
       <br /> <br />
       <G.ComponentTitle>누구와 함께</G.ComponentTitle>
       <S.Section>
