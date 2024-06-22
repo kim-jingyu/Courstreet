@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import PlaceItem from '../../place/place-item/PlaceItem';
 import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab } from '../like-post/LikePost.style';
 import { PostButton, PlaceButton } from './LikePlace.style';
@@ -14,6 +15,16 @@ import {
 
 
 function LikePlace() {
+  
+  const navigate = useNavigate();
+  const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
+
+  // 전체 코스
+  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState)
+
+  // 전체 장소
+  const [placeDummy, setPlaceDummy] = useRecoilState(placeDummyState)
+
   // 탭 활성화
   const [activeTab, setActiveTab] = useState('likedPlaces');
   const [activeLikeTab, setActiveLikeTab] = useState(true);
@@ -28,49 +39,39 @@ function LikePlace() {
 
   // 내 코스만 보기
   const myCourse = useRecoilValue(courseDummyState);
-  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID === 1)
+  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID === 10)
+
+  // 좋아요 누르면 장소 데이터 변경
+  const handlePlaceLikeToggle = (place_id) => {
+    setPlaceDummy((prevPlaces) =>
+      prevPlaces.map((place) =>
+        place.place_id === place_id ? { ...place, liked: !place.liked } : place
+      )
+    );
+  };
+
+  // 좋아요 누르면 코스 데이터 변경
+  const handleCourseLikeToggle = (course_id) => {
+    setCourseDummy((prevCourses) =>
+      prevCourses.map((course) =>
+        course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course
+      )
+    );
+  };
+
 
   const fetchData = (tab) => {
     switch (tab) {
       case 'myCourses':
         return [
-          {
-            MEMBER_ID: 10,
-            course_id: 1,
-            title: '나의 코스 1',
-            description: '코스 1 설명',
-            duration: '2 hours',
-            difficulty: 'Intermediate',
-            liked: true,
-          },
           // TODO 데이터 추가
         ];
       case 'likedPlaces':
         return [
-          {
-            place_id: 1,
-            name: '나의 좋아하는 장소 1',
-            category: '식당',
-            rate: '4.5',
-            start_time: '10:00 AM',
-            end_time: '10:00 PM',
-            floor: 1,
-            phone: '02-1234-5678',
-            liked: true,
-          },
           // TODO 데이터 추가
         ];
       case 'likeCourses':
         return [
-          {
-            MEMBER_ID: 10,
-            course_id: 1,
-            title: '나의 코스 1',
-            description: '코스 1 설명',
-            duration: '2 hours',
-            difficulty: 'Intermediate',
-            liked: true,
-          },
           // TODO 데이터 추가
         ];
       default:
@@ -125,6 +126,7 @@ function LikePlace() {
                   endTime={end_time}
                   liked={liked}
                   floor={floor}
+                  onLikeToggle={() => handlePlaceLikeToggle(place_id)} 
                 />
               </div>
             ))}
@@ -136,7 +138,10 @@ function LikePlace() {
             {likeCourses.map((item) => (
               <CourseItem
                 course={item}
-                key={item.course_id}
+                key={item.COURSE_ID}
+                onLikeToggle={handleCourseLikeToggle}
+                goDetail={() => goDetail(item.COURSE_ID)}
+
               />
             ))}
           </LikeContainer>
@@ -147,7 +152,9 @@ function LikePlace() {
             {myCourses.map((item) => (
               <CourseItem
                 course={item}
-                key={item.course_id}
+                key={item.COURSE_ID}
+                onLikeToggle={handleCourseLikeToggle}
+                goDetail={() => goDetail(item.COURSE_ID)}
               />
             ))}
           </LikeContainer>

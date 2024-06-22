@@ -33,7 +33,7 @@ function formatTime(dateString) {
 
 
 
-function PlaceItem({ isSelected, srcImg, name, rate, category, floor, startTime, endTime, onClick, liked, phone, isModal = false }) {
+function PlaceItem({ isSelected, srcImg, name, rate, category, floor, startTime, endTime, onClick, liked, phone, isModal = false, onLikeToggle}) {
   // 현재 URL
   const location = useLocation();
   const currentUrl = location.pathname;
@@ -55,13 +55,14 @@ function PlaceItem({ isSelected, srcImg, name, rate, category, floor, startTime,
   const [isLiked, setIsLiked] = useState(liked);
   const toggleLiked = () => {
     setIsLiked(!isLiked);
+    onLikeToggle()
   };
 
   return (
     <>
     <LikeContainer>
       <LikeItem style={{ paddingRight: '20px' }} >
-        <ItemImage src={srcImg} alt="Five Guys" />
+        <ItemImage src={srcImg} alt={name} />
         <ItemDetails>
           <ItemTitle>
             {name} {!isModal && <ItemInfo src={informationIcon} onClick={() => showModal({ name, srcImg, rate, category, floor, startTime, endTime, phone })}></ItemInfo>}
@@ -72,7 +73,7 @@ function PlaceItem({ isSelected, srcImg, name, rate, category, floor, startTime,
           </ItemRating>
           <FooterDetails>{floor}층 | {formatTime(startTime)} - {formatTime(endTime)}</FooterDetails>
         </ItemDetails>
-        {currentUrl !== '/coursecreate' && !isModal && (
+          {currentUrl !== '/coursecreate' && !isModal && (
             <HeartIcon src={isLiked ? heartFilled : heartEmpty} onClick={toggleLiked} />
           )}
           {currentUrl === '/coursecreate' && (
