@@ -1,0 +1,47 @@
+package hyundairoad.hyundairoad.member.domain;
+
+import hyundairoad.hyundairoad.course.domain.Course;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.EnumType.STRING;
+import static lombok.AccessLevel.PROTECTED;
+import static lombok.Builder.Default;
+import static lombok.EqualsAndHashCode.Include;
+
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Member {
+    @Id
+    @Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String email;
+    private String name;
+    private String nickName;
+    private int age;
+
+    private String profileImgUrl;
+
+    @Enumerated(value = STRING)
+    private Gender gender;
+
+    @Enumerated(value = STRING)
+    private Role role;
+
+    @Default
+    @OneToMany(mappedBy = "member")
+    private List<Course> courseList = new ArrayList<>();
+
+    public void changeProfileImg(String newImageUrl) {
+        this.profileImgUrl = newImageUrl;
+    }
+
+}
