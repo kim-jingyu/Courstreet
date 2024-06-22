@@ -58,7 +58,7 @@ function SelectPlace() {
           <PlaceItem
             key={placeId}
             isSelected={places.includes(idx)}
-            srcImg={srcImg}
+            srcImg={`/places/${placeId}.png`}
             name={name}
             rate={rate}
             category={category}
@@ -66,7 +66,6 @@ function SelectPlace() {
           />
         </div>
       ))}
-      <G.NextButton onClick={() => setCurrPage(2)}>코스 생성하기</G.NextButton>
     </>
   );
 }

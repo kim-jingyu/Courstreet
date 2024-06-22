@@ -44,7 +44,7 @@ const textstyle = {
 function TodayPick() {
   return (
     <>
-      <div style={{ margin: '-1px auto 22px 6px', fontSize: '22px', fontWeight: '900', display: 'flex', alignItems: 'center' }}>
+      <div style={{ margin: '-1px auto 22px 6px', fontSize: '25px', fontWeight: '900', display: 'flex', alignItems: 'center', fontFamily: 'Happiness-Sans-Bold'}}>
         <img src={pinImg} style={{width: '25px', margin: '0px 4px'}}></img>
         오늘의 픽
       </div>

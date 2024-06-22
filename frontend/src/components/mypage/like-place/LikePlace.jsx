@@ -1,14 +1,34 @@
 import { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import PlaceItem from '../../place/place-item/PlaceItem';
 import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab } from '../like-post/LikePost.style';
 import { PostButton, PlaceButton } from './LikePlace.style';
 import CourseItem from '../../course/course-item/CourseItem';
+import {
+  placeDummyState,
+} from '/src/recoils/PlaceAtoms';
+import {
+  courseDummyState,
+} from '/src/recoils/CourseAtoms';
+
 
 
 function LikePlace() {
   // 탭 활성화
   const [activeTab, setActiveTab] = useState('likedPlaces');
   const [activeLikeTab, setActiveLikeTab] = useState(true);
+
+  // 좋아하는 장소만 보기
+  const likePlace = useRecoilValue(placeDummyState);
+  const likePlaces = likePlace.filter(dummy => dummy.liked)
+
+  // 좋아하는 코스만 보기
+  const likeCourse = useRecoilValue(courseDummyState);
+  const likeCourses = likeCourse.filter(dummy => dummy.LIKED)
+
+  // 내 코스만 보기
+  const myCourse = useRecoilValue(courseDummyState);
+  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID = 1)
 
   const fetchData = (tab) => {
     switch (tab) {
@@ -92,28 +112,28 @@ function LikePlace() {
       <div>
         {activeTab === 'likedPlaces' && (
           <LikeContainer>
-            {data.map(({ place_id, name, start_time, end_time, floor, location, rate, category, phone, liked }) => (
-              <PlaceItem
-                key={place_id}
-                isSelected={false}
-                srcImg={null}
-                name={name}
-                rate={rate}
-                category={category}
-                startTime={start_time}
-                endTime={end_time}
-                floor={floor}
-                phone={phone}
-                liked={liked}
-                isModal={false}
-              />
+            {likePlaces.map(({ place_id, name, phone, start_time, end_time, floor, location, category, rate, liked }) => (
+              <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
+                <PlaceItem
+                  srcImg={`/places/${place_id}.png`}
+                  name={name}ㅖ
+                  phone={phone}
+                  star={rate}
+                  rate={rate}
+                  category={category}
+                  startTime={start_time}
+                  endTime={end_time}
+                  liked={liked}
+                  floor={floor}
+                />
+              </div>
             ))}
           </LikeContainer>
         )}
 
-        { (activeTab === 'likeCourses' || activeTab === 'myCourses') && (
+        {(activeTab === 'likeCourses' ()) && (
           <LikeContainer>
-            {data.map((item) => (
+            {likeCourses.map((item) => (
               <CourseItem
                 course={item}
                 key={item.course_id}
@@ -121,6 +141,18 @@ function LikePlace() {
             ))}
           </LikeContainer>
         )}
+
+        {(activeTab === 'myCourses') && (
+          <LikeContainer>
+            {myCourses.map((item) => (
+              <CourseItem
+                course={item}
+                key={item.course_id}
+              />
+            ))}
+          </LikeContainer>
+        )}
+        
       </div>
     </>
   );
