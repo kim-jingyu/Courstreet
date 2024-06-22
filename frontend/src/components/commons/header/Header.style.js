@@ -33,3 +33,10 @@ export const SectionImg = styled.img`
   width: 50px;
   height: 50px;
 `;
+
+export const Logo = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+`;

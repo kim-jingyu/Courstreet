@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import PlaceItem from '../../place/place-item/PlaceItem';
 import { Tabs, Tab, FilterContainer, LikeContainer, LikeTab } from '../like-post/LikePost.style';
 import { PostButton, PlaceButton } from './LikePlace.style';
 import CourseItem from '../../course/course-item/CourseItem';
 import {
-  searchedPlacesState,
+  placeDummyState,
 } from '/src/recoils/PlaceAtoms';
+import {
+  courseDummyState,
+} from '/src/recoils/CourseAtoms';
 
 
 
@@ -16,8 +19,17 @@ function LikePlace() {
   const [activeLikeTab, setActiveLikeTab] = useState(true);
 
   // 좋아하는 장소만 보기
-  const likePlace = useRecoilValue(searchedPlacesState);
+  const likePlace = useRecoilValue(placeDummyState);
   const likePlaces = likePlace.filter(dummy => dummy.liked)
+
+  // 좋아하는 코스만 보기
+  const likeCourse = useRecoilValue(courseDummyState);
+  const likeCourses = likeCourse.filter(dummy => dummy.LIKED)
+
+  // 내 코스만 보기
+  const myCourse = useRecoilValue(courseDummyState);
+  const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID = 1)
+
   const fetchData = (tab) => {
     switch (tab) {
       case 'myCourses':
@@ -119,9 +131,9 @@ function LikePlace() {
           </LikeContainer>
         )}
 
-        { (activeTab === 'likeCourses' || activeTab === 'myCourses') && (
+        {(activeTab === 'likeCourses' ()) && (
           <LikeContainer>
-            {data.map((item) => (
+            {likeCourses.map((item) => (
               <CourseItem
                 course={item}
                 key={item.course_id}
@@ -129,6 +141,18 @@ function LikePlace() {
             ))}
           </LikeContainer>
         )}
+
+        {(activeTab === 'myCourses') && (
+          <LikeContainer>
+            {myCourses.map((item) => (
+              <CourseItem
+                course={item}
+                key={item.course_id}
+              />
+            ))}
+          </LikeContainer>
+        )}
+        
       </div>
     </>
   );
