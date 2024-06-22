@@ -65,20 +65,20 @@ function Place() {
         <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
           <PlaceItem
             isSelected={selectedPlaceIds.includes(place_id)}
-            srcImg={FiveGuysImg}
+            srcImg={`/places/${place_id}.png`}
             name={name}
             phone={phone}
-            star
+            star={rate}
             rate={rate}
             category={category}
             startTime={start_time}
             endTime={end_time}
             liked={liked}
+            floor={floor}
           />
         </div>
       ))}
       </ScrollableContainer>
-      <G.NextButton onClick={() => setCurrPage(2)}>일정 생성하기</G.NextButton>
     </>
   );
 }
