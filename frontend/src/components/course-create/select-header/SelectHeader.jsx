@@ -26,6 +26,8 @@ const buttonStyle = {
 }
 
 function SelectHeader() {
+  
+
   // 컴포넌트 이동
   const [current, setCurrent] = useRecoilState(courseCreateIndexState);
   const goNext = () => {
@@ -33,14 +35,14 @@ function SelectHeader() {
       if (loading) return;
       message.loading({
         content: '추천 코스를 생성중입니다..',
-        duration: 2,
+        duration: 1.5,
       });
       setLoading(true);
 
       setTimeout(() => {
         setLoading(false);
         setCurrent(current + 1);
-      }, 2000);
+      }, 1500);
     } else {
       setCurrent(current + 1);
     }
@@ -62,6 +64,8 @@ function SelectHeader() {
       duration: 2,
     });
     setLoading(true);
+
+
 
     setTimeout(() => {
       setLoading(false);
@@ -99,7 +103,7 @@ function SelectHeader() {
         {current === steps.length - 1 && (
           <div style={buttonStyle} onClick={createCourse}>
             {`생성`}
-            <img src={arrowRight} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+            <img src={arrowRight} style={{height: '16px', margin: '0 5px'}} />
           </div>
         )}
       </div>

@@ -39,6 +39,12 @@ export const TitleImage = styled.div`
   height: 200px;
   background-color: ${COLOR.HDLightGray2};
   border: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 박스에 맞게 채움 */
+  }
 `;
 
 export const CourseContent = styled.div`

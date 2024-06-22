@@ -20,7 +20,16 @@ function Course() {
   const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
 
   const navigate = useNavigate();
-  const goCreate = () => navigate('/coursecreate');
+
+  const goCreate = () => {
+    const username = localStorage.getItem('username');
+    if (username === null) {
+      navigate('/login')
+      return
+    }
+    navigate('/coursecreate');
+  };
+  const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
 
   const handleChange = (value) => console.log(`selected ${value}`);
 
@@ -28,6 +37,7 @@ function Course() {
   const pickTheme = (val) => {
     currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
   };
+
 
   // 태그로 검색하기
   const filteredCourses = courseDummy.filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME));
@@ -111,7 +121,7 @@ function Course() {
           
         ))}
 
-          <S.CreateBtn onClick={goCreate} />
+        <S.CreateBtn onClick={goCreate} />
       </div>
     </>
   );
