@@ -8,15 +8,27 @@ export const Container = styled.div`
   align-items: center;
 `
 
-export const CourseTitle = styled.div`
+export const CourseHeader = styled.div`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
+`
+
+export const CourseTitle = styled.div`
   margin-bottom: 5px;
   width: 300px;
   height: 60px;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: bold;
+  word-break: keep-all;
+  text-align: center;
+  font-family: Happiness-Sans-Bold;
+  text-align: center;
+`;
+
+export const MoreIcon = styled.img`
+  width: 10%;
+  text-align: right;
 `;
 
 export const TitleImage = styled.div`

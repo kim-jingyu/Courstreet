@@ -6,6 +6,7 @@ import * as G from '/src/components/course-create/select-course/SelectCourse.sty
 import * as S from './CourseDetail.style';
 import addPhoto from '/src/assets/icons/add-photo.png';
 import PlacePlan from '/src/components/place/place-plan/PlacePlan';
+import more from '/src/assets/icons/more.png'
 
 function SelectDetail() {
   const { courseId } = useParams();
@@ -21,7 +22,10 @@ function SelectDetail() {
   return (
     <>
       <S.Container>
-        <S.CourseTitle>{course.TITLE}</S.CourseTitle>
+        <S.CourseHeader>
+          <S.CourseTitle>{course.TITLE}</S.CourseTitle>
+          <S.MoreIcon src={more} onClick={() => showModal(course.COURSE_ID)}></S.MoreIcon>
+        </S.CourseHeader>
         <S.TitleImage>
           <img src={`/courses/${course.COURSE_ID}.jpg`} />
         </S.TitleImage>

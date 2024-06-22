@@ -6,6 +6,7 @@ import {
   searchedMapState,
   searchedPlacesFloorState,
   searchedPlacesKeywordState,
+  placeDummyState,
 } from '/src/recoils/PlaceAtoms';
 
 import {FixedContainer, ScrollableContainer} from './Place.style.js';
@@ -22,6 +23,8 @@ const { Search } = Input;
 function Place() {
   // 현재 컴포넌트 페이지 인덱스
   const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
+  // 전체 장소
+  const [placeDummy, setPlaceDummy] = useRecoilState(placeDummyState)
   // 검색 결과 장소들
   const searchedPlace = useRecoilValue(searchedPlacesState);
   // 현재까지 선택된 장소들, 지도 이미지, 선택된 층 변경
@@ -40,6 +43,16 @@ function Place() {
   const onSearch = (value, e, info) => {
     setSearchedKeyword(value);
   };
+
+  // 좋아요 누르면 데이터 변경
+  const handleLikeToggle = (place_id) => {
+    setPlaceDummy((prevPlaces) =>
+      prevPlaces.map((place) =>
+        place.place_id === place_id ? { ...place, liked: !place.liked } : place
+      )
+    );
+  };
+
 
   return (
     <>
@@ -75,6 +88,8 @@ function Place() {
             endTime={end_time}
             liked={liked}
             floor={floor}
+            place_id={place_id}
+            onLikeToggle={() => handleLikeToggle(place_id)} 
           />
         </div>
       ))}

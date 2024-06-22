@@ -21,13 +21,24 @@ function Course() {
 
   const navigate = useNavigate();
   const goCreate = () => navigate('/coursecreate');
-  const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
 
   const handleChange = (value) => console.log(`selected ${value}`);
 
   const [currTheme, setCurrTheme] = useState([]);
   const pickTheme = (val) => {
     currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
+  };
+
+  // 태그로 검색하기
+  const filteredCourses = courseDummy.filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME));
+
+  // 좋아요 누르면 코스 데이터 변경
+  const handleCourseLikeToggle = (course_id) => {
+    setCourseDummy((prevCourses) =>
+      prevCourses.map((course) =>
+        course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course
+      )
+    );
   };
 
   const [contents, setContents] = useState([1, 2, 3, 4, 5]);
@@ -56,19 +67,19 @@ function Course() {
               margin: '10px 0 0 -10px',
             }}
           >
-            <CategorySelector isselected={+currTheme.includes(1)} onClick={() => pickTheme(1)}>
+            <CategorySelector isselected={+currTheme.includes('SNS 핫플레이스')} onClick={() => pickTheme('SNS 핫플레이스')}>
               #SNS 핫플레이스
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes(2)} onClick={() => pickTheme(2)}>
+            <CategorySelector isselected={+currTheme.includes('쇼핑은 열정적으로')} onClick={() => pickTheme('쇼핑은 열정적으로')}>
               #쇼핑은 열정적으로
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes(3)} onClick={() => pickTheme(3)}>
+            <CategorySelector isselected={+currTheme.includes('맛있는 미식의 경험')} onClick={() => pickTheme('맛있는 미식의 경험')}>
               #맛있는 미식의 경험
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes(4)} onClick={() => pickTheme(4)}>
+            <CategorySelector isselected={+currTheme.includes('카페인 중독')} onClick={() => pickTheme('카페인 중독')}>
               #카페인 중독
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes(5)} onClick={() => pickTheme(5)}>
+            <CategorySelector isselected={+currTheme.includes('쇼핑이 좋아요')} onClick={() => pickTheme('쇼핑이 좋아요')}>
               #쇼핑이 좋아요
             </CategorySelector>
           </div>
@@ -90,8 +101,14 @@ function Course() {
         </Space>
         <br />
 
-        {courseDummy.map((course) => (
-          <CourseItem key={course.COURSE_ID} course={course} goDetail={() => goDetail(course.COURSE_ID)} />
+        {filteredCourses.map((course) => (
+          <CourseItem 
+            key={course.COURSE_ID} 
+            course={course}
+            onLikeToggle={handleCourseLikeToggle}
+            goDetail={() => goDetail(course.COURSE_ID)}
+        />
+          
         ))}
 
           <S.CreateBtn onClick={goCreate} />

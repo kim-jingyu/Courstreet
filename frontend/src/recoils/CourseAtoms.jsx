@@ -41,7 +41,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 2,
-      MEMBER_ID: 2,
+      MEMBER_ID: 1,
       NICKNAME: '쇼핑천사',
       IMAGE: 'sadsa',
       TITLE: '현대백화점에서 열정적인 쇼핑',
@@ -52,7 +52,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 3,
-      MEMBER_ID: 3,
+      MEMBER_ID: 2,
       NICKNAME: '맛있는미식가',
       IMAGE: '',
       TITLE: '현대백화점의 맛있는 미식 경험',
@@ -63,7 +63,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 4,
-      MEMBER_ID: 4,
+      MEMBER_ID: 2,
       NICKNAME: '커피중독',
       IMAGE: '',
       TITLE: '현대백화점에서의 카페인 중독',
@@ -74,7 +74,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 5,
-      MEMBER_ID: 5,
+      MEMBER_ID: 2,
       NICKNAME: '쇼핑러버',
       IMAGE: '',
       TITLE: '현대백화점에서 즐기는 쇼핑',
@@ -85,7 +85,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 6,
-      MEMBER_ID: 6,
+      MEMBER_ID: 3,
       NICKNAME: 'TRENDY123',
       IMAGE: '',
       TITLE: '현대백화점의 SNS 핫플레이스 탐방',
@@ -96,7 +96,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 7,
-      MEMBER_ID: 7,
+      MEMBER_ID: 3,
       NICKNAME: '쇼핑광',
       IMAGE: '',
       TITLE: '현대백화점 쇼핑 대박!',
@@ -107,7 +107,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 8,
-      MEMBER_ID: 8,
+      MEMBER_ID: 4,
       NICKNAME: 'GOURMET',
       IMAGE: '',
       TITLE: '현대백화점 맛집 탐방기',
@@ -118,7 +118,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 9,
-      MEMBER_ID: 9,
+      MEMBER_ID: 5,
       NICKNAME: 'COFFEELOVER',
       IMAGE: '',
       TITLE: '현대백화점 카페에서 힐링 타임',
@@ -129,7 +129,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 10,
-      MEMBER_ID: 10,
+      MEMBER_ID: 6,
       NICKNAME: 'FASHIONISTA',
       IMAGE: '',
       TITLE: '현대백화점에서 최신 패션 쇼핑',
@@ -140,7 +140,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 11,
-      MEMBER_ID: 11,
+      MEMBER_ID: 6,
       NICKNAME: 'SOCIALMEDIAQUEEN',
       IMAGE: '',
       TITLE: '현대백화점의 인스타 핫플레이스 방문',
@@ -151,7 +151,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 12,
-      MEMBER_ID: 12,
+      MEMBER_ID: 6,
       NICKNAME: 'BARGAINHUNTER',
       IMAGE: '',
       TITLE: '현대백화점에서 알뜰 쇼핑',
@@ -162,7 +162,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 13,
-      MEMBER_ID: 13,
+      MEMBER_ID: 6,
       NICKNAME: 'FOODLOVER',
       IMAGE: '',
       TITLE: '현대백화점 미식의 세계',
@@ -173,7 +173,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 14,
-      MEMBER_ID: 14,
+      MEMBER_ID: 6,
       NICKNAME: 'CAFEHOPPER',
       IMAGE: '',
       TITLE: '현대백화점 카페 탐방기',
@@ -184,7 +184,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 15,
-      MEMBER_ID: 15,
+      MEMBER_ID: 6,
       NICKNAME: 'SHOPAHOLIC',
       IMAGE: '',
       TITLE: '현대백화점에서의 쇼핑 경험',
@@ -195,7 +195,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 16,
-      MEMBER_ID: 16,
+      MEMBER_ID: 7,
       NICKNAME: 'INSTAGLAM',
       IMAGE: '',
       TITLE: '현대백화점에서 인스타 핫플레이스 탐방',
@@ -206,7 +206,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 17,
-      MEMBER_ID: 17,
+      MEMBER_ID: 7,
       NICKNAME: 'BUDGETSHOPPER',
       IMAGE: '',
       TITLE: '현대백화점에서의 알뜰한 쇼핑',
@@ -217,7 +217,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 18,
-      MEMBER_ID: 18,
+      MEMBER_ID: 7,
       NICKNAME: 'FOODIE',
       IMAGE: '',
       TITLE: '현대백화점의 미식 체험',
@@ -228,7 +228,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 19,
-      MEMBER_ID: 19,
+      MEMBER_ID: 8,
       NICKNAME: 'COFFEEADDICT',
       IMAGE: '',
       TITLE: '현대백화점의 카페 문화',
@@ -239,7 +239,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 20,
-      MEMBER_ID: 20,
+      MEMBER_ID: 8,
       NICKNAME: 'SHOPPINGFREAK',
       IMAGE: '',
       TITLE: '현대백화점 쇼핑 후기',
@@ -250,7 +250,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 21,
-      MEMBER_ID: 21,
+      MEMBER_ID: 8,
       NICKNAME: 'TRENDSETTER',
       IMAGE: '',
       TITLE: '현대백화점의 인스타 핫플레이스',
@@ -261,7 +261,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 22,
-      MEMBER_ID: 22,
+      MEMBER_ID: 8,
       NICKNAME: 'DEALHUNTER',
       IMAGE: '',
       TITLE: '현대백화점의 알뜰 쇼핑',
@@ -272,7 +272,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 23,
-      MEMBER_ID: 23,
+      MEMBER_ID: 9,
       NICKNAME: 'CULINARYEXPERT',
       IMAGE: '',
       TITLE: '현대백화점 미식 체험기',
@@ -283,7 +283,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 24,
-      MEMBER_ID: 24,
+      MEMBER_ID: 9,
       NICKNAME: 'CAFELOVER',
       IMAGE: '',
       TITLE: '현대백화점의 카페 투어',
@@ -294,7 +294,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 25,
-      MEMBER_ID: 25,
+      MEMBER_ID: 10,
       NICKNAME: 'FASHIONLOVER',
       IMAGE: '',
       TITLE: '현대백화점에서의 쇼핑 즐거움',
@@ -305,7 +305,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 26,
-      MEMBER_ID: 26,
+      MEMBER_ID: 10,
       NICKNAME: 'SOCIALMEDIASTAR',
       IMAGE: '',
       TITLE: '현대백화점에서의 SNS 핫플레이스 탐방기',
@@ -316,7 +316,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 27,
-      MEMBER_ID: 27,
+      MEMBER_ID: 10,
       NICKNAME: 'SAVVYSHOPPER',
       IMAGE: '',
       TITLE: '현대백화점 알뜰 쇼핑기',
@@ -327,7 +327,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 28,
-      MEMBER_ID: 28,
+      MEMBER_ID: 11,
       NICKNAME: 'GOURMETLOVER',
       IMAGE: '',
       TITLE: '현대백화점의 미식 탐험',
@@ -338,7 +338,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 29,
-      MEMBER_ID: 29,
+      MEMBER_ID: 11,
       NICKNAME: 'COFFEELIFE',
       IMAGE: '',
       TITLE: '현대백화점 카페에서의 힐링',
@@ -349,7 +349,7 @@ export const courseDummyState = atom({
     },
     {
       COURSE_ID: 30,
-      MEMBER_ID: 30,
+      MEMBER_ID: 11,
       NICKNAME: 'FASHIONISTA2024',
       IMAGE: '',
       TITLE: '현대백화점 쇼핑의 즐거움',

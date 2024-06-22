@@ -34,6 +34,7 @@ export const searchedPlacesState = selector({
     }
     return searchedPlaces;
   },
+  set: ({ set }, newValue) => set(placeDummyState, newValue),
 });
 
 // 지도 검색 조건(층 + 장소번호)

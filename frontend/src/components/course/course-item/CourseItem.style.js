@@ -117,10 +117,23 @@ export const ModalBtn = styled.div`
   button {
     width: 100%;
     height: 50%;
-    font-size: 23px;
+    font-size: 16px;
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
   }
+`;
+
+export const ModalTitle = styled.div`
+  width: 100%;
+  display: block;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 18px;
+  font-family: Happiness-Sans-Bold;
+  margin-bottom: 10px;
 `;
