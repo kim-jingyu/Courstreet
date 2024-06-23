@@ -70,3 +70,4 @@ export const FooterDetails = styled.div`
   color: #888;
   margin-top: 5px;
 `;
+
