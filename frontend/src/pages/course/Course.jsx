@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { courseDummyState } from '/src/recoils/CourseAtoms';
@@ -14,41 +14,47 @@ import { Input } from 'antd';
 import LikePost from '/src/components/mypage/like-post/LikePost';
 import CourseLikeItem from '/src/components/course/course-like-item/CourseLikeItem';
 const { Search } = Input;
-import courseAPI from '/src/api/course/courseAPI.jsx';
+// import courseAPI from '/src/api/course/courseAPI.jsx';
 
 function Course() {
-  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
-
+  // 네비게이트
   const navigate = useNavigate();
   const goCreate = () => {
     const username = localStorage.getItem('username');
     if (username === null) {
-      navigate('/login')
-      return
+      navigate('/login');
+      return;
     }
     navigate('/coursecreate');
   };
   const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
 
+  // 데이터
+  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const handleChange = (value) => console.log(`selected ${value}`);
   const [currTheme, setCurrTheme] = useState([]);
+  const [currKeyword, setCurrKeyword] = useState('');
   const pickTheme = (val) => {
     currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
   };
+  const onSearch = (keyword) => setCurrKeyword(keyword);
 
-  // 태그로 검색하기
-  const filteredCourses = courseDummy.filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME));
+  // 검색 및 필터랑
+  useEffect(() => {
+    setFilteredCourses(
+      courseDummy
+        .filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME))
+        .filter((dummy) => currKeyword === '' || dummy.TITLE.includes(currKeyword)),
+    );
+  }, [currTheme, currKeyword]);
 
   // 좋아요 누르면 코스 데이터 변경
   const handleCourseLikeToggle = (course_id) => {
     setCourseDummy((prevCourses) =>
-      prevCourses.map((course) =>
-        course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course
-      )
+      prevCourses.map((course) => (course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course)),
     );
   };
-
-  const [contents, setContents] = useState([1, 2, 3, 4, 5]);
 
   // const [contents, setContents] = useState([]);
   // useEffect(() => {
@@ -74,20 +80,32 @@ function Course() {
               margin: '10px 0 0 -10px',
             }}
           >
-            <CategorySelector isselected={+currTheme.includes('SNS 핫플레이스')} onClick={() => pickTheme('SNS 핫플레이스')}>
+            <CategorySelector
+              isselected={+currTheme.includes('SNS 핫플레이스')}
+              onClick={() => pickTheme('SNS 핫플레이스')}
+            >
               #SNS 핫플레이스
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes('쇼핑은 열정적으로')} onClick={() => pickTheme('쇼핑은 열정적으로')}>
+            <CategorySelector
+              isselected={+currTheme.includes('쇼핑은 열정적으로')}
+              onClick={() => pickTheme('쇼핑은 열정적으로')}
+            >
               #쇼핑은 열정적으로
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes('맛있는 미식의 경험')} onClick={() => pickTheme('맛있는 미식의 경험')}>
+            <CategorySelector
+              isselected={+currTheme.includes('맛있는 미식의 경험')}
+              onClick={() => pickTheme('맛있는 미식의 경험')}
+            >
               #맛있는 미식의 경험
             </CategorySelector>
             <CategorySelector isselected={+currTheme.includes('카페인 중독')} onClick={() => pickTheme('카페인 중독')}>
               #카페인 중독
             </CategorySelector>
-            <CategorySelector isselected={+currTheme.includes('쇼핑이 좋아요')} onClick={() => pickTheme('쇼핑이 좋아요')}>
-              #쇼핑이 좋아요
+            <CategorySelector
+              isselected={+currTheme.includes('도심 속 힐링')}
+              onClick={() => pickTheme('도심 속 힐링')}
+            >
+              #도심 속 힐링
             </CategorySelector>
           </div>
         </div>
@@ -109,13 +127,12 @@ function Course() {
         <br />
 
         {filteredCourses.map((course) => (
-          <CourseItem 
-            key={course.COURSE_ID} 
+          <CourseItem
+            key={course.COURSE_ID}
             course={course}
             onLikeToggle={handleCourseLikeToggle}
             goDetail={() => goDetail(course.COURSE_ID)}
-        />
-          
+          />
         ))}
 
         <S.CreateBtn onClick={goCreate} />

@@ -41,7 +41,7 @@ function SelectCategory() {
       <div style={CalenderStyle}>
         <Calendar fullscreen={false} onSelect={onSelect} />
       </div>
-      <TimePicker.RangePicker placeholder={['방문예정시간', '방문종료시간']} use12Hours format="h:mm a" onChange={onTimeChange} size="large" />
+      <TimePicker.RangePicker placeholder={['방문예정시간', '방문종료시간']} use12Hours format="h a" onChange={onTimeChange} size="large" />
       <br /> <br />
       <G.ComponentTitle>누구와 함께</G.ComponentTitle>
       <S.Section>
@@ -74,7 +74,7 @@ function SelectCategory() {
           #카페인 중독
         </S.CategorySelector>
         <S.CategorySelector isselected={+(currTheme === 5)} onClick={() => pickTheme(5)}>
-          #쇼핑이 좋아요
+          #도심 속 힐링
         </S.CategorySelector>
       </S.Section>
       <br /> <br />

@@ -30,7 +30,7 @@ function PlacePlan() {
   const { courseId } = useParams();
   const location = useLocation();
   const currentUrl = location.pathname;
-  const isDraggable = currentUrl.startsWith('/coursecreate');
+  const isDraggable = currentUrl.startsWith('/coursecreate') || currentUrl.startsWith('/courseupdate');
   const [selectedPlaceIds, setselectedPlaceIds] = useRecoilState(selectedPlaceIdsState);
   // 데이터 관련 변수
   const coursePlaceDummy = useRecoilValue(coursePlaceDummyState);
@@ -39,7 +39,7 @@ function PlacePlan() {
   const [places, setPlaces] = useRecoilState(currPlacePlanState);
   // 데이터 받기
   useEffect(() => {
-    if (isDraggable) {
+    if (currentUrl.startsWith('/coursecreate')) {
       setselectedPlaceIds([]);
       setPlaces(placePlanDummy);
       return;

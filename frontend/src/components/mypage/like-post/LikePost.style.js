@@ -53,6 +53,7 @@ export const PlaceButton = styled.button`
 export const LikeContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const LikeItem = styled.div`

@@ -52,7 +52,7 @@ function SelectHeader() {
   const [currTheme, setCurrTheme] = useRecoilState(themeCategoryState);
   const [currGender, setCurrGender] = useRecoilState(genderCategoryState);
   const [currAge, setCurrAge] = useRecoilState(ageCategoryState);
-  const themes = ['SNS 핫플레이스', '쇼핑은 열정적으로', '맛있는 미식의 경험', '카페인 중독', '쇼핑이 좋아요'];
+  const themes = ['SNS 핫플레이스', '쇼핑은 열정적으로', '맛있는 미식의 경험', '카페인 중독', ' 도심 속 힐링'];
 
   // 컴포넌트 이동
   const [current, setCurrent] = useRecoilState(courseCreateIndexState);

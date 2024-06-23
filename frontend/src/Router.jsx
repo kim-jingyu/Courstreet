@@ -30,6 +30,11 @@ const router = createBrowserRouter([
         errorElement: <PAGE.NotFound />,
       },
       {
+        path: PATH.CourseUpdate,
+        element: <PAGE.CourseUpdate />,
+        errorElement: <PAGE.NotFound />,
+      },
+      {
         path: PATH.MyPage,
         element: <PAGE.MyPage />,
         errorElement: <PAGE.NotFound />,
@@ -47,6 +52,16 @@ const router = createBrowserRouter([
       {
         path: PATH.PwFind,
         element: <PAGE.PasswordFind />,
+        errorElement: <PAGE.NotFound />,
+      },
+      {
+        path: PATH.GoogleLoginComponent,
+        element: <PAGE.GoogleLoginComponent />,
+        errorElement: <PAGE.NotFound />,
+      },
+      {
+        path: PATH.GoogleCallback,
+        element: <PAGE.GoogleCallback />,
         errorElement: <PAGE.NotFound />,
       },
     ],

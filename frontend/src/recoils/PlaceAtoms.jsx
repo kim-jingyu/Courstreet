@@ -343,7 +343,7 @@ export const placeDummyState = atom({
       floor: 6,
       location: '6-13',
       category: '카페',
-      rate: 3.3,
+      rate: 4.9,
       liked: true,
     },
     {
@@ -643,7 +643,7 @@ export const placeDummyState = atom({
       floor: 5,
       location: '5-27',
       category: '쇼핑',
-      rate: 2.3,
+      rate: 4.2,
       liked: false,
     },
     {
@@ -691,7 +691,7 @@ export const placeDummyState = atom({
       floor: 5,
       location: '5-29',
       category: '엔터테인먼트',
-      rate: 1.1,
+      rate: 2.3,
       liked: true,
     },
     {
@@ -708,7 +708,7 @@ export const placeDummyState = atom({
     },
     {
       place_id: 56,
-      name: '서울포레스트',
+      name: '사운즈 포레스트',
       phone: '02-3277-8549',
       start_time: '2024-06-01 13:00',
       end_time: '2024-06-01 20:00',

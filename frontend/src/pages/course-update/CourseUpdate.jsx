@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { courseDummyState, coursePlaceDummyState } from '/src/recoils/CourseAtoms';
-import * as S from './CourseDetail.style';
+import * as S from './CourseUpdate.style';
 import PlacePlan from '/src/components/place/place-plan/PlacePlan';
 import more from '/src/assets/icons/more.png'
 
-function CourseDetail() {
+function CourseUpdate() {
   const { courseId } = useParams();
   const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
   const [course, setCourse] = useState({});
@@ -37,4 +37,4 @@ function CourseDetail() {
   );
 }
 
-export default CourseDetail;
+export default CourseUpdate;
