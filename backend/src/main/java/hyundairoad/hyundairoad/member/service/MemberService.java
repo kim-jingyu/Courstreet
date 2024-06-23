@@ -5,6 +5,7 @@ import hyundairoad.hyundairoad.course.exception.CourseNotFoundException;
 import hyundairoad.hyundairoad.course.repository.CourseRepository;
 import hyundairoad.hyundairoad.image.service.ImageService;
 import hyundairoad.hyundairoad.member.domain.Member;
+import hyundairoad.hyundairoad.member.domain.auth.dto.JoinRequest;
 import hyundairoad.hyundairoad.member.domain.like.MemberCourseLike;
 import hyundairoad.hyundairoad.member.domain.like.MemberPlaceLike;
 import hyundairoad.hyundairoad.member.domain.like.dto.LikeCourseRequest;
@@ -18,6 +19,7 @@ import hyundairoad.hyundairoad.place.exception.PlaceNotFoundException;
 import hyundairoad.hyundairoad.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +40,7 @@ public class MemberService {
     private final CourseRepository courseRepository;
     private final PlaceRepository placeRepository;
     private final ImageService imageService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String saveProfileImage(Long memberId, MultipartFile multipartFile) throws IOException {
         Member member = getMember(memberId);
@@ -91,11 +94,20 @@ public class MemberService {
         return memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
     }
 
+    public Member getMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
+    }
+
     private Course getCourse(Long courseId) {
         return courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
     private Place getPlace(Long placeId) {
         return placeRepository.findById(placeId).orElseThrow(PlaceNotFoundException::new);
+    }
+
+    public void securityJoin(JoinRequest joinRequest) {
+        joinRequest.setPassword(bCryptPasswordEncoder.encode(joinRequest.getPassword()));
+        memberRepository.save(joinRequest.toEntity());
     }
 }

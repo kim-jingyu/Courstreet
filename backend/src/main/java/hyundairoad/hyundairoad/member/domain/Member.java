@@ -24,11 +24,15 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    private String password;
     private String name;
     private String nickName;
     private int age;
 
     private String profileImgUrl;
+
+    private String provider;
+    private String providerId;
 
     @Enumerated(value = STRING)
     private Gender gender;
