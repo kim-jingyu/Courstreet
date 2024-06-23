@@ -17,13 +17,14 @@ import static lombok.EqualsAndHashCode.Include;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Member {
     @Id
     @Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    @Setter
     private String password;
     private String name;
     private String nickName;
@@ -40,8 +41,10 @@ public class Member {
     @Enumerated(value = STRING)
     private Role role;
 
+    @Setter
     @Default
     @OneToMany(mappedBy = "member")
+    @ToString.Exclude
     private List<Course> courseList = new ArrayList<>();
 
     public void changeProfileImg(String newImageUrl) {

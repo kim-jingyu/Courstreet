@@ -19,7 +19,6 @@ import hyundairoad.hyundairoad.place.exception.PlaceNotFoundException;
 import hyundairoad.hyundairoad.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +39,6 @@ public class MemberService {
     private final CourseRepository courseRepository;
     private final PlaceRepository placeRepository;
     private final ImageService imageService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String saveProfileImage(Long memberId, MultipartFile multipartFile) throws IOException {
         Member member = getMember(memberId);
@@ -107,7 +105,6 @@ public class MemberService {
     }
 
     public void securityJoin(JoinRequest joinRequest) {
-        joinRequest.setPassword(bCryptPasswordEncoder.encode(joinRequest.getPassword()));
         memberRepository.save(joinRequest.toEntity());
     }
 }
