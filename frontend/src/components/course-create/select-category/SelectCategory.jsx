@@ -1,18 +1,9 @@
-import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { withCategoryState, themeCategoryState, genderCategoryState, ageCategoryState } from '/src/recoils/CourseAtoms';
-import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 
 import * as S from './SelectCategory.style';
 import * as G from '../CourseCreateComponent.style';
-
 import { Calendar, TimePicker, theme } from 'antd';
-
-const steps = [{ title: 'First' }, { title: 'Second' }, { title: 'Last' }];
-const categories = {
-  categories: {title: '누구와 함께', data: [['혼자', 1], ['친구', 2], ['연인', 3], ['부모님', 4]]},
-
-}
 
 function SelectCategory() {
   // antd 토큰
@@ -38,11 +29,9 @@ function SelectCategory() {
   const [currTheme, setCurrTheme] = useRecoilState(themeCategoryState);
   const [currGender, setCurrGender] = useRecoilState(genderCategoryState);
   const [currAge, setCurrAge] = useRecoilState(ageCategoryState);
-  const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
 
   const pickWith = (val) => (currWith === val ? setCurrWith(0) : setCurrWith(val));
-  const pickTheme = (val) =>
-    currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
+  const pickTheme = (val) => currTheme === val ? setCurrTheme(0) : setCurrTheme(val);
   const pickGender = (val) => (currGender === val ? setCurrGender(0) : setCurrGender(val));
   const pickAge = (val) => (currAge === val ? setCurrAge(0) : setCurrAge(val));
 
@@ -72,19 +61,19 @@ function SelectCategory() {
       <br /> <br />
       <G.ComponentTitle>방문 테마</G.ComponentTitle>
       <S.Section>
-        <S.CategorySelector isselected={+currTheme.includes(1)} onClick={() => pickTheme(1)}>
+        <S.CategorySelector isselected={+(currTheme === 1)} onClick={() => pickTheme(1)}>
           #SNS 핫플레이스
         </S.CategorySelector>
-        <S.CategorySelector isselected={+currTheme.includes(2)} onClick={() => pickTheme(2)}>
+        <S.CategorySelector isselected={+(currTheme === 2)} onClick={() => pickTheme(2)}>
           #쇼핑은 열정적으로
         </S.CategorySelector>
-        <S.CategorySelector isselected={+currTheme.includes(3)} onClick={() => pickTheme(3)}>
+        <S.CategorySelector isselected={+(currTheme === 3)} onClick={() => pickTheme(3)}>
           #맛있는 미식의 경험
         </S.CategorySelector>
-        <S.CategorySelector isselected={+currTheme.includes(4)} onClick={() => pickTheme(4)}>
+        <S.CategorySelector isselected={+(currTheme === 4)} onClick={() => pickTheme(4)}>
           #카페인 중독
         </S.CategorySelector>
-        <S.CategorySelector isselected={+currTheme.includes(5)} onClick={() => pickTheme(5)}>
+        <S.CategorySelector isselected={+(currTheme === 5)} onClick={() => pickTheme(5)}>
           #쇼핑이 좋아요
         </S.CategorySelector>
       </S.Section>

@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { coursePlaceDummyState } from '/src/recoils/CourseAtoms';
-import { placeDummyState } from '/src/recoils/PlaceAtoms';
+import { placeDummyState, selectedPlaceIdsState } from '/src/recoils/PlaceAtoms';
+import { currPlacePlanState, placePlanDummyState } from '/src/recoils/HeaderAtoms';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Modal } from 'antd';
 import {
   FooterDetails,
   ItemDetails,
   ItemImage,
+  ItemInfo,
   ItemRating,
   ItemTag,
   ItemTitle,
@@ -19,89 +21,31 @@ import * as S from './PlacePlan.style';
 import { StarFilled } from '@ant-design/icons';
 import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';
 import AddPlace from '/src/assets/icons/add-circle.png';
+import informationIcon from '/src/assets/icons/information.png'
+import Place from '/src/pages/place/Place';
+import PlaceItem from '../place-item/PlaceItem';
 
-const createDummy = [
-  {
-    info: {
-      place_id: 3,
-      name: '랑만',
-      phone: '02-3277-0656',
-      start_time: '2024-06-01 13:00',
-      end_time: '2024-06-01 20:00',
-      floor: 6,
-      location: '6-3',
-      category: '식당',
-      rate: 3.2,
-      liked: false,
-    },
-    memo: '',
-  },
-  {
-    info: {
-      place_id: 24,
-      name: '슈퍼말차',
-      phone: '02-3277-8517',
-      start_time: '2024-06-01 13:00',
-      end_time: '2024-06-01 20:00',
-      floor: 6,
-      location: '6-13',
-      category: '카페',
-      rate: 3.3,
-      liked: true,
-    },
-    memo: '',
-  },
-  {
-    info: {
-      place_id: 53,
-      name: '디즈니스토어',
-      phone: '02-3277-8546',
-      start_time: '2024-06-01 13:00',
-      end_time: '2024-06-01 20:00',
-      floor: 5,
-      location: '5-29',
-      category: '엔터테인먼트',
-      rate: 1.1,
-      liked: true,
-    },
-    memo: '',
-  },
-  {
-    info: {
-      place_id: 49,
-      name: '록시땅',
-      phone: '02-3277-8542',
-      start_time: '2024-06-01 13:00',
-      end_time: '2024-06-01 20:00',
-      floor: 5,
-      location: '5-27',
-      category: '쇼핑',
-      rate: 2.3,
-      liked: false,
-    },
-    memo: '',
-  },
-];
 
 function PlacePlan() {
   const { courseId } = useParams();
   const location = useLocation();
   const currentUrl = location.pathname;
   const isDraggable = currentUrl.startsWith('/coursecreate');
+  const [selectedPlaceIds, setselectedPlaceIds] = useRecoilState(selectedPlaceIdsState);
   // 데이터 관련 변수
-  const [coursePlaceDummy, setCoursePlaceDummy] = useRecoilState(coursePlaceDummyState);
-  const [coursePlace, setCoursePlace] = useState({});
-  const [placeDummy, setPlaceDummy] = useRecoilState(placeDummyState);
-  const [places, setPlaces] = useState([]);
+  const coursePlaceDummy = useRecoilValue(coursePlaceDummyState);
+  const placeDummy = useRecoilValue(placeDummyState);
+  const placePlanDummy = useRecoilValue(placePlanDummyState);
+  const [places, setPlaces] = useRecoilState(currPlacePlanState);
   // 데이터 받기
   useEffect(() => {
     if (isDraggable) {
-      setPlaces(createDummy);
+      setselectedPlaceIds([]);
+      setPlaces(placePlanDummy);
       return;
     }
     if (courseId === undefined) return;
     const res = coursePlaceDummy.find((coursePlace) => coursePlace.COURSE_ID === parseInt(courseId));
-    setCoursePlace(res);
     setPlaces([]);
     for (const [PLACE_ID, MEMO] of res.PLACES) {
       const place = placeDummy.find((place) => place.place_id === PLACE_ID);
@@ -120,15 +64,14 @@ function PlacePlan() {
   const [deletedIdx, setDeletedIdx] = useState(0);
   // 메모 입력
   const changeContent = (content, place_id) => {
-    console.log(content, place_id);
-    if (content.length > 100) return; // 메모 길이 제한
-    setPlaces((prevItems) =>
-      prevItems.map((item) => (item.info.place_id === place_id ? { info: item.info, memo: content } : item)),
+    if (content.length > 200) return; // 메모 길이 제한
+    setPlaces((prevPlaces) =>
+      prevPlaces.map((place) => (place.info.place_id === place_id ? { info: place.info, memo: content } : place)),
     );
   };
   // 아이템 삭제
   const removePlace = (place_id) => {
-    setPlaces((prevItems) => prevItems.filter((item) => item.info.place_id !== place_id));
+    setPlaces((prevPlaces) => prevPlaces.filter((place) => place.info.place_id !== place_id));
   };
   // 아이템 재정렬
   const onDragEnd = (result) => {
@@ -140,11 +83,31 @@ function PlacePlan() {
     reorderedItems.splice(result.destination.index, 0, reorderedItem);
     setPlaces(reorderedItems);
   };
-  const addPlace = () => {
-    console.log('add Item!');
+
+  // 장소 추가 모달
+  const [addOpen, setAddOpen] = useState(false);
+  const [confirmAddLoading, setConfirmAddLoading] = useState(false);
+  const showAddModal = () => {
+    setAddOpen(true);
+  };
+  const handleAddOk = () => {
+    const newPlaces = placeDummy.filter((place) => selectedPlaceIds.includes(place.place_id));
+    console.log(newPlaces);
+    for (const place of newPlaces) {
+      setPlaces((prev) => [...prev, { info: place, memo: '' }]);
+    }
+    setConfirmAddLoading(true);
+    setTimeout(() => {
+      setAddOpen(false);
+      setConfirmAddLoading(false);
+      setselectedPlaceIds([]);
+    }, 100);
+  };
+  const handleAddCancel = () => {
+    setAddOpen(false);
   };
 
-  // 모달 관련 변수
+  // 장소 삭제 모달
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState('정말 삭제하시겠습니까?');
@@ -153,7 +116,7 @@ function PlacePlan() {
     setOpen(true);
   };
   // 모달 확인 클릭
-  const handleOk = (id) => {
+  const handleOk = () => {
     setModalText('장소를 삭제중입니다..');
     setConfirmLoading(true);
     // 희박하지만 setDeletedIdx가 느리다면 오류 가능성
@@ -168,6 +131,28 @@ function PlacePlan() {
   const handleCancel = () => {
     setOpen(false);
   };
+
+  // 장소 상세정보 모달  
+  const [openDetail, setOpenDetail] = useState(false);
+  const [modalTextDetail, setModalTextDetail] = useState('');
+  // 모달 오픈
+  const showDetailModal = (placeDetail) => {
+    console.log(placeDetail);
+    setModalTextDetail(placeDetail);
+    setOpenDetail(true);
+  };
+  // 모달 취소 클릭
+  const handleCancelDetail = () => {
+    setOpenDetail(false);
+  };
+
+  // // 좋아요 클릭
+  // const [isLiked, setIsLiked] = useState(liked);
+  // const toggleLiked = () => {
+  //   setIsLiked(!isLiked);
+  //   onLikeToggle()
+  // };
+
 
   return (
     <>
@@ -192,7 +177,12 @@ function PlacePlan() {
                         <LikeItem>
                           <ItemImage src={`/places/${info.place_id}.png`} />
                           <ItemDetails>
-                            <ItemTitle>{info.name}</ItemTitle>
+                            <ItemTitle>
+                              {info.name}
+                              <ItemInfo
+                                src={informationIcon} onClick={() => showDetailModal(info)}
+                              ></ItemInfo>
+                            </ItemTitle>
                             <ItemRating>
                               <StarFilled style={{ color: '#FADB14' }} /> {info.rate}
                               <ItemTag>{info.category}</ItemTag>
@@ -208,15 +198,15 @@ function PlacePlan() {
                             />
                           )}
                         </LikeItem>
-                        {isDraggable && (
+                        {isDraggable ? (
                           <S.Content
                             placeholder="메모 입력"
                             onChange={(event) => changeContent(event.target.value, info.place_id)}
-                            // onChange={(event) => {console.log(event.target.value)}}
                             value={memo}
                           />
+                        ) : (
+                          <S.ContentDiv>{memo}</S.ContentDiv>
                         )}
-                        {!isDraggable && <S.ContentDiv>{memo}</S.ContentDiv>}
                       </LikeContainer>
                     </S.Wrapper>
                   )}
@@ -229,14 +219,58 @@ function PlacePlan() {
       </DragDropContext>
       <br />
       {isDraggable && (
-        <S.AddButton onClick={addPlace}>
+        <S.AddButton onClick={showAddModal}>
           <img style={{ width: '40px', height: '40px' }} src={AddPlace} />
           <div style={{ fontSize: '14px' }}>장소 추가하기</div>
         </S.AddButton>
       )}
       <br /> <br /> <br />
-      <Modal title="삭제" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+      <Modal title="장소 삭제" open={open} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
         <p>{modalText}</p>
+      </Modal>
+      <br /> <br /> <br />
+      <Modal
+        title="장소 추가"
+        centered
+        open={addOpen}
+        onOk={handleAddOk}
+        confirmLoading={confirmAddLoading}
+        onCancel={handleAddCancel}
+      >
+        <Place style={{ height: '500px' }} />
+      </Modal>
+
+      <Modal title="장소 정보" open={openDetail} onCancel={handleCancelDetail} footer={null}>
+        {modalTextDetail !== '' ? (
+          <>
+          <PlaceItem
+            isSelected={false}
+            srcImg={`/places/${modalTextDetail.place_id}.png`}
+            name={modalTextDetail.name}
+            rate={modalTextDetail.rate}
+            category={modalTextDetail.category}
+            startTime={modalTextDetail.start_time}
+            endTime={modalTextDetail.end_time}
+            floor={modalTextDetail.floor}
+            liked={false}
+            isModal={true}
+          />
+          <div>
+          <strong>전화번호</strong> : {modalTextDetail.phone} <br/>
+          <br/>
+          <strong>영업시간</strong><br/>
+          월 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          화 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          수 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          목 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          금 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          토 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          일 : {formatTime(modalTextDetail.start_time)} ~ {formatTime(modalTextDetail.end_time)}<br/>
+          </div>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
       </Modal>
     </>
   );

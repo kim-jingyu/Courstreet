@@ -9,7 +9,7 @@ export const withCategoryState = atom({
 // 테마 키워드
 export const themeCategoryState = atom({
   key: 'themeCategoryState',
-  default: [],
+  default: 0,
 });
 
 // 성별 키워드

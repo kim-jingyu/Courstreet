@@ -1,7 +1,17 @@
 import { useEffect } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
-import { searchedMapState, searchedPlacesFloorState, searchedPlacesKeywordState, selectedPlaceIdsState } from '/src/recoils/PlaceAtoms';
+import {
+  courseCreateContentState,
+  courseCreateIndexState,
+  courseCreateTitleState,
+  currPlacePlanState,
+} from '/src/recoils/HeaderAtoms';
+import {
+  searchedMapState,
+  searchedPlacesFloorState,
+  searchedPlacesKeywordState,
+  selectedPlaceIdsState,
+} from '/src/recoils/PlaceAtoms';
 import SelectCategory from '/src/components/course-create/select-category/SelectCategory';
 import SelectCourse from '/src/components/course-create/select-course/SelectCourse';
 import Place from '../place/Place';
@@ -21,18 +31,24 @@ function CourseCreate() {
   const resetThemeCategory = useResetRecoilState(themeCategoryState);
   const resetGenderCategory = useResetRecoilState(genderCategoryState);
   const resetAgeCategory = useResetRecoilState(ageCategoryState);
+  const resetCurrPlacePlan = useResetRecoilState(currPlacePlanState);
+  const resetCourseCreateTitle = useResetRecoilState(courseCreateTitleState);
+  const resetCreateContent = useResetRecoilState(courseCreateContentState);
 
-useEffect(() => {
-  return () => {
-    resetCourseCreateIndex();
-    resetSelectedPlaceIds();
-    resetSearchedPlacesFloor();
-    resetSearchedPlacesKeyword();
-    resetSearchedMapState();
-    resetWithCategory();
-    resetThemeCategory();
-    resetGenderCategory();
-    resetAgeCategory();
+  useEffect(() => {
+    return () => {
+      resetCourseCreateIndex();
+      resetSelectedPlaceIds();
+      resetSearchedPlacesFloor();
+      resetSearchedPlacesKeyword();
+      resetSearchedMapState();
+      resetWithCategory();
+      resetThemeCategory();
+      resetGenderCategory();
+      resetAgeCategory();
+      resetCurrPlacePlan();
+      resetCourseCreateTitle();
+      resetCreateContent();
     };
   }, []);
 

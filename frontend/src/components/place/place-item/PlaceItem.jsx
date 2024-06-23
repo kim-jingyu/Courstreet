@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { Button, Modal } from 'antd';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import {
   FooterDetails,
   ItemDetails,
@@ -34,6 +36,8 @@ function formatTime(dateString) {
 
 
 function PlaceItem({ isSelected, srcImg, name, rate, category, floor, startTime, endTime, onClick, liked, phone, isModal = false, onLikeToggle}) {
+  const currPage = useRecoilValue(courseCreateIndexState);
+  
   // 현재 URL
   const location = useLocation();
   const currentUrl = location.pathname;

@@ -35,7 +35,8 @@ export const Line = styled.div`
 `;
 
 export const Content = styled.textarea`
-  margin: -5px 0 30px 0;
+  margin: -5px 0 30px;
+  width: 310px;
   height: 50px;
   border: 1px solid ${COLOR.HDLigthGray1};
   font-size: 15px;
@@ -43,7 +44,8 @@ export const Content = styled.textarea`
 `;
 
 export const ContentDiv = styled.div`
-  margin: -5px 0 30px 0;
+  margin: -5px 0 30px;
+  width: 310px;
   height: 50px;
   font-size: 15px;
   font-weight: 500;

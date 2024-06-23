@@ -1,7 +1,10 @@
+import { courseDummyState } from '/src/recoils/CourseAtoms';
+import { useRecoilState } from 'recoil';
 import { Carousel } from 'antd';
 import carousel1 from '/src/assets/icons/carousel1.png';
 import carousel2 from '/src/assets/icons/carousel2.png';
 import pinImg from '/src/assets/icons/todaypick-pin.png';
+import { useEffect, useState } from 'react';
 
 const contentStyle = {
   display: 'flex',
@@ -11,60 +14,57 @@ const contentStyle = {
   padding: 0,
   // width: '100%',
   height: '300px',
-  backgroundImage: `url(${carousel1})`, // 이미지 파일 경로 설정
-  backgroundSize: 'cover', // 배경 이미지 크기 설정
 };
 
-const contentStyle2 = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: '0 auto',
-  padding: 0,
+const imageStyle = {
   width: '100%',
-  height: '300px',
-  backgroundImage: `url(${carousel2})`, // 이미지 파일 경로 설정
-  backgroundSize: 'cover', // 배경 이미지 크기 설정
+  height: '100%',
+  objectFit: 'cover',
 };
 
 const textstyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '5px 60px',
-
+  padding: '5px 15px 15px 15px',
   fontSize: '24px',
-  fontWeight: '900',
+  fontFamily: 'Happiness-Sans-Bold',
   textAlign: 'center',
-  // whiteSpace: 'nowrap', // 줄 바꿈 금지
+  whiteSpace: 'nowrap', // 줄 바꿈 금지
   overflow: 'hidden', // 넘치는 부분 숨김
   textOverflow: 'ellipsis', // 넘치는 텍스트에 '...' 추가
 };
 
 function TodayPick() {
+  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
+  const ids = [10, 4, 26, 9, 27];
+  const [picks, setPicks] = useState([]);
+
+  useEffect(() => {
+    setPicks(courseDummy.filter((course) => ids.includes(course.COURSE_ID)));
+  }, []);
+
   return (
     <>
-      <div style={{ margin: '-1px auto 22px 6px', fontSize: '25px', fontWeight: '900', display: 'flex', alignItems: 'center', fontFamily: 'Happiness-Sans-Bold'}}>
-        <img src={pinImg} style={{width: '25px', margin: '0px 4px'}}></img>
+      <div
+        style={{
+          margin: '-1px auto 22px 6px',
+          fontSize: '25px',
+          fontWeight: '900',
+          display: 'flex',
+          alignItems: 'center',
+          fontFamily: 'Happiness-Sans-Bold',
+        }}
+      >
+        <img src={pinImg} style={{ width: '25px', margin: '0px 4px' }}></img>
         오늘의 픽
       </div>
       <Carousel autoplay arrows infinite={true}>
-        <div>
-          <div style={contentStyle}></div>
-          <h1 style={textstyle}>더 현대 100% 즐기기 코스 with 팝업스토어</h1>
-        </div>
-        <div>
-          <div style={contentStyle2}></div>
-          <h1 style={textstyle}>일상에 지친 5월 더현대 힐링 코스</h1>
-        </div>
-        <div>
-          <div style={contentStyle}></div>
-          <h1 style={textstyle}>더 현대 100% 즐기기 코스 with 팝업스토어</h1>
-        </div>
-        <div>
-          <div style={contentStyle2}></div>
-          <h1 style={textstyle}>일상에 지친 5월 더현대 힐링 코스</h1>
-        </div>
+        {picks.map((course) => (
+          <div>
+            <div style={contentStyle}>
+              <img style={imageStyle} src={`/courses/${course.COURSE_ID}.jpg`} />
+            </div>
+            <h1 style={textstyle}>{course.TITLE}</h1>
+          </div>
+        ))}
       </Carousel>
     </>
   );

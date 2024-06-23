@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const CourseTitle = styled.input`
   display: flex;
@@ -15,7 +15,7 @@ export const CourseTitle = styled.input`
   width: 300px;
   height: 60px;
   font-size: 19px;
-  font-weight: bold;
+  font-family: "Happiness-Sans-Bold";
   background-color: transparent;
   border: none;
   text-align: center;
@@ -28,15 +28,23 @@ export const TitleImage = styled.div`
   width: 100%;
   height: 200px;
   background-color: ${COLOR.HDLightGray2};
-  border: none;
+  label {
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 박스에 맞게 채움 */
+  }
 `;
 
 export const CourseContent = styled.textarea`
-margin-bottom: 20px;
-padding: 50px 30px 10px 30px;
-width: 300px;
-height: 130px;
-font-size: 15px;
-line-height: 30px;
-border: none;
+  margin-bottom: 20px;
+  padding: 50px 30px 10px 30px;
+  width: 300px;
+  height: 130px;
+  font-size: 15px;
+  line-height: 30px;
+  border: none;
 `;

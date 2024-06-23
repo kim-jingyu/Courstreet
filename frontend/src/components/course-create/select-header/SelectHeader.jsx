@@ -1,9 +1,23 @@
 import { useState } from 'react';
-import { Button, message, Steps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
+import {
+  courseCreateContentState,
+  courseCreateIndexState,
+  courseCreateTitleState,
+  currPlacePlanState,
+} from '/src/recoils/HeaderAtoms';
+import {
+  ageCategoryState,
+  courseDummyState,
+  coursePlaceDummyState,
+  genderCategoryState,
+  themeCategoryState,
+  withCategoryState,
+} from '/src/recoils/CourseAtoms';
 import arrowLeft from '/src/assets/icons/header-arrow-left.png';
 import arrowRight from '/src/assets/icons/header-arrow-right.png';
+import { Button, message, Steps } from 'antd';
 
 const steps = [
   {
@@ -22,11 +36,23 @@ const buttonStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   fontSize: '18px',
-  fontFamily: 'Happiness-Sans-Bold'
-}
+  fontFamily: 'Happiness-Sans-Bold',
+};
 
 function SelectHeader() {
-  
+  const navigate = useNavigate();
+  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
+  const [coursePlaceDummy, setCoursePlaceDummy] = useRecoilState(coursePlaceDummyState);
+  const [title, setTitle] = useRecoilState(courseCreateTitleState);
+  const [content, setContent] = useRecoilState(courseCreateContentState);
+  const [places, setPlaces] = useRecoilState(currPlacePlanState);
+
+  // 카테고리
+  const [currWith, setCurrWith] = useRecoilState(withCategoryState);
+  const [currTheme, setCurrTheme] = useRecoilState(themeCategoryState);
+  const [currGender, setCurrGender] = useRecoilState(genderCategoryState);
+  const [currAge, setCurrAge] = useRecoilState(ageCategoryState);
+  const themes = ['SNS 핫플레이스', '쇼핑은 열정적으로', '맛있는 미식의 경험', '카페인 중독', '쇼핑이 좋아요'];
 
   // 컴포넌트 이동
   const [current, setCurrent] = useRecoilState(courseCreateIndexState);
@@ -35,15 +61,27 @@ function SelectHeader() {
       if (loading) return;
       message.loading({
         content: '추천 코스를 생성중입니다..',
-        duration: 1.5,
+        duration: 0.9,
       });
       setLoading(true);
 
       setTimeout(() => {
         setLoading(false);
         setCurrent(current + 1);
-      }, 1500);
+        message.success({
+          content: '추천 코스를 생성되었습니다',
+          duration: 1,
+        });
+      }, 1000);
     } else {
+      // if (!currWith || !currTheme || !currGender || !currAge) {
+      //   message.warning({
+      //     content: '카테고리를 빠짐없이 선택해주세요',
+      //     duration: 1.5,
+      //   });
+      //   return;
+      // }
+      if (!currTheme) setCurrTheme(1);
       setCurrent(current + 1);
     }
   };
@@ -61,15 +99,38 @@ function SelectHeader() {
     if (loading) return;
     message.loading({
       content: '게시글을 생성중입니다..',
-      duration: 2,
+      duration: 0.9,
     });
     setLoading(true);
 
-
+    const courseMaxIdx = courseDummy.reduce((maxId, course) => (course.COURSE_ID > maxId ? course.COURSE_ID : maxId), 0);
+    const newCourseIdx = courseMaxIdx + 1;
+    const newCousre = {
+      COURSE_ID: newCourseIdx,
+      MEMBER_ID: 1,
+      NICKNAME: 'JADEN',
+      IMAGE: '',
+      TITLE: title,
+      CONTENT: content,
+      THEME: themes[currTheme],
+      LIKED: false,
+    };
+    const newCoursePlace = {
+      COURSE_ID: newCourseIdx,
+      PLACES: places.map(({ info, memo }) => [info.place_id, memo]),
+    };
+    setCourseDummy((prev) => [...prev, newCousre]);
+    setCoursePlaceDummy((prev) => [...prev, newCoursePlace]);
 
     setTimeout(() => {
+      message.success({
+        content: '게시글이 생성되었습니다',
+        duration: 1,
+      });
+      navigate(`/courseDetail/${newCourseIdx}`);
+
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (
@@ -90,20 +151,20 @@ function SelectHeader() {
         {current === 0 && <div></div>}
         {current > 0 && (
           <div style={buttonStyle} onClick={goPrev}>
-            <img src={arrowLeft} onClick={goNext} style={{height: '16px', margin: '0 5px'}} />
+            <img src={arrowLeft} onClick={goNext} style={{ height: '16px', margin: '0 5px' }} />
             이전
           </div>
         )}
         {current < steps.length - 1 && (
           <div style={buttonStyle} onClick={goNext}>
             {`다음`}
-            <img src={arrowRight} style={{height: '16px', margin: '0 5px'}} />
+            <img src={arrowRight} style={{ height: '16px', margin: '0 5px' }} />
           </div>
         )}
         {current === steps.length - 1 && (
           <div style={buttonStyle} onClick={createCourse}>
             {`생성`}
-            <img src={arrowRight} style={{height: '16px', margin: '0 5px'}} />
+            <img src={arrowRight} style={{ height: '16px', margin: '0 5px' }} />
           </div>
         )}
       </div>

@@ -22,7 +22,7 @@ export const CourseTitle = styled.div`
   font-weight: bold;
   word-break: keep-all;
   text-align: center;
-  font-family: Happiness-Sans-Bold;
+  font-family: 'Happiness-Sans-Bold';
   text-align: center;
 `;
 
