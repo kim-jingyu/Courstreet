@@ -1,5 +1,6 @@
 import { courseDummyState } from '/src/recoils/CourseAtoms';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'antd';
 import carousel1 from '/src/assets/icons/carousel1.png';
 import carousel2 from '/src/assets/icons/carousel2.png';
@@ -33,10 +34,12 @@ const textstyle = {
 };
 
 function TodayPick() {
+  const navigate = useNavigate();
+  const goDetail = (courseId) => navigate(`coursedetail/${courseId}`)
+  
   const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
   const ids = [10, 4, 26, 9, 27];
   const [picks, setPicks] = useState([]);
-
   useEffect(() => {
     setPicks(courseDummy.filter((course) => ids.includes(course.COURSE_ID)));
   }, []);
@@ -57,8 +60,8 @@ function TodayPick() {
         오늘의 픽
       </div>
       <Carousel autoplay arrows infinite={true}>
-        {picks.map((course) => (
-          <div>
+        {picks.map((course, idx) => (
+          <div key={idx} onClick={()=>goDetail(course.COURSE_ID)}>
             <div style={contentStyle}>
               <img style={imageStyle} src={`/courses/${course.COURSE_ID}.jpg`} />
             </div>
