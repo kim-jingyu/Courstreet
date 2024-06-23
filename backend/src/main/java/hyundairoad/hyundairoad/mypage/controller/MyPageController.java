@@ -19,7 +19,7 @@ import java.util.List;
 public class MyPageController {
     private final MyPageService myPageService;
 
-    @GetMapping("/{id}}")
+    @GetMapping("/{id}")
     public ResponseEntity<List<MyPageCourseResponse>> getMyPageMyCourse(@PathVariable Long id) throws MalformedURLException {
         return ResponseEntity.ok().body(myPageService.getMyPageCourseList(id));
     }

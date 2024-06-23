@@ -2,7 +2,9 @@ package hyundairoad.hyundairoad.place.service;
 
 import hyundairoad.hyundairoad.image.service.ImageService;
 import hyundairoad.hyundairoad.member.domain.like.MemberPlaceLike;
+import hyundairoad.hyundairoad.member.domain.star.MemberPlaceStar;
 import hyundairoad.hyundairoad.member.repository.MemberPlaceLikeRepository;
+import hyundairoad.hyundairoad.member.repository.MemberPlaceStarRepository;
 import hyundairoad.hyundairoad.place.domain.Place;
 import hyundairoad.hyundairoad.place.domain.PlaceResponse;
 import hyundairoad.hyundairoad.place.domain.dto.CreatePlaceRequest;
@@ -25,6 +27,7 @@ import java.util.List;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final MemberPlaceLikeRepository memberPlaceLikeRepository;
+    private final MemberPlaceStarRepository memberPlaceStarRepository;
     private final ImageService imageService;
 
     public List<PlaceResponse> getAllPlaces() throws MalformedURLException {
@@ -63,18 +66,22 @@ public class PlaceService {
     }
 
     private void addToResponseList(Place place, List<PlaceResponse> placeResponseList) throws MalformedURLException {
-        MemberPlaceLike memberPlaceLike = getMemberPlaceLike(place);
+        List<MemberPlaceLike> memberPlaceLikeList = getMemberPlaceLike(place.getId());
         Resource image = getImage(place);
-        if (checkLiked(place, memberPlaceLike, placeResponseList, image)) return;
-        placeResponseList.add(PlaceResponse.of(place, memberPlaceLike.getMember().getId(), image, memberPlaceLikeRepository.findAverageRate(), memberPlaceLike.getCount()));
+        for (MemberPlaceLike memberPlaceLike : memberPlaceLikeList) {
+            Long memberId = memberPlaceLike.getMember().getId();
+            Long placeId = place.getId();
+            if (checkLiked(place, memberPlaceLike, placeResponseList, image)) return;
+            placeResponseList.add(PlaceResponse.of(place, memberId, image, memberPlaceStarRepository.findAverageRate(placeId), memberPlaceStarRepository.findByPlaceIdAndMemberId(placeId, memberId).getRate()));
+        }
     }
 
     private Resource getImage(Place place) throws MalformedURLException {
         return imageService.getImage(place.getPlaceImgUrl());
     }
 
-    private MemberPlaceLike getMemberPlaceLike(Place place) {
-        return memberPlaceLikeRepository.findByPlaceId(place.getId());
+    private List<MemberPlaceLike> getMemberPlaceLike(Long place) {
+        return memberPlaceLikeRepository.findByPlaceId(place);
     }
 
     private boolean checkLiked(Place place, MemberPlaceLike memberPlaceLike, List<PlaceResponse> placeResponseList, Resource image) {

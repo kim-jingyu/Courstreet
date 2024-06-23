@@ -61,7 +61,7 @@ public class CourseService {
 
     public List<CourseResponse> searchCourse(String keyword) throws MalformedURLException {
         List<CourseResponse> list = new ArrayList<>();
-        for (Course course : courseRepository.findByTitleContainingOrContentContaining(keyword)) {
+        for (Course course : courseRepository.findByTitleOrContentContaining(keyword)) {
             Temp temp = getResult(course);
             list.add(CourseResponse.of(course, temp.nickName, temp.memberId, temp.courseImage, false));
         }

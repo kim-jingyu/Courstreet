@@ -1,6 +1,7 @@
 package hyundairoad.hyundairoad.global.config;
 
 import hyundairoad.hyundairoad.global.handler.CustomOAuth2AuthenticationSuccessHandler;
+import hyundairoad.hyundairoad.member.domain.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,12 +47,13 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(httpSecurityCsrfConfigurer -> CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin").hasRole(Role.ADMIN.name())
                         .requestMatchers("/", "/login", "/signup").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .loginPage("/login")
                         .defaultSuccessUrl(clientUri)
-                        .failureUrl("/login?error=true")
+                        .failureUrl(clientUri + "/login?error=true")
                         .permitAll()
                         .successHandler(oAuth2AuthenticationSuccessHandler()))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
@@ -86,7 +88,7 @@ public class SecurityConfig {
                 .clientSecret(googleClientSecret)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/google")
+                .redirectUri(clientUri + "/login/oauth2/code/google")
                 .authorizationUri("https://accounts.google.com/o/oauth2/auth")
                 .tokenUri("https://oauth2.googleapis.com/token")
                 .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
@@ -99,7 +101,7 @@ public class SecurityConfig {
                 .clientSecret(kakaoClientSecret)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("{baseUrl}/login/oauth2/code/kakao")
+                .redirectUri(clientUri + "/login/oauth2/code/kakao")
                 .authorizationUri("https://kauth.kakao.com/oauth/authorize")
                 .tokenUri("https://kauth.kakao.com/oauth/token")
                 .userInfoUri("https://kapi.kakao.com/v2/user/me")

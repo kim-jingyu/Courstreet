@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface MemberPlaceLikeRepository extends JpaRepository<MemberPlaceLike, Long> {
     MemberPlaceLike findByMemberIdAndPlaceId(Long memberId, Long placeId);
-    MemberPlaceLike findByPlaceId(Long placeId);
+    List<MemberPlaceLike> findByPlaceId(Long placeId);
     List<MemberPlaceLike> findByMemberId(Long memberId);
-    @Query("SELECT AVG(m.rate) FROM MemberPlaceLike m")
-    Double findAverageRate();
 }
