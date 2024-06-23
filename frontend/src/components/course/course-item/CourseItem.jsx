@@ -19,7 +19,7 @@ import {
   HeartIcon,
   MoreIcon,
   ModalBtn,
-  ModalTitle
+  ModalTitle,
 } from './CourseItem.style';
 import heartEmpty from '/src/assets/icons/heartEmpty.png';
 import heartFilled from '/src/assets/icons/heartFilled.png';
@@ -28,12 +28,16 @@ import fiveguys from '/src/assets/icons/fiveguys.png';
 import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
 
 function CourseItem({ course, goDetail, onLikeToggle }) {
+  const navigate = useNavigate();
   const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
   // 코스 삭제
   const handleDelete = () => {
-    setCourseDummy((prevCourses) =>
-      prevCourses.filter((c) => c.COURSE_ID !== course.COURSE_ID)
-    );
+    setCourseDummy((prevCourses) => prevCourses.filter((c) => c.COURSE_ID !== course.COURSE_ID));
+    setOpen(false);
+  };
+  // 코스 수정
+  const handleUpdate = () => {
+    navigate(`/courseupdate/${course.COURSE_ID}`);
     setOpen(false);
   };
 
@@ -42,7 +46,7 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
   const toggleLiked = (event) => {
     event.stopPropagation();
     setIsLiked(!isLiked);
-    onLikeToggle(course.COURSE_ID)
+    onLikeToggle(course.COURSE_ID);
   };
 
   const [open, setOpen] = useState(false);
@@ -68,9 +72,7 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
             <UserContainer>
               <UserName>{course.NICKNAME}님의 코스</UserName>
               <HeartIcon src={isLiked ? heartFilled : heartEmpty} onClick={toggleLiked} />
-              {course.MEMBER_ID === 10 && (
-                <MoreIcon src={more} onClick={showModal}></MoreIcon>
-              )}
+              {course.MEMBER_ID === 10 && <MoreIcon src={more} onClick={showModal}></MoreIcon>}
             </UserContainer>
             <ItemTitle>{course.TITLE}</ItemTitle>
             <div
@@ -84,7 +86,7 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
                 height: '3em', // 2줄 높이 (글꼴 크기에 따라 조정 필요)
                 lineHeight: '1.5em', // 줄 높이 (글꼴 크기에 따라 조정 필요)
                 fontSize: '15px',
-                color: 'darkgray'
+                color: 'darkgray',
               }}
             >
               {course.CONTENT}
@@ -93,10 +95,10 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
         </ItemContainer>
       </Container>
 
-      <Modal open={open} onCancel={handleCancel} footer={null} centered width={200} closable={false} >
+      <Modal open={open} onCancel={handleCancel} footer={null} centered width={200} closable={false}>
         <ModalTitle>{course.TITLE}</ModalTitle>
         <ModalBtn>
-          <button>수정</button>
+          <button onClick={handleUpdate}>수정</button>
           <br />
           <button onClick={handleDelete}>삭제</button>
         </ModalBtn>
