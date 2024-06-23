@@ -377,7 +377,7 @@ export const coursePlaceDummyState = atom({
       COURSE_ID: 2,
       PLACES: [
         [5, '맛있는 커피가 유명한 카페'],
-        [30, '트렌디한 인테리어가 돋보이는 매장'],
+        [30, '이곳은 스콘 맛집! 스콘은 필수!'],
         [56, '고급스러운 분위기의 레스토랑'],
       ],
     },

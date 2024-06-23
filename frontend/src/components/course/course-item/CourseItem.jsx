@@ -26,6 +26,7 @@ import heartFilled from '/src/assets/icons/heartFilled.png';
 import more from '/src/assets/icons/more.png';
 import fiveguys from '/src/assets/icons/fiveguys.png';
 import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
+import profile from '/src/assets/icons/profile.png';
 
 function CourseItem({ course, goDetail, onLikeToggle }) {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
           <ImageBox>
             <img src={`/courses/${course.COURSE_ID}.jpg`}></img>
           </ImageBox>
-          <UserIcon />
+          <UserIcon src={profile}/>
           <ItemFooter>
             <UserContainer>
               <UserName>{course.NICKNAME}님의 코스</UserName>

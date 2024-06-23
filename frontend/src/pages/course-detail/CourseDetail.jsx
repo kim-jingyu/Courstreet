@@ -22,7 +22,7 @@ function CourseDetail() {
       <S.Container>
         <S.CourseHeader>
           <S.CourseTitle>{course.TITLE}</S.CourseTitle>
-          <S.MoreIcon src={more} onClick={() => showModal(course.COURSE_ID)}></S.MoreIcon>
+          {/* <S.MoreIcon src={more} onClick={() => showModal(course.COURSE_ID)}></S.MoreIcon> */}
         </S.CourseHeader>
         <S.TitleImage>
           <img src={`/courses/${course.COURSE_ID}.jpg`} />

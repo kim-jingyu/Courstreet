@@ -107,7 +107,7 @@ function SelectHeader() {
     const newCourseIdx = courseMaxIdx + 1;
     const newCousre = {
       COURSE_ID: newCourseIdx,
-      MEMBER_ID: 1,
+      MEMBER_ID: 10,
       NICKNAME: 'JADEN',
       IMAGE: '',
       TITLE: title,

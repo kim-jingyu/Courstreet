@@ -75,14 +75,13 @@ export const MoreIcon = styled.img`
   width: 10%;
 `;
 
-export const UserIcon = styled.div`
+export const UserIcon = styled.img`
   position: relative;
   top: -20px;
   left: 15px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: green;
   margin-right: 10px;
 `;
 

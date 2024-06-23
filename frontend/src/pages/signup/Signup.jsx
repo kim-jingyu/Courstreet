@@ -17,8 +17,10 @@ import {
   TextForm,
   InputField,
 } from './Signup.style';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -111,7 +113,7 @@ function Signup() {
               ))}
             </Select>
           </AgeLabel>
-          <SubmitButton type="submit">회원가입</SubmitButton>
+          <SubmitButton type="submit" onClick={()=>navigate('/login')}>회원가입</SubmitButton>
         </SubmitForm>
       </SignupContainer>
     </SignupWrapper>
