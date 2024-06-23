@@ -1,0 +1,29 @@
+import Course from '../pages/course/Course';
+import Signup from '../pages/signup/Signup';
+import CourseCreate from '../pages/course-create/CourseCreate';
+import CourseDetail from '../pages/course-detail/CourseDetail';
+import CourseUpdate from '../pages/course-update/CourseUpdate';
+import MyPage from '../pages/mypage/MyPage';
+import Place from '../pages/place/Place';
+import NotFound from '../pages/error/NotFound';
+import Login from '../pages/login/Login';
+import PasswordFind from '../pages/password-find/PasswordFind';
+import GoogleLoginComponent from '../pages/googlelogin/GoogleLoginComponent';
+import GoogleCallback from '../pages/googlelogin/GoogleCallback';
+
+const PAGE = {
+  Course,
+  Signup,
+  CourseCreate,
+  CourseDetail,
+  CourseUpdate,
+  MyPage,
+  Place,
+  NotFound,
+  Login,
+  PasswordFind,
+  GoogleLoginComponent,
+  GoogleCallback,
+};
+
+export default PAGE;
