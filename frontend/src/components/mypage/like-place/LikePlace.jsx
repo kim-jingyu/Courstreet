@@ -149,7 +149,8 @@ function LikePlace() {
 
         {(activeTab === 'myCourses') && (
           <LikeContainer>
-            {myCourses.map((item) => (
+
+            {myCourses.sort((a, b) => b.COURSE_ID - a.COURSE_ID).map((item) => (
               <CourseItem
                 course={item}
                 key={item.COURSE_ID}

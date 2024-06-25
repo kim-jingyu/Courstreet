@@ -18,7 +18,6 @@ export const courseCreateContentState = atom({
   default: '',
 });
 
-
 // 현재 화면에 보여주는 장소들 일정
 export const currPlacePlanState = atom({
   key: 'currPlacePlanState',
@@ -29,6 +28,21 @@ export const currPlacePlanState = atom({
 export const placePlanDummyState = atom({
   key: 'placePlanDummyState',
   default: [
+    {
+      info: {
+        place_id: 53,
+        name: '디즈니스토어',
+        phone: '02-3277-8546',
+        start_time: '2024-06-01 13:00',
+        end_time: '2024-06-01 20:00',
+        floor: 5,
+        location: '5-29',
+        category: '엔터테인먼트',
+        rate: 2.3,
+        liked: true,
+      },
+      memo: '',
+    },
     {
       info: {
         place_id: 3,
@@ -61,15 +75,15 @@ export const placePlanDummyState = atom({
     },
     {
       info: {
-        place_id: 53,
-        name: '디즈니스토어',
-        phone: '02-3277-8546',
+        place_id: 27,
+        name: '호라이즌16',
+        phone: '02-3277-8520',
         start_time: '2024-06-01 13:00',
         end_time: '2024-06-01 20:00',
         floor: 5,
-        location: '5-29',
-        category: '엔터테인먼트',
-        rate: 1.1,
+        location: '5-12',
+        category: '베이커리',
+        rate: 2.4,
         liked: true,
       },
       memo: '',
@@ -84,7 +98,7 @@ export const placePlanDummyState = atom({
         floor: 5,
         location: '5-27',
         category: '쇼핑',
-        rate: 2.3,
+        rate: 4.2,
         liked: false,
       },
       memo: '',
