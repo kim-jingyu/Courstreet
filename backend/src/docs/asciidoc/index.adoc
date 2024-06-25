@@ -1,0 +1,36 @@
+= API Documentation
+
+== Get All Courses
+
+include::{snippets}/get-all-courses/http-request.adoc[]
+include::{snippets}/get-all-courses/http-response.adoc[]
+
+== Get Course Detail
+
+include::{snippets}/get-course-detail/http-request.adoc[]
+include::{snippets}/get-course-detail/http-response.adoc[]
+
+== Delete Course
+
+include::{snippets}/delete-course/http-request.adoc[]
+include::{snippets}/delete-course/http-response.adoc[]
+
+== Update Course
+
+include::{snippets}/update-course/http-request.adoc[]
+include::{snippets}/update-course/http-response.adoc[]
+
+== Create Course
+
+include::{snippets}/create-course/http-request.adoc[]
+include::{snippets}/create-course/http-response.adoc[]
+
+== Search Course
+
+include::{snippets}/search-course/http-request.adoc[]
+include::{snippets}/search-course/http-response.adoc[]
+
+== Today Pick
+
+include::{snippets}/today-pick/http-request.adoc[]
+include::{snippets}/today-pick/http-response.adoc[]

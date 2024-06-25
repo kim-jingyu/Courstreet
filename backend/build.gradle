@@ -56,7 +56,19 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.named('asciidoctor') {
-	inputs.dir snippetsDir
+asciidoctor {
 	dependsOn test
+	inputs.dir snippetsDir
+	attributes 'snippets': snippetsDir
+	baseDirFollowsSourceDir()
+}
+
+task copyDocs(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/docs/asciidoc")
+	into file("src/main/resources/static/docs")
+}
+
+build {
+	dependsOn copyDocs
 }
