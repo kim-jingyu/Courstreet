@@ -17,12 +17,13 @@ public class PasswordUtil {
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         byte[] encrypted = cipher.doFinal(password.getBytes());
 
+        // 암호화된 데이터를 Base64로 인코딩하여 출력한다.
         return Base64.getEncoder().encodeToString(encrypted);
     }
 
-    public static String decode() {
-        return null;
-    }
+//    public static String decode(String encryptedPw) {
+//
+//    }
 
 //    public static String hashPassword(String password) {
 //        try {

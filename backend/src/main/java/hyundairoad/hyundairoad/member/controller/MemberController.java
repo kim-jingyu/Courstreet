@@ -1,4 +1,4 @@
-package hyundairoad.hyundairoad.image.controller;
+package hyundairoad.hyundairoad.member.controller;
 
 import hyundairoad.hyundairoad.member.domain.like.dto.LikeCourseRequest;
 import hyundairoad.hyundairoad.member.domain.like.dto.LikePlaceRequest;
