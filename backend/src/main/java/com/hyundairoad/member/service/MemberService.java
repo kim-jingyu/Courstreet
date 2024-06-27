@@ -5,7 +5,6 @@ import com.hyundairoad.course.exception.CourseNotFoundException;
 import com.hyundairoad.course.repository.CourseRepository;
 import com.hyundairoad.image.service.ImageService;
 import com.hyundairoad.member.domain.Member;
-import com.hyundairoad.member.domain.auth.dto.JoinRequest;
 import com.hyundairoad.member.domain.like.MemberCourseLike;
 import com.hyundairoad.member.domain.like.MemberPlaceLike;
 import com.hyundairoad.member.domain.like.dto.LikeCourseRequest;
@@ -44,12 +43,12 @@ public class MemberService {
         Member member = getMember(memberId);
         member.changeProfileImg(UPLOAD_DIR + File.separator + imageService.uploadFile(multipartFile));
         memberRepository.save(member);
-        return member.getProfileImgUrl();
+        return member.getImageUrl();
     }
 
     @Transactional(readOnly = true)
     public Resource getProfileImage(Long memberId) throws MalformedURLException {
-        return imageService.getImage(getMember(memberId).getProfileImgUrl());
+        return imageService.getImage(getMember(memberId).getImageUrl());
     }
 
     public Void likeCourse(LikeCourseRequest likeCourseRequest) {
@@ -92,19 +91,11 @@ public class MemberService {
         return memberRepository.findById(memberId).orElseThrow(MemberNotFoundException::new);
     }
 
-    public Member getMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
-    }
-
     private Course getCourse(Long courseId) {
         return courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
     }
 
     private Place getPlace(Long placeId) {
         return placeRepository.findById(placeId).orElseThrow(PlaceNotFoundException::new);
-    }
-
-    public void securityJoin(JoinRequest joinRequest) {
-        memberRepository.save(joinRequest.toEntity());
     }
 }

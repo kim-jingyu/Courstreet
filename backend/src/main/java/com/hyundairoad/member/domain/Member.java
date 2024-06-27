@@ -4,6 +4,7 @@ import com.hyundairoad.course.domain.Course;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,17 +24,15 @@ public class Member {
     @Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
-    @Setter
-    private String password;
-    private String name;
-    private String nickName;
-    private int age;
+    @Column(nullable = false, length = 30)
+    private String socialLoginId;
 
-    private String profileImgUrl;
+    @Column(nullable = false, unique = true, length = 20)
+    private String nickname;
+    @Column(nullable = false)
+    private LocalDateTime lastLoginDate;
 
-    private String provider;
-    private String providerId;
+    private String imageUrl;
 
     @Enumerated(value = STRING)
     private Gender gender;
@@ -47,8 +46,24 @@ public class Member {
     @ToString.Exclude
     private List<Course> courseList = new ArrayList<>();
 
+    public Member(final Long id, final String socialLoginId, final String nickName, final String imageUrl) {
+        this.id = id;
+        this.socialLoginId = socialLoginId;
+        this.nickname = nickName;
+        this.lastLoginDate = LocalDateTime.now();
+        this.imageUrl = imageUrl;
+    }
+
+    public Member(final String socialLoginId, final String nickName, final String imageUrl) {
+        this(null, socialLoginId, nickName, imageUrl);
+    }
+
+    public boolean isNicknameChanged(final String inputNickname) {
+        return !nickname.equals(inputNickname);
+    }
+
     public void changeProfileImg(String newImageUrl) {
-        this.profileImgUrl = newImageUrl;
+        this.imageUrl = newImageUrl;
     }
 
 }

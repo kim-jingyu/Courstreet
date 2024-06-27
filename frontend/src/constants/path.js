@@ -9,6 +9,8 @@ const PATH = {
   NotFound: '/notfound',
   Login: '/login',
   PwFind: '/PwFind',
+  GoogleCallBack: '/google/callback',
+  KakaoCallBack: '/kakao/callback',
 };
 
 export default PATH;

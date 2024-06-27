@@ -15,6 +15,8 @@ import {
   Title,
 } from './Login.style';
 import { useState } from 'react';
+import GoogleButton from '/src/components/commons/GoogleButton/GoogleButton';
+import KakaoButton from '/src/components/commons/KakaoButton/KakaoButton';
 
 function Login() {
   const [flag, setFlag] = useState(false);
@@ -64,14 +66,8 @@ function Login() {
             </Links>
           </Options>
           <SocialLogin>
-            <SocialButton className="google-login">
-              <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="Google" />
-              구글 로그인
-            </SocialButton>
-            <SocialButton className="kakao-login">
-              <img src="https://img.icons8.com/?size=100&id=2951&format=png&color=000000" alt="Kakao" />
-              카카오 로그인
-            </SocialButton>
+            <GoogleButton>구글 로그인</GoogleButton>
+            <KakaoButton>카카오 로그인</KakaoButton>
             <br /> <br />
             <LoginButton style={{ width: '100%' }} onClick={() => navigate('/signup')}>
               회원가입 하러 가기

@@ -172,6 +172,6 @@ public class CourseService {
     }
 
     private String getNickName(Course course) {
-        return course.getMember().getNickName();
+        return course.getMember().getNickname();
     }
 }

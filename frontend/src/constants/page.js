@@ -8,6 +8,8 @@ import Place from '../pages/place/Place';
 import NotFound from '../pages/error/NotFound';
 import Login from '../pages/login/Login';
 import PasswordFind from '../pages/password-find/PasswordFind';
+import GoogleLoginCallback from '../pages/google/GoogleCallBack';
+import KakaoLoginCallback from '../pages/kakao/KakaoCallBack';
 
 const PAGE = {
   Course,
@@ -20,6 +22,8 @@ const PAGE = {
   NotFound,
   Login,
   PasswordFind,
+  GoogleLoginCallback,
+  KakaoLoginCallback,
 };
 
 export default PAGE;
