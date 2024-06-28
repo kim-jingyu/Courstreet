@@ -59,7 +59,7 @@ public class ImageService {
 
     private void saveFile(MultipartFile file, String newFilename) throws IOException {
         byte[] bytes = file.getBytes();
-        Path path = Paths.get(getNewImageUrl(newFilename));
+        Path path = Paths.get(getFullImageUrl(newFilename));
         Files.write(path, bytes);
     }
 
@@ -69,7 +69,7 @@ public class ImageService {
         return UUID.randomUUID().toString() + fileExtension;
     }
 
-    private String getNewImageUrl(String newFilename) {
-        return UPLOAD_DIR + File.separator + newFilename;
+    private String getFullImageUrl(String fileName) {
+        return UPLOAD_DIR + File.separator + fileName;
     }
 }

@@ -18,15 +18,13 @@ public class MyPageService {
     private final PlaceService placeService;
 
     public List<MyPageCourseResponse> getMyPageCourseList(Long memberId) throws MalformedURLException {
-        return courseService.getCoursesWithMember(memberId).stream()
+        return courseService.getAllCoursesWithMember(memberId).stream()
                 .map(MyPageCourseResponse::of)
                 .toList();
     }
 
     public List<MyPageCourseResponse> getMyPageLikeCourseList(Long memberId) throws MalformedURLException {
-        return courseService.getLikedCoursesWithMember(memberId).stream()
-                .map(MyPageCourseResponse::ofLikeCourse)
-                .toList();
+        return null;
     }
 
     public List<MyPagePlaceResponse> getMyPageLikePlaceList(Long memberId) throws MalformedURLException {

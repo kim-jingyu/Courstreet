@@ -1,6 +1,7 @@
 package com.hyundairoad.course.domain;
 
 import com.hyundairoad.course.domain.dto.CourseCreateRequest;
+import com.hyundairoad.like.domain.MemberCourseLike;
 import com.hyundairoad.member.domain.Member;
 import com.hyundairoad.member.domain.WithWhom;
 import com.hyundairoad.place.domain.Theme;
@@ -10,12 +11,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
+import static lombok.Builder.Default;
 import static lombok.EqualsAndHashCode.Include;
 
 @Entity
@@ -38,8 +40,8 @@ public class Course {
     private String title;
     @Lob
     private String content;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @Enumerated(value = STRING)
     private Theme theme;
     @Enumerated(value = STRING)
@@ -47,11 +49,16 @@ public class Course {
     @Enumerated(value = STRING)
     private Visibility visibility;
 
+    @Default
+    @OneToMany(mappedBy = "course")
+    private List<MemberCourseLike> memberCourseLikeList = new ArrayList<>();
+
+    @Default
     @OneToMany(mappedBy = "course")
     private List<CoursePlace> coursePlaceList = new ArrayList<>();
 
     public static Course createCourse(Member member, String courseImgUrl, CourseCreateRequest courseCreateRequest, List<CoursePlace> coursePlaces) {
-        Course course = Course.builder()
+        return Course.builder()
                 .member(member)
                 .title(courseCreateRequest.title())
                 .content(courseCreateRequest.content())
@@ -61,9 +68,8 @@ public class Course {
                 .theme(Theme.from(courseCreateRequest.theme()))
                 .withWhom(WithWhom.from(courseCreateRequest.withWhom()))
                 .visibility(courseCreateRequest.visibility().equals("Y") ? Visibility.Y : Visibility.N)
+                .coursePlaceList(coursePlaces)
                 .build();
-        course.coursePlaceList.addAll(coursePlaces);
-        return course;
     }
 
     public void update(Member member, String title, String content, String newImgUrl) {

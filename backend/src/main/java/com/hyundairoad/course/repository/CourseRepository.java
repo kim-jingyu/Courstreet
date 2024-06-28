@@ -10,4 +10,11 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course c WHERE c.title LIKE %:keyword% OR c.content LIKE %:keyword%")
     List<Course> findByTitleOrContentContaining(String keyword);
     List<Course> findByMemberId(Long memberId);
+    Course findByIdAndMemberId(Long id, Long memberId);
+    boolean existsByMemberIdAndId(Long memberId, Long id);
+
+    @Query(value = "SELECT id, member_id, course_img_url, title, content, start_time, end_time, theme, with_whom, visibility FROM (SELECT id, member_id, course_img_url, title, content, start_time, end_time, theme, with_whom, visibility " +
+            "FROM course ORDER BY DBMS_RANDOM.VALUE) " +
+            "WHERE ROWNUM <= 5", nativeQuery = true)
+    List<Course> findRandomCourses();
 }

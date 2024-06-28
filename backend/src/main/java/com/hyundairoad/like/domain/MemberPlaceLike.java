@@ -1,18 +1,22 @@
-package com.hyundairoad.member.domain.like;
+package com.hyundairoad.like.domain;
 
-import com.hyundairoad.course.domain.Course;
 import com.hyundairoad.member.domain.Member;
+import com.hyundairoad.place.domain.Place;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.*;
+import static lombok.AccessLevel.PROTECTED;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor
 @Builder
-public class MemberCourseLike {
+public class MemberPlaceLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,14 +24,14 @@ public class MemberCourseLike {
     @ManyToOne(fetch = LAZY)
     private Member member;
     @ManyToOne(fetch = LAZY)
-    private Course course;
+    private Place place;
 
     private int count;
 
-    public static MemberCourseLike createMemberCourseLike(Member member, Course course) {
-        return MemberCourseLike.builder()
+    public static MemberPlaceLike createMemberPlaceLike(Member member, Place place) {
+        return MemberPlaceLike.builder()
                 .member(member)
-                .course(course)
+                .place(place)
                 .build();
     }
 

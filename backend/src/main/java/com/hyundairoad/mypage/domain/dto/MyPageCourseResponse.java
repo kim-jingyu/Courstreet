@@ -31,9 +31,9 @@ public class MyPageCourseResponse {
                 .memberId(courseResponse.memberId())
                 .title(courseResponse.title())
                 .content(courseResponse.content())
-                .startTime(courseResponse.startTime())
-                .endTime(courseResponse.endTime())
-                .image(courseResponse.courseImage())
+//                .startTime(courseResponse.startTime())
+//                .endTime(courseResponse.endTime())
+//                .image(courseResponse.courseImage())
                 .build();
     }
 
@@ -42,9 +42,9 @@ public class MyPageCourseResponse {
                 .courseId(courseResponse.courseId())
                 .title(courseResponse.title())
                 .content(courseResponse.content())
-                .startTime(courseResponse.startTime())
-                .endTime(courseResponse.endTime())
-                .image(courseResponse.courseImage())
+//                .startTime(courseResponse.startTime())
+//                .endTime(courseResponse.endTime())
+//                .image(courseResponse.courseImage())
                 .build();
     }
 

@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.core.io.Resource;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +24,7 @@ public class MyPagePlaceResponse {
     private String location;
     private String category;
     private double rate;
-    private Resource imageList;
+//    private List imageList;
 
     public static MyPagePlaceResponse of(PlaceResponse placeResponse) {
         return MyPagePlaceResponse.builder()
@@ -37,7 +36,7 @@ public class MyPagePlaceResponse {
                 .endTime(placeResponse.endTime())
                 .floor(placeResponse.floor())
                 .location(placeResponse.location())
-                .imageList(placeResponse.placeImage())
+//                .imageList(placeResponse.())
                 .build();
     }
 }

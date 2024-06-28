@@ -1,7 +1,7 @@
 package com.hyundairoad.member.controller;
 
-import com.hyundairoad.member.domain.like.dto.LikeCourseRequest;
-import com.hyundairoad.member.domain.like.dto.LikePlaceRequest;
+import com.hyundairoad.like.domain.dto.LikeCourseRequest;
+import com.hyundairoad.like.domain.dto.LikePlaceRequest;
 import com.hyundairoad.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;

@@ -1,4 +1,4 @@
-package com.hyundairoad.member.domain.star;
+package com.hyundairoad.star;
 
 import com.hyundairoad.member.domain.Member;
 import com.hyundairoad.place.domain.Place;

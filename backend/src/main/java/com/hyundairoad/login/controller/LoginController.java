@@ -1,4 +1,4 @@
-package com.hyundairoad.login.presentation;
+package com.hyundairoad.login.controller;
 
 import com.hyundairoad.auth.Auth;
 import com.hyundairoad.auth.MemberOnly;

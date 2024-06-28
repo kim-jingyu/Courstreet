@@ -1,6 +1,6 @@
 package com.hyundairoad.member.repository;
 
-import com.hyundairoad.member.domain.like.MemberPlaceLike;
+import com.hyundairoad.like.domain.MemberPlaceLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -8,7 +8,6 @@ import com.hyundairoad.login.infra.JwtProvider;
 import com.hyundairoad.member.domain.Member;
 import com.hyundairoad.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,6 @@ public class LoginService {
     private final OauthProviders oauthProviders;
     private final JwtProvider jwtProvider;
     private final BearerAuthorizationExtractor bearerExtractor;
-    private final ApplicationEventPublisher publisher;
 
     public MemberTokens login(final String providerName, final String code) {
         final OauthProvider provider = oauthProviders.mapping(providerName);

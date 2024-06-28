@@ -1,6 +1,6 @@
 package com.hyundairoad.member.repository;
 
-import com.hyundairoad.member.domain.star.MemberPlaceStar;
+import com.hyundairoad.star.MemberPlaceStar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
