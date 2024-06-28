@@ -15,7 +15,7 @@ import heartIcon from '/src/assets/icons/heart.png';
 import FiveGuysImg from '/src/assets/icons/fiveguys.png';
 import { StarFilled } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
-import { getLikePlace } from '/src/api/place/placeAPI.jsx';
+// import { getLikePlace } from '../../../apis/placeAPI.jsx/index.js';
 
 function PlaceLiked() {
   const [place, setPlace] = useState([]);
