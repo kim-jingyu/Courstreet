@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8080/api';
 axios.defaults.withCredentials = true;
 
 export const publicApi = axios.create({
@@ -15,6 +15,6 @@ export const privateApi = axios.create({
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
 });

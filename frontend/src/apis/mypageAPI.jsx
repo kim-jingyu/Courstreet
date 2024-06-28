@@ -1,15 +1,4 @@
-import { publicApi, privateApi } from '.';
-
-// 내가 좋아하는 장소들
-export const getLikedPlaces = async (memberId) => {
-  try {
-    const res = await privateApi.get(`/mypage/mylike/myplace/${memberId}`);
-    console.log('getLikedPlaces try', res.data);
-    return res.data;
-  } catch (err) {
-    console.log('getLikedPlaces catch', err);
-  }
-};
+import { privateApi } from '.';
 
 // 내가 좋아하는 코스들
 export const getLikedCourses = async (memberId) => {
@@ -19,6 +8,17 @@ export const getLikedCourses = async (memberId) => {
     return res.data;
   } catch (err) {
     console.log('getLikedCourses catch', err);
+  }
+};
+
+// 내가 좋아하는 장소들
+export const getLikedPlaces = async (memberId) => {
+  try {
+    const res = await privateApi.get(`/mypage/mylike/myplace/${memberId}`);
+    console.log('getLikedPlaces try', res.data);
+    return res.data;
+  } catch (err) {
+    console.log('getLikedPlaces catch', err);
   }
 };
 

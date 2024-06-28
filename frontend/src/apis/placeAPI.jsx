@@ -1,9 +1,20 @@
 import { publicApi, privateApi } from '.';
 
-// 장소 목록 조회, 검색
-export const getPlaces = async (floor, keyword) => {
+// 장소 목록 전체 조회
+export const getAllPlaces = async () => {
   try {
-    const res = await privateApi.get(`/place?floor=${floor}&keyword=${keyword}`);
+    const res = await publicApi.get(`/placse/all`);
+    console.log('getAllPlaces try', res.data);
+    return res.data;
+  } catch (err) {
+    console.log('getAllPlaces catch', err);
+  }
+};
+
+// 장소 목록 검색
+export const getPlaces = async (keyword) => {
+  try {
+    const res = await publicApi.get(`/place?keyword=${keyword}`);
     console.log('getPlaces try', res.data);
     return res.data;
   } catch (err) {
@@ -12,9 +23,9 @@ export const getPlaces = async (floor, keyword) => {
 };
 
 // 장소 좋아요
-export const likePlace = async (placeId) => {
+export const likePlace = async (data) => {
   try {
-    const res = await privateApi.post(`/member/like/course/${placeId}`);
+    const res = await privateApi.post(`/memeber/like/place`, data);
     console.log('likePlace try', res.data);
     return res.data;
   } catch (err) {
@@ -23,12 +34,13 @@ export const likePlace = async (placeId) => {
 };
 
 // 장소 좋아요 취소
-export const unlikePlace = async (placeId) => {
+export const unlikePlace = async (data) => {
   try {
-    const res = await privateApi.delete(`/member/like/course/${placeId}`,);
+    const res = await privateApi.post(`/memeber/cancel/like/place`, data);
     console.log('unlikePlace try', res.data);
     return res.data;
   } catch (err) {
     console.log('unlikePlace catch', err);
   }
 };
+
