@@ -1,26 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { courseDummyState } from '/src/recoils/CourseAtoms';
-
 import CourseItem from '/src/components/course/course-item/CourseItem';
 import TodayPick from '/src/components/course/today-pick/TodayPick';
-
-import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
+import { CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
 import { Select, Space } from 'antd';
 import * as S from './Course.style';
-
 import { Input } from 'antd';
-import LikePost from '/src/components/mypage/like-post/LikePost';
-import CourseLikeItem from '/src/components/course/course-like-item/CourseLikeItem';
+import { getAllCourses, getCourses, likeCourse } from '/src/apis/courseAPI';
 const { Search } = Input;
-// import courseAPI from '/src/api/course/courseAPI.jsx';
 
 function Course() {
-  // 네비게이트
+  // 네비게이터
   const navigate = useNavigate();
   const goCreate = () => {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem('accessToken');
     if (username === null) {
       navigate('/login');
       return;
@@ -28,46 +21,67 @@ function Course() {
     navigate('/coursecreate');
   };
   const goDetail = (courseId) => navigate(`/coursedetail/${courseId}`);
-
   // 데이터
-  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
+  const [courseDummy, setCourseDummy] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const handleChange = (value) => console.log(`selected ${value}`);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  // 정렬 조건
+  const handleSort = (value) => console.log(`selected ${value}`);
+  // 테마 선택
   const [currTheme, setCurrTheme] = useState([]);
-  const [currKeyword, setCurrKeyword] = useState('');
   const pickTheme = (val) => {
     currTheme.includes(val) ? setCurrTheme(currTheme.filter((e) => e != val)) : setCurrTheme([...currTheme, val]);
   };
-  const onSearch = (keyword) => setCurrKeyword(keyword);
-
-  // 검색 및 필터랑
-  useEffect(() => {
-    setFilteredCourses(
-      courseDummy
-        .filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME))
-        .filter((dummy) => currKeyword === '' || dummy.TITLE.includes(currKeyword)),
-    );
-  }, [currTheme, currKeyword]);
-
-  // 좋아요 누르면 코스 데이터 변경
-  const handleCourseLikeToggle = (course_id) => {
-    setCourseDummy((prevCourses) =>
-      prevCourses.map((course) => (course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course)),
-    );
+  // 코스 검색
+  const onSearch = async (value, _e, info) => {
+    try {
+      const data = await getCourses(value);
+      setCourseDummy(data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   };
+  // 코스 필터
+  useEffect(() => {
+    setFilteredCourses(courseDummy.filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.THEME)));
+  }, [courseDummy, currTheme]);
+  // 좋아요 누르면 코스 데이터 변경
+  const toggleCourseLike = async (course_id) => {
+    try {
+      const res = await likeCourse(course_id);
+      setCourseDummy((prevCourses) =>
+        prevCourses.map((course) => (course.COURSE_ID === course_id ? { ...course, LIKED: !course.LIKED } : course)),
+      );
+    } catch (err) {
+      console.log('toggleCourseLike', err);
+    }
+  };
+  // 초기 코스 전체 목록 조회
+  useEffect(() => {
+    const fetchAllCourses = async () => {
+      try {
+        const data = await getAllCourses();
+        setCourseDummy(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllCourses();
+  }, []);
 
-  // const [contents, setContents] = useState([]);
-  // useEffect(() => {
-  //   courseAPI(1).then(response => {
-  //     setContents(response.data);
-  //     }).catch(error => {
-  //         console.error('Error fetching the hello message:', error);
-  //     });
-  // }, []);
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <>
-      {/* <CourseLikeItem /> */}
       <TodayPick />
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -115,14 +129,14 @@ function Course() {
           <Select
             defaultValue="최신순"
             style={{ width: 90, height: 40 }}
-            onChange={handleChange}
+            onChange={handleSort}
             options={[
               { value: 1, label: '최신순' },
               { value: 2, label: '인기순' },
             ]}
           />
           {/* 검색창 */}
-          <Search placeholder="" onChange={(e) => onSearch(e.target.value)} size="large" style={{ width: '280px' }} />
+          <Search placeholder="" onSearch={onSearch} size="large" style={{ width: '280px' }} />
         </Space>
         <br />
 
@@ -130,7 +144,7 @@ function Course() {
           <CourseItem
             key={course.COURSE_ID}
             course={course}
-            onLikeToggle={handleCourseLikeToggle}
+            onLikeToggle={toggleCourseLike}
             goDetail={() => goDetail(course.COURSE_ID)}
           />
         ))}

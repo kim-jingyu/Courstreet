@@ -1,4 +1,4 @@
-import { publicApi, privateApi, uploadFileApi } from '.';
+import { publicApi, privateApi } from '.';
 
 // 오늘의픽 조회
 export const getTodayPick = async () => {
@@ -15,8 +15,9 @@ export const getTodayPick = async () => {
 export const getAllCourses = async () => {
   try {
     const res = await publicApi.get(`/course/all`);
-    console.log('getAllCourses try', res.data);
-    return res.data;
+    console.log(red);
+    // console.log('getAllCourses try', res.data);
+    // return res.data;
   } catch (err) {
     console.log('getAllCourses catch', err);
   }
