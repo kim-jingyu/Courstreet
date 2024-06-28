@@ -8,8 +8,8 @@ import Place from '../pages/place/Place';
 import NotFound from '../pages/error/NotFound';
 import Login from '../pages/login/Login';
 import PasswordFind from '../pages/password-find/PasswordFind';
-import GoogleLoginCallback from '../pages/google/GoogleCallBack';
-import KakaoLoginCallback from '../pages/kakao/KakaoCallBack';
+import GoogleLoginCallback from '../components/login/GoogleCallBack';
+import KakaoLoginCallback from '../components/login/KakaoCallBack';
 
 const PAGE = {
   Course,

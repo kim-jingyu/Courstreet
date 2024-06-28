@@ -15,8 +15,8 @@ import {
   Title,
 } from './Login.style';
 import { useState } from 'react';
-import GoogleButton from '/src/components/commons/GoogleButton/GoogleButton';
-import KakaoButton from '/src/components/commons/KakaoButton/KakaoButton';
+import GoogleButton from '/src/components/login/google-button/GoogleButton';
+import KakaoButton from '/src/components/login/kakao-button/KakaoButton';
 
 function Login() {
   const [flag, setFlag] = useState(false);

@@ -4,7 +4,7 @@ import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
 import { selectedPlacesState } from '/src/recoils/CourseAtoms';
 import { Input } from 'antd';
 import PlaceItem from '../../place/place-item/PlaceItem';
-import { getAllPlace } from '/src/api/place/placeAPI.jsx';
+import { getAllPlace } from '/src/apis/placeAPI.jsx/index.js';
 import * as G from '../CourseCreateComponent.style';
 import FiveGuysImg from '/src/assets/fiveguys.png';
 import StarbucksImg from '/src/assets/starbucks.png';
