@@ -7,6 +7,7 @@ import com.hyundairoad.login.domain.MemberTokens;
 import com.hyundairoad.login.dto.AccessTokenResponse;
 import com.hyundairoad.login.dto.LoginRequest;
 import com.hyundairoad.login.service.LoginService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,26 +15,35 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.hyundairoad.global.constants.AuthCredentials.COOKIE_AGE_SECONDS;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import static org.springframework.http.HttpStatus.CREATED;
 
+/**
+ * 로그인 컨트롤러
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
+@Tag(name = "로그인", description = "로그인 API입니다.")
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "로그인", description = "로그인 API입니당.")
 public class LoginController {
-
-    public static final int COOKIE_AGE_SECONDS = 604800;
-
     private final LoginService loginService;
 
+    /**
+     * 소셜 로그인 요청을 처리합니다.
+     *
+     * @param provider 소셜 로그인 제공자 (예: google, facebook)
+     * @param loginRequest 로그인 요청 정보 (code 포함)
+     * @param response HTTP 응답 객체
+     * @return 액세스 토큰 응답
+     */
+    @Operation(summary = "소셜 로그인 요청을 처리합니다.", description = "소셜 로그인 제공자를 통해 로그인하는 API입니다.")
     @PostMapping("/login/{provider}")
-    public ResponseEntity<AccessTokenResponse> login(
-            @PathVariable final String provider,
-            @RequestBody final LoginRequest loginRequest,
-            final HttpServletResponse response
-    ) {
-        final MemberTokens memberTokens = loginService.login(provider, loginRequest.getCode());
-        final ResponseCookie cookie = ResponseCookie.from("refresh-token", memberTokens.getRefreshToken())
+    public ResponseEntity<AccessTokenResponse> login(@PathVariable String provider, @RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        MemberTokens memberTokens = loginService.login(provider, loginRequest.getCode());
+        ResponseCookie cookie = ResponseCookie.from("refresh-token", memberTokens.getRefreshToken())
                 .maxAge(COOKIE_AGE_SECONDS)
                 .sameSite("None")
                 .secure(true)
@@ -44,20 +54,31 @@ public class LoginController {
         return ResponseEntity.status(CREATED).body(new AccessTokenResponse(memberTokens.getAccessToken()));
     }
 
+    /**
+     * 액세스 토큰을 갱신합니다.
+     *
+     * @param refreshToken 리프레시 토큰 (쿠키에서 가져옴)
+     * @param authorizationHeader 기존 액세스 토큰 (헤더에서 가져옴)
+     * @return 갱신된 액세스 토큰 응답
+     */
+    @Operation(summary = "액세스 토큰을 갱신합니다.", description = "리프레시 토큰을 사용하여 액세스 토큰을 갱신하는 API입니다.")
     @PostMapping("/token")
-    public ResponseEntity<AccessTokenResponse> extendLogin(
-            @CookieValue("refresh-token") final String refreshToken,
-            @RequestHeader("Authorization") final String authorizationHeader
-    ) {
-        final String renewalRefreshToken = loginService.renewalAccessToken(refreshToken, authorizationHeader);
+    public ResponseEntity<AccessTokenResponse> extendLogin(@CookieValue("refresh-token") String refreshToken, @RequestHeader("Authorization") String authorizationHeader) {
+        String renewalRefreshToken = loginService.renewalAccessToken(refreshToken, authorizationHeader);
         return ResponseEntity.status(CREATED).body(new AccessTokenResponse(renewalRefreshToken));
     }
 
-    @DeleteMapping("/logout")
+    /**
+     * 로그아웃 요청을 처리합니다.
+     *
+     * @param accessor 회원 정보
+     * @param refreshToken 리프레시 토큰 (쿠키에서 가져옴)
+     * @return 처리 결과
+     */
+    @Operation(summary = "로그아웃 요청을 처리합니다.", description = "회원의 로그아웃을 처리하는 API입니다.")
     @MemberOnly
-    public ResponseEntity<Void> logout(
-            @Auth final Accessor accessor,
-            @CookieValue("refresh-token") final String refreshToken) {
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@Auth Accessor accessor, @CookieValue("refresh-token") String refreshToken) {
         loginService.removeRefreshToken(refreshToken);
         return ResponseEntity.noContent().build();
     }

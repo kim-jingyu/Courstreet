@@ -11,6 +11,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 장소 엔티티
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Builder
 @Getter
 @Entity

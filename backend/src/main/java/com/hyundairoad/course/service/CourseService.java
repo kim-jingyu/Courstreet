@@ -13,7 +13,7 @@ import com.hyundairoad.course.repository.CourseRepository;
 import com.hyundairoad.global.error.AuthException;
 import com.hyundairoad.image.service.ImageService;
 import com.hyundairoad.member.domain.Member;
-import com.hyundairoad.member.repository.MemberCourseLikeRepository;
+import com.hyundairoad.like.repository.MemberCourseLikeRepository;
 import com.hyundairoad.member.service.MemberService;
 import com.hyundairoad.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
@@ -177,16 +177,23 @@ public class CourseService {
                 .toList();
     }
 
+    /**
+     * 특정 코스를 조회합니다.
+     *
+     * @param courseId 코스 ID
+     * @return 특정 코스의 상세 정보
+     * @throws CourseNotFoundException 코스를 찾을 수 없는 경우 예외 발생
+     */
+    public Course getCourse(Long courseId) {
+        return courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
+    }
+
     private Long getPlaceId(PlacePerMemo placePerMemo) {
         return placePerMemo.placeId();
     }
 
     private CoursePlace getCoursePlace(Long courseId, Long placeId) {
         return coursePlaceRepository.findByCourseIdAndPlaceId(courseId, placeId).orElseThrow(CoursePlaceNotFoundException::new);
-    }
-
-    private Course getCourse(Long id) {
-        return courseRepository.findById(id).orElseThrow(CourseNotFoundException::new);
     }
 
     private Long getMemberId(Course course) {

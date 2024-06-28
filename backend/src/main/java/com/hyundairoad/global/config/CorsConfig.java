@@ -5,6 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * CorsConfig
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
     @Bean

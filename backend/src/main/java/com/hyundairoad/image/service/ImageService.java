@@ -2,15 +2,11 @@ package com.hyundairoad.image.service;
 
 import com.hyundairoad.image.exception.ImageNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,8 +14,13 @@ import java.util.UUID;
 
 import static com.hyundairoad.global.constants.ImageConstants.UPLOAD_DIR;
 
+/**
+ * ImageService
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ImageService {
     public String uploadFile(MultipartFile file) throws IOException {
@@ -27,12 +28,6 @@ public class ImageService {
         String newFilename = getNewFilename(file);
         saveFile(file, newFilename);
         return newFilename;
-    }
-
-    public Resource getImage(String imgUrl) throws MalformedURLException {
-        Resource resource = getResource(UPLOAD_DIR + File.separator + imgUrl);
-        if (!resource.exists()) throw new ImageNotFoundException();
-        return resource;
     }
 
     public void deleteFile(String imgUrl) throws IOException {
@@ -51,10 +46,6 @@ public class ImageService {
         if (file.isEmpty()) {
             throw new ImageNotFoundException();
         }
-    }
-
-    private Resource getResource(String imgUrl) throws MalformedURLException {
-        return new UrlResource(Paths.get(imgUrl).toUri());
     }
 
     private void saveFile(MultipartFile file, String newFilename) throws IOException {

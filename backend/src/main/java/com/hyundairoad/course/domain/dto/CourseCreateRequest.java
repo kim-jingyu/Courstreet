@@ -7,6 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * CourseCreateRequest
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 public record CourseCreateRequest(Long memberId,
                                   String title,
                                   String content,

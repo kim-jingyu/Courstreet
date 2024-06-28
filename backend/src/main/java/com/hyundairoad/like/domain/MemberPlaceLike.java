@@ -11,6 +11,12 @@ import lombok.NoArgsConstructor;
 import static jakarta.persistence.FetchType.*;
 import static lombok.AccessLevel.PROTECTED;
 
+/**
+ * 회원-장소 엔티티
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Getter
 @Entity
 @NoArgsConstructor(access = PROTECTED)
@@ -32,6 +38,7 @@ public class MemberPlaceLike {
         return MemberPlaceLike.builder()
                 .member(member)
                 .place(place)
+                .count(1)
                 .build();
     }
 

@@ -17,10 +17,15 @@ import java.util.Optional;
 
 import static java.lang.Boolean.TRUE;
 
+/**
+ * KakaoOauthProvider
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Component
 public class KakaoOauthProvider implements OauthProvider {
-
-    private static final String PROPERTIES_PATH = "${oauth2.provider.kakao.";
+    private static final String PREV = "${oauth2.provider.kakao.";
     private static final String PROVIDER_NAME = "kakao";
     private static final String SECURE_RESOURCE = "secure_resource";
 
@@ -31,11 +36,11 @@ public class KakaoOauthProvider implements OauthProvider {
     protected final String userUri;
 
     public KakaoOauthProvider(
-            @Value(PROPERTIES_PATH + "client-id}") final String clientId,
-            @Value(PROPERTIES_PATH + "client-secret}") final String clientSecret,
-            @Value(PROPERTIES_PATH + "redirect-uri}") final String redirectUri,
-            @Value(PROPERTIES_PATH + "token-uri}") final String tokenUri,
-            @Value(PROPERTIES_PATH + "user-info}") final String userUri
+            @Value(PREV + "client-id}") String clientId,
+            @Value(PREV + "client-secret}") String clientSecret,
+            @Value(PREV + "redirect-uri}") String redirectUri,
+            @Value(PREV + "token-uri}") String tokenUri,
+            @Value(PREV + "user-info}") String userUri
     ) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -45,21 +50,20 @@ public class KakaoOauthProvider implements OauthProvider {
     }
 
     @Override
-    public boolean is(final String name) {
+    public boolean is(String name) {
         return PROVIDER_NAME.equals(name);
     }
 
     @Override
-    public OauthUserInfo getUserInfo(final String code) {
-        final String accessToken = requestAccessToken(code);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken);
-        final HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(headers);
+    public OauthUserInfo getUserInfo(String code) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(requestAccessToken(code));
+        HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(headers);
 
-        final Map<String, Boolean> queryParam = new HashMap<>();
+        Map<String, Boolean> queryParam = new HashMap<>();
         queryParam.put(SECURE_RESOURCE, TRUE);
 
-        final ResponseEntity<KakaoUserInfo> response = restTemplate.exchange(
+        ResponseEntity<KakaoUserInfo> response = restTemplate.exchange(
                 userUri,
                 HttpMethod.GET,
                 userInfoRequestEntity,
@@ -73,18 +77,18 @@ public class KakaoOauthProvider implements OauthProvider {
         throw new AuthException();
     }
 
-    private String requestAccessToken(final String code) {
-        final HttpHeaders headers = new HttpHeaders();
+    private String requestAccessToken(String code) {
+        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
         params.add("redirect_uri", redirectUri);
         params.add("grant_type", "authorization_code");
-        final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, headers);
+        HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, headers);
 
-        final ResponseEntity<OauthAccessToken> accessTokenResponse = restTemplate.exchange(
+        ResponseEntity<OauthAccessToken> accessTokenResponse = restTemplate.exchange(
                 tokenUri,
                 HttpMethod.POST,
                 accessTokenRequestEntity,

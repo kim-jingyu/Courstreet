@@ -1,5 +1,6 @@
 package com.hyundairoad.place.controller;
 
+import com.hyundairoad.auth.AdminOnly;
 import com.hyundairoad.auth.Auth;
 import com.hyundairoad.auth.MemberOnly;
 import com.hyundairoad.auth.domain.Accessor;
@@ -75,10 +76,9 @@ public class PlaceController {
      * @throws IOException 입출력 예외
      */
     @Operation(summary = "특정 장소를 수정합니다.", description = "특정 장소를 수정하는 API입니다.")
-    @MemberOnly
+    @AdminOnly
     @PutMapping("/place/{id}")
     public ResponseEntity<Void> updatePlace(@Auth Accessor accessor, @ModelAttribute UpdatePlaceRequest updatePlaceRequest) throws IOException {
-        placeService.validatePlaceByMember(accessor.getMemberId(), updatePlaceRequest.placeId());
         return ResponseEntity.ok().body(placeService.updatePlace(updatePlaceRequest));
     }
 }

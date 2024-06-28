@@ -1,9 +1,6 @@
 package com.hyundairoad.place.service;
 
-import com.hyundairoad.global.error.AuthException;
 import com.hyundairoad.image.service.ImageService;
-import com.hyundairoad.member.repository.MemberPlaceLikeRepository;
-import com.hyundairoad.member.repository.MemberPlaceStarRepository;
 import com.hyundairoad.place.domain.Place;
 import com.hyundairoad.place.domain.PlaceResponse;
 import com.hyundairoad.place.domain.dto.CreatePlaceRequest;
@@ -28,22 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlaceService {
     private final PlaceRepository placeRepository;
-    private final MemberPlaceLikeRepository memberPlaceLikeRepository;
-    private final MemberPlaceStarRepository memberPlaceStarRepository;
     private final ImageService imageService;
-
-    /**
-     * 회원이 장소를 소유하고 있는지 검증합니다.
-     *
-     * @param memberId 회원 ID
-     * @param placeId 장소 ID
-     * @throws AuthException 회원이 장소를 소유하지 않는 경우 예외 발생
-     */
-    public void validatePlaceByMember(Long memberId, Long placeId) {
-        if (!placeRepository.existsByMemberIdAndId(memberId, placeId)) {
-            throw new AuthException();
-        }
-    }
 
     /**
      * 모든 장소를 조회합니다.

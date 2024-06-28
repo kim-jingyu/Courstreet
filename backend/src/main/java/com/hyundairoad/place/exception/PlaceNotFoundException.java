@@ -4,6 +4,12 @@ import com.hyundairoad.global.error.ErrorCode;
 import com.hyundairoad.global.error.HyundaiRoadException;
 import org.springframework.http.HttpStatus;
 
+/**
+ * PlaceNotFoundException
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 public class PlaceNotFoundException extends HyundaiRoadException {
     public PlaceNotFoundException() {
         super(new ErrorCode(HttpStatus.BAD_REQUEST, "해당 장소를 찾지못했습니다."));

@@ -22,6 +22,12 @@ import java.util.Arrays;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
+/**
+ * LoginArgumentResolver
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @RequiredArgsConstructor
 @Component
 public class LoginArgumentResolver implements HandlerMethodArgumentResolver {

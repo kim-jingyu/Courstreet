@@ -13,6 +13,12 @@ import static lombok.AccessLevel.PROTECTED;
 import static lombok.Builder.Default;
 import static lombok.EqualsAndHashCode.Include;
 
+/**
+ * 회원 엔티티
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Entity
 @Getter
 @Builder
@@ -46,19 +52,14 @@ public class Member {
     @ToString.Exclude
     private List<Course> courseList = new ArrayList<>();
 
-    public Member(final Long id, final String socialLoginId, final String nickName, final String imageUrl) {
-        this.id = id;
+    public Member(String socialLoginId, String nickName, String imageUrl) {
         this.socialLoginId = socialLoginId;
         this.nickname = nickName;
         this.lastLoginDate = LocalDateTime.now();
         this.imageUrl = imageUrl;
     }
 
-    public Member(final String socialLoginId, final String nickName, final String imageUrl) {
-        this(null, socialLoginId, nickName, imageUrl);
-    }
-
-    public boolean isNicknameChanged(final String inputNickname) {
+    public boolean isNicknameChanged(String inputNickname) {
         return !nickname.equals(inputNickname);
     }
 

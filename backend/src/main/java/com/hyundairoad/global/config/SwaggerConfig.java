@@ -8,6 +8,12 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * SwaggerConfig
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Configuration
 public class SwaggerConfig {
     @Bean

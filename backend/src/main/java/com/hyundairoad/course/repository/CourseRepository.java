@@ -6,6 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+/**
+ * CourseRepository
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("SELECT c FROM Course c WHERE c.title LIKE %:keyword% OR c.content LIKE %:keyword%")
     List<Course> findByTitleOrContentContaining(String keyword);

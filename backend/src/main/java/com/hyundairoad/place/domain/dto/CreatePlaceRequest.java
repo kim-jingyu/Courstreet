@@ -5,6 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
+/**
+ * CreatePlaceRequest
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 public record CreatePlaceRequest (String name,
                                   String phone,
                                   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
