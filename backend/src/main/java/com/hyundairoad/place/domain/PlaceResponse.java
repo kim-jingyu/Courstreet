@@ -9,6 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PlaceResponse
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Builder
 public record PlaceResponse(Long placeId,
                             Long memberId,
@@ -23,10 +29,29 @@ public record PlaceResponse(Long placeId,
                             Category category,
                             WithWhom withWhom,
                             List<Map<Theme, Integer>> themes,
-                            Resource placeImage,
+                            String placeImageUrl,
                             Boolean liked,
                             Double star, // 평균
                             Integer rate) {
+
+    public static PlaceResponse of(Place place) {
+        return PlaceResponse.builder()
+                .placeId(place.getId())
+                .phone(place.getPhone())
+                .name(place.getName())
+                .startTime(place.getStartTime())
+                .endTime(place.getEndTime())
+                .floor(place.getFloor())
+                .location(place.getLocation())
+                .category(place.getCategory())
+                .withWhom(place.getWithWhom())
+                .themes(List.of(
+                        Map.of(place.getTheme1(), place.getWeight1()),
+                        Map.of(place.getTheme2(), place.getWeight2()),
+                        Map.of(place.getTheme3(), place.getWeight3())))
+                .placeImageUrl(place.getPlaceImgUrl())
+                .build();
+    }
 
     public static PlaceResponse of(Place place, Long memberId, Resource placeImage, Double star, Integer rate) {
         return PlaceResponse.builder()
@@ -44,7 +69,7 @@ public record PlaceResponse(Long placeId,
                             Map.of(place.getTheme1(), place.getWeight1()),
                             Map.of(place.getTheme2(), place.getWeight2()),
                             Map.of(place.getTheme3(), place.getWeight3())))
-                .placeImage(placeImage)
+                .placeImageUrl(place.getPlaceImgUrl())
                 .star(star)
                 .rate(rate)
                 .build();

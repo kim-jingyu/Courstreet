@@ -16,6 +16,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import static java.util.stream.Collectors.joining;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
+/**
+ * GlobalExceptionHandler
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {

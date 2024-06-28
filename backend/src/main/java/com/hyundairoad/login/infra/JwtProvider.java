@@ -12,32 +12,37 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+/**
+ * JwtProvider
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Component
 public class JwtProvider {
-
-    public static final String EMPTY_SUBJECT = "";
+    public static final String PREV = "${security.jwt.";
 
     private final SecretKey secretKey;
     private final Long accessExpirationTime;
     private final Long refreshExpirationTime;
 
     public JwtProvider(
-            @Value("${security.jwt.secret-key}") final String secretKey,
-            @Value("${security.jwt.access-expiration-time}") final Long accessExpirationTime,
-            @Value("${security.jwt.refresh-expiration-time}") final Long refreshExpirationTime
+            @Value(PREV + "secret-key}") String secretKey,
+            @Value(PREV + "access-expiration-time}") Long accessExpirationTime,
+            @Value(PREV + "refresh-expiration-time}") Long refreshExpirationTime
     ) {
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.accessExpirationTime = accessExpirationTime;
         this.refreshExpirationTime = refreshExpirationTime;
     }
 
-    public MemberTokens generateLoginToken(final String subject) {
-        final String refreshToken = createToken(EMPTY_SUBJECT, refreshExpirationTime);
-        final String accessToken = createToken(subject, accessExpirationTime);
+    public MemberTokens generateLoginToken(String subject) {
+        String refreshToken = createToken("", refreshExpirationTime);
+        String accessToken = createToken(subject, accessExpirationTime);
         return new MemberTokens(refreshToken, accessToken);
     }
 
-    private String createToken(final String subject, final Long validityInMilliseconds) {
+    private String createToken(String subject, Long validityInMilliseconds) {
         final Date now = new Date();
         final Date validity = new Date(now.getTime() + validityInMilliseconds);
 
@@ -50,12 +55,12 @@ public class JwtProvider {
                 .compact();
     }
 
-    public void validateTokens(final MemberTokens memberTokens) {
+    public void validateTokens(MemberTokens memberTokens) {
         validateRefreshToken(memberTokens.getRefreshToken());
         validateAccessToken(memberTokens.getAccessToken());
     }
 
-    private void validateRefreshToken(final String refreshToken) {
+    private void validateRefreshToken(String refreshToken) {
         try {
             parseToken(refreshToken);
         } catch (final ExpiredJwtException e) {
@@ -65,7 +70,7 @@ public class JwtProvider {
         }
     }
 
-    private void validateAccessToken(final String accessToken) {
+    private void validateAccessToken(String accessToken) {
         try {
             parseToken(accessToken);
         } catch (final ExpiredJwtException e) {
@@ -75,39 +80,39 @@ public class JwtProvider {
         }
     }
 
-    public String getSubject(final String token) {
+    public String getSubject(String token) {
         return parseToken(token)
                 .getBody()
                 .getSubject();
     }
 
-    private Jws<Claims> parseToken(final String token) {
+    private Jws<Claims> parseToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token);
     }
 
-    public boolean isValidRefreshAndInvalidAccess(final String refreshToken, final String accessToken) {
+    public boolean isValidRefreshAndInvalidAccess(String refreshToken, String accessToken) {
         validateRefreshToken(refreshToken);
         try {
             validateAccessToken(accessToken);
-        } catch (final ExpiredPeriodJwtException e) {
+        } catch (ExpiredPeriodJwtException e) {
             return true;
         }
         return false;
     }
 
-    public String regenerateAccessToken(final String subject) {
+    public String regenerateAccessToken(String subject) {
         return createToken(subject, accessExpirationTime);
     }
 
-    public boolean isValidRefreshAndValidAccess(final String refreshToken, final String accessToken) {
+    public boolean isValidRefreshAndValidAccess(String refreshToken, String accessToken) {
         try {
             validateRefreshToken(refreshToken);
             validateAccessToken(accessToken);
             return true;
-        } catch (final JwtException e) {
+        } catch (JwtException e) {
             return false;
         }
     }

@@ -10,20 +10,28 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * EmailConfig
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Slf4j
 @Getter
 @Configuration
 public class EmailConfig {
-    @Value("${mail.google.host}")
+    private static final String PREV = "${spring.mail.google.";
+
+    @Value(PREV + "host}")
     private String host;
 
-    @Value("${mail.google.username}")
+    @Value(PREV + "username}")
     private String username;
 
-    @Value("${mail.google.password}")
+    @Value(PREV + "password}")
     private String password;
 
-    @Value("${mail.google.port}")
+    @Value(PREV + "port}")
     private int port;
 
 

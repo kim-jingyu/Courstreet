@@ -13,10 +13,15 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.Optional;
 
+/**
+ * GoogleOauthProvider
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Component
 public class GoogleOauthProvider implements OauthProvider {
-
-    private static final String PROPERTIES_PATH = "${oauth2.provider.google.";
+    private static final String PREV = "${oauth2.provider.google.";
     private static final String PROVIDER_NAME = "google";
 
     protected final String clientId;
@@ -26,11 +31,11 @@ public class GoogleOauthProvider implements OauthProvider {
     protected final String userUri;
 
     public GoogleOauthProvider(
-            @Value(PROPERTIES_PATH + "client-id}") final String clientId,
-            @Value(PROPERTIES_PATH + "client-secret}") final String clientSecret,
-            @Value(PROPERTIES_PATH + "redirect-uri}") final String redirectUri,
-            @Value(PROPERTIES_PATH + "token-uri}") final String tokenUri,
-            @Value(PROPERTIES_PATH + "user-info}") final String userUri
+            @Value(PREV + "client-id}") String clientId,
+            @Value(PREV + "client-secret}") String clientSecret,
+            @Value(PREV + "redirect-uri}") String redirectUri,
+            @Value(PREV + "token-uri}")  String tokenUri,
+            @Value(PREV + "user-info}") String userUri
     ) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -40,18 +45,17 @@ public class GoogleOauthProvider implements OauthProvider {
     }
 
     @Override
-    public boolean is(final String name) {
+    public boolean is(String name) {
         return PROVIDER_NAME.equals(name);
     }
 
     @Override
-    public OauthUserInfo getUserInfo(final String code) {
-        final String accessToken = requestAccessToken(code);
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken);
-        final HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(headers);
+    public OauthUserInfo getUserInfo(String code) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(requestAccessToken(code));
+        HttpEntity<MultiValueMap<String, String>> userInfoRequestEntity = new HttpEntity<>(headers);
 
-        final ResponseEntity<GoogleUserInfo> response = restTemplate.exchange(
+        ResponseEntity<GoogleUserInfo> response = restTemplate.exchange(
                 userUri,
                 HttpMethod.GET,
                 userInfoRequestEntity,
@@ -64,9 +68,9 @@ public class GoogleOauthProvider implements OauthProvider {
         throw new AuthException();
     }
 
-    private String requestAccessToken(final String code) {
-        final MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        final HttpHeaders httpHeaders = new HttpHeaders();
+    private String requestAccessToken(String code) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBasicAuth(clientId, clientSecret);
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -76,8 +80,8 @@ public class GoogleOauthProvider implements OauthProvider {
         params.add("redirect_uri", redirectUri);
         params.add("grant_type", "authorization_code");
 
-        final HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, httpHeaders);
-        final ResponseEntity<OauthAccessToken> accessTokenResponse = restTemplate.exchange(
+        HttpEntity<MultiValueMap<String, String>> accessTokenRequestEntity = new HttpEntity<>(params, httpHeaders);
+        ResponseEntity<OauthAccessToken> accessTokenResponse = restTemplate.exchange(
                 tokenUri,
                 HttpMethod.POST,
                 accessTokenRequestEntity,

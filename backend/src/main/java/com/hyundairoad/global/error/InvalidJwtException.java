@@ -3,6 +3,12 @@ package com.hyundairoad.global.error;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+/**
+ * InvalidJwtException
+ *
+ * 작성자: 김진규
+ * 작성일: 2024-06-29
+ */
 @Getter
 public class InvalidJwtException extends HyundaiRoadException {
 
