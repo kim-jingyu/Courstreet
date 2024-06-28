@@ -1,34 +1,34 @@
 import { publicApi, privateApi } from '.';
 
 // 내가 좋아하는 장소들
-export const getLikedPlaces = async (floor, keyword) => {
+export const getLikedPlaces = async (memberId) => {
   try {
-    const res = await privateApi.get(`/place?floor=${floor}&keyword=${keyword}`);
-    console.log('getPlaces try', res.data);
+    const res = await privateApi.get(`/mypage/mylike/myplace/${memberId}`);
+    console.log('getLikedPlaces try', res.data);
     return res.data;
   } catch (err) {
-    console.log('getPlaces catch', err);
+    console.log('getLikedPlaces catch', err);
   }
 };
 
-// 장소 좋아요
-export const likePlace = async (placeId) => {
+// 내가 좋아하는 코스들
+export const getLikedCourses = async (memberId) => {
   try {
-    const res = await privateApi.post(`/member/like/course/${placeId}`);
-    console.log('likePlace try', res.data);
+    const res = await privateApi.get(`/mypage/mylike/mycourse/${memberId}`);
+    console.log('getLikedCourses try', res.data);
     return res.data;
   } catch (err) {
-    console.log('likePlace catch', err);
+    console.log('getLikedCourses catch', err);
   }
 };
 
-// 장소 좋아요 취소
-export const unlikePlace = async (placeId) => {
+// 내가 작성한 코스들
+export const getMyCourses = async (memberId) => {
   try {
-    const res = await privateApi.delete(`/member/like/course/${placeId}`,);
-    console.log('unlikePlace try', res.data);
+    const res = await privateApi.get(`/mypage/${memberId}`);
+    console.log('getMyCourses try', res.data);
     return res.data;
   } catch (err) {
-    console.log('unlikePlace catch', err);
+    console.log('getMyCourses catch', err);
   }
 };

@@ -22,6 +22,26 @@ export const getCourse = async (courseId) => {
   }
 };
 
+// 추천 일정 받기
+export const getRecommendedSchedule = async (data) => {
+  try {
+    const res = await privateApi.post(`/course/recomend`, data);
+    console.log('getRecommendedSchedule try', res.data);
+  } catch (err) {
+    console.log('getRecommendedSchedule then', err);
+  }
+};
+
+// 코스 생성하기
+export const createCourse = async (data) => {
+  try {
+    const res = await privateApi.post(`/course`, data);
+    console.log('createPost try', res.data);
+  } catch (err) {
+    console.log('createPost then', err);
+  }
+};
+
 // 오늘의픽 조회
 export const getTodayPick = async () => {
   try {
