@@ -8,4 +8,7 @@ package com.hyundairoad.global.constants;
  */
 public class AuthCredentials {
     public static final int COOKIE_AGE_SECONDS = 604800;
+    public static final String REFRESH_TOKEN = "refresh-token";
+    public static final int MAX_TRY_COUNT = 5;
+    public static final int FOUR_DIGIT_RANGE = 10000;
 }

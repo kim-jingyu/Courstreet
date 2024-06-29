@@ -1,7 +1,7 @@
 package com.hyundairoad.mypage.controller;
 
-import com.hyundairoad.auth.Auth;
-import com.hyundairoad.auth.MemberOnly;
+import com.hyundairoad.auth.member.MemberCheck;
+import com.hyundairoad.auth.member.MemberOnly;
 import com.hyundairoad.auth.domain.Accessor;
 import com.hyundairoad.course.domain.dto.CourseResponse;
 import com.hyundairoad.mypage.service.MyPageService;
@@ -38,7 +38,7 @@ public class MyPageController {
     @Operation(summary = "내가 작성한 코스를 조회합니다.", description = "회원이 작성한 코스를 조회하는 API입니다.")
     @MemberOnly
     @GetMapping("/course")
-    public ResponseEntity<List<CourseResponse>> getMyPageMyCourse(@Auth Accessor accessor) {
+    public ResponseEntity<List<CourseResponse>> getMyPageMyCourse(@MemberCheck Accessor accessor) {
         return ResponseEntity.ok().body(myPageService.getMyPageCourseList(accessor.getMemberId()));
     }
 
@@ -51,7 +51,7 @@ public class MyPageController {
     @Operation(summary = "내가 좋아요한 코스를 조회합니다.", description = "회원이 좋아요한 코스를 조회하는 API입니다.")
     @MemberOnly
     @GetMapping("/course/like")
-    public ResponseEntity<List<CourseResponse>> getMyPageLikeMyCourse(@Auth Accessor accessor) {
+    public ResponseEntity<List<CourseResponse>> getMyPageLikeMyCourse(@MemberCheck Accessor accessor) {
         return ResponseEntity.ok().body(myPageService.getMyPageLikeCourseList(accessor.getMemberId()));
     }
 
@@ -63,7 +63,7 @@ public class MyPageController {
      */
     @Operation(summary = "내가 좋아요한 장소를 조회합니다.", description = "회원이 좋아요한 장소를 조회하는 API입니다.")
     @GetMapping("/place/like")
-    public ResponseEntity<List<PlaceResponse>> getMyPageLikeMyPlace(@Auth Accessor accessor) {
+    public ResponseEntity<List<PlaceResponse>> getMyPageLikeMyPlace(@MemberCheck Accessor accessor) {
         return ResponseEntity.ok().body(myPageService.getMyPageLikePlaceList(accessor.getMemberId()));
     }
 }

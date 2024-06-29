@@ -1,6 +1,7 @@
 package com.hyundairoad.place.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -11,8 +12,8 @@ import java.time.LocalDateTime;
  * 작성자: 김진규
  * 작성일: 2024-06-29
  */
-public record UpdatePlaceRequest(Long placeId,
-                                 String name,
+public record UpdatePlaceRequest(String name,
+                                 @Pattern(regexp = "^(010-\\d{4}-\\d{4}|010\\d{8}|\\d{2,3}-\\d{3,4}-\\d{4}|\\d{2,3}\\d{3,4}\\d{4})$", message = "유효한 전화번호를 입력해주세요.")
                                  String phone,
                                  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
                                  LocalDateTime startTime,

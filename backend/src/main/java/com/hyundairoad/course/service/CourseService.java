@@ -129,20 +129,20 @@ public class CourseService {
     /**
      * 특정 코스를 수정합니다.
      *
-     * @param id 코스 ID
+     * @param courseId 코스 ID
      * @param courseUpdateRequest 코스 수정 요청 정보
      * @return 수정 결과 (null)
      * @throws IOException 이미지 파일 처리 중 예외 발생
      */
     @Transactional
-    public Void updateCourse(Long id, CourseUpdateRequest courseUpdateRequest) throws IOException {
-        Course course = getCourse(id);
+    public Void updateCourse(Long courseId, Long memberId, CourseUpdateRequest courseUpdateRequest) throws IOException {
+        Course course = getCourse(courseId);
         String newImgUrl = imageService.updateFile(course.getCourseImgUrl(), courseUpdateRequest.image());
-        Member member = memberService.getMember(courseUpdateRequest.memberId());
+        Member member = memberService.getMember(memberId);
         courseUpdateRequest.placePerMemos()
                         .forEach(placePerMemo -> {
                             Long placeId = getPlaceId(placePerMemo);
-                            getCoursePlace(id, placeId).update(placeService.getPlace(placeId), placePerMemo.memo());
+                            getCoursePlace(courseId, placeId).update(placeService.getPlace(placeId), placePerMemo.memo());
                         });
         course.update(member, courseUpdateRequest.title(), courseUpdateRequest.content(), newImgUrl);
         return null;
@@ -151,13 +151,14 @@ public class CourseService {
     /**
      * 새로운 코스를 생성합니다.
      *
+     * @param memberId
      * @param courseCreateRequest 코스 생성 요청 정보
      * @return 생성된 코스의 ID
      * @throws IOException 이미지 파일 처리 중 예외 발생
      */
     @Transactional
-    public Long createCourse(CourseCreateRequest courseCreateRequest) throws IOException {
-        return courseRepository.save(Course.createCourse(memberService.getMember(courseCreateRequest.memberId()),
+    public Long createCourse(Long memberId, CourseCreateRequest courseCreateRequest) throws IOException {
+        return courseRepository.save(Course.createCourse(memberService.getMember(memberId),
                 imageService.uploadFile(courseCreateRequest.image()),
                 courseCreateRequest,
                 courseCreateRequest.placePerMemos().stream()

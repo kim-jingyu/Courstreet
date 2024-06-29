@@ -11,7 +11,6 @@ import java.util.List;
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static lombok.Builder.Default;
-import static lombok.EqualsAndHashCode.Include;
 
 /**
  * 회원 엔티티
@@ -27,7 +26,6 @@ import static lombok.EqualsAndHashCode.Include;
 @ToString
 public class Member {
     @Id
-    @Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 30)
@@ -42,9 +40,6 @@ public class Member {
 
     @Enumerated(value = STRING)
     private Gender gender;
-
-    @Enumerated(value = STRING)
-    private Role role;
 
     @Setter
     @Default

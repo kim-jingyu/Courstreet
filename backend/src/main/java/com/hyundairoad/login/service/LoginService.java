@@ -2,7 +2,7 @@ package com.hyundairoad.login.service;
 
 import com.hyundairoad.global.error.AuthException;
 import com.hyundairoad.login.domain.*;
-import com.hyundairoad.login.domain.repository.RefreshTokenRepository;
+import com.hyundairoad.login.repository.RefreshTokenRepository;
 import com.hyundairoad.login.infra.BearerAuthorizationExtractor;
 import com.hyundairoad.login.infra.JwtProvider;
 import com.hyundairoad.member.domain.Member;
@@ -10,6 +10,9 @@ import com.hyundairoad.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.hyundairoad.global.constants.AuthCredentials.FOUR_DIGIT_RANGE;
+import static com.hyundairoad.global.constants.AuthCredentials.MAX_TRY_COUNT;
 
 /**
  * 로그인 서비스
@@ -21,10 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class LoginService {
-
-    private static final int MAX_TRY_COUNT = 5;
-    private static final int FOUR_DIGIT_RANGE = 10000;
-
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberRepository memberRepository;
     private final OauthProviders oauthProviders;
