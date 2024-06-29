@@ -1,11 +1,10 @@
 package com.hyundairoad.like.controller;
 
-import com.hyundairoad.auth.Auth;
-import com.hyundairoad.auth.MemberOnly;
 import com.hyundairoad.auth.domain.Accessor;
+import com.hyundairoad.auth.member.MemberCheck;
+import com.hyundairoad.auth.member.MemberOnly;
 import com.hyundairoad.course.service.CourseService;
 import com.hyundairoad.like.service.LikeService;
-import com.hyundairoad.place.service.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LikeController {
     private final LikeService likeService;
     private final CourseService courseService;
-    private final PlaceService placeService;
 
     /**
      * 코스에 좋아요를 추가합니다.
@@ -40,7 +38,7 @@ public class LikeController {
     @Operation(summary = "코스에 좋아요를 추가합니다.", description = "코스에 좋아요를 추가하는 API입니다.")
     @MemberOnly
     @PostMapping("/course")
-    public ResponseEntity<Void> likeCourse(@Auth Accessor accessor, @RequestBody Long courseId) {
+    public ResponseEntity<Void> likeCourse(@MemberCheck Accessor accessor, @RequestBody Long courseId) {
         Long memberId = getMemberIdWithCourse(accessor, courseId);
         return ResponseEntity.ok().body(likeService.likeCourse(memberId, courseId));
     }
@@ -55,7 +53,7 @@ public class LikeController {
     @Operation(summary = "장소에 좋아요를 추가합니다.", description = "장소에 좋아요를 추가하는 API입니다.")
     @MemberOnly
     @PostMapping("/place")
-    public ResponseEntity<Void> likePlace(@Auth Accessor accessor, @RequestBody Long placeId) {
+    public ResponseEntity<Void> likePlace(@MemberCheck Accessor accessor, @RequestBody Long placeId) {
         Long memberId = accessor.getMemberId();
         return ResponseEntity.ok().body(likeService.likePlace(memberId, placeId));
     }
@@ -70,7 +68,7 @@ public class LikeController {
     @Operation(summary = "코스에 대한 좋아요를 취소합니다.", description = "코스에 대한 좋아요를 취소하는 API입니다.")
     @MemberOnly
     @PostMapping("/cancel/course")
-    public ResponseEntity<Void> cancelLikeCourse(@Auth Accessor accessor, @RequestBody Long courseId) {
+    public ResponseEntity<Void> cancelLikeCourse(@MemberCheck Accessor accessor, @RequestBody Long courseId) {
         Long memberId = getMemberIdWithCourse(accessor, courseId);
         return ResponseEntity.ok().body(likeService.cancelLikeCourse(memberId, courseId));
     }
@@ -85,7 +83,7 @@ public class LikeController {
     @Operation(summary = "장소에 대한 좋아요를 취소합니다.", description = "장소에 대한 좋아요를 취소하는 API입니다.")
     @MemberOnly
     @PostMapping("/cancel/place")
-    public ResponseEntity<Void> cancelLikePlace(@Auth Accessor accessor, @RequestBody Long placeId) {
+    public ResponseEntity<Void> cancelLikePlace(@MemberCheck Accessor accessor, @RequestBody Long placeId) {
         Long memberId = accessor.getMemberId();
         return ResponseEntity.ok().body(likeService.cancelLikePlace(memberId, placeId));
     }

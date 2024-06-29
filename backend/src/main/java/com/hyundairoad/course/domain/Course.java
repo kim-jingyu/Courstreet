@@ -43,16 +43,26 @@ public class Course {
 
     private String courseImgUrl;
 
+    @Column(nullable = false, length = 50)
     private String title;
     @Lob
     private String content;
+
+    @Column(nullable = false)
     private LocalDateTime startTime;
+    @Column(nullable = false)
     private LocalDateTime endTime;
+
     @Enumerated(value = STRING)
+    @Column(nullable = false)
     private Theme theme;
+
     @Enumerated(value = STRING)
+    @Column(nullable = false)
     private WithWhom withWhom;
+
     @Enumerated(value = STRING)
+    @Column(nullable = false)
     private Visibility visibility;
 
     @Default

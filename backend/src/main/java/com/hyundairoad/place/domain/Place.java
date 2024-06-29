@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lombok.Builder.*;
+
 /**
  * 장소 엔티티
  *
@@ -27,13 +29,23 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 50)
     private String name;
+    @Column(nullable = false)
     private String phone;
+
+    @Column(nullable = false)
     private LocalDateTime startTime;
+    @Column(nullable = false)
     private LocalDateTime endTime;
+
+    @Column(nullable = false)
     private int startAge;
+    @Column(nullable = false)
     private int endAge;
+    @Column(nullable = false)
     private int floor;
+    @Column(nullable = false)
     private String location;
 
     private String placeImgUrl;
@@ -45,18 +57,24 @@ public class Place {
     private Category category;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Theme theme1;
+    @Column(nullable = false)
     private int weight1;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Theme theme2;
+    @Column(nullable = false)
     private int weight2;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Theme theme3;
+    @Column(nullable = false)
     private int weight3;
 
-    @Builder.Default
+    @Default
     @OneToMany(mappedBy = "place")
     private List<CoursePlace> coursePlaceList = new ArrayList<>();
 

@@ -10,7 +10,6 @@ import lombok.Getter;
  */
 @Getter
 public class Accessor {
-
     private final Long memberId;
     private final Authority authority;
 
@@ -30,7 +29,6 @@ public class Accessor {
     public static Accessor admin(Long memberId) {
         return new Accessor(memberId, Authority.ADMIN);
     }
-
 
     public boolean isMember() {
         return Authority.MEMBER.equals(authority);

@@ -68,8 +68,8 @@ public class PlaceService {
      * @return 수정 결과 (null)
      * @throws IOException 이미지 파일 처리 중 예외 발생
      */
-    public Void updatePlace(UpdatePlaceRequest updatePlaceRequest) throws IOException {
-        Place place = getPlace(updatePlaceRequest.placeId());
+    public Void updatePlace(Long placeId, UpdatePlaceRequest updatePlaceRequest) throws IOException {
+        Place place = getPlace(placeId);
         place.updatePlace(updatePlaceRequest, imageService.updateFile(place.getPlaceImgUrl(), updatePlaceRequest.image()));
         return null;
     }
