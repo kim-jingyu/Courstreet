@@ -1,98 +1,118 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
-import {
-  selectedPlaceIdsState,
-  searchedPlacesState,
-  searchedMapState,
-  searchedPlacesFloorState,
-  searchedPlacesKeywordState,
-  placeDummyState,
-} from '/src/recoils/PlaceAtoms';
-
-import {FixedContainer, ScrollableContainer} from './Place.style.js';
+import { useRecoilState } from 'recoil';
+import { selectedPlaceIdsState, searchedMapState, searchedPlacesFloorState } from '/src/recoils/PlaceAtoms';
+import { FixedContainer, ScrollableContainer } from './Place.style.js';
 import PlaceMap from '/src/components/place/place-map/PlaceMap';
 import PlaceItem from '/src/components/place/place-item/PlaceItem';
-
 import { Input } from 'antd';
-import * as G from '/src/components/course-create/CourseCreateComponent.style';
-import FiveGuysImg from '/src/assets/icons/fiveguys.png';
-import StarbucksImg from '/src/assets/icons/starbucks.png';
-
+import { useEffect, useState } from 'react';
+import { getAllPlaces, searchPlaces } from '/src/apis/placeAPI.jsx';
 const { Search } = Input;
 
 function Place() {
-  // 현재 컴포넌트 페이지 인덱스
-  const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
-  // 전체 장소
-  const [placeDummy, setPlaceDummy] = useRecoilState(placeDummyState)
-  // 검색 결과 장소들
-  const searchedPlace = useRecoilValue(searchedPlacesState);
+  // 데이터
+  const [places, setPlaces] = useState([]);
+  const [searchedPlace, setSearchedPlace] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   // 현재까지 선택된 장소들, 지도 이미지, 선택된 층 변경
   const [selectedPlaceIds, setSelectedPlaceIds] = useRecoilState(selectedPlaceIdsState);
   const [searchedMap, setSearchedMap] = useRecoilState(searchedMapState);
   const [searchedFloor, setSearchedFloor] = useRecoilState(searchedPlacesFloorState);
-  const pickPlace = (place_id, location, floor) => {
+  // 장소 선택
+  const pickPlace = (placeId, location, floor) => {
     setSearchedFloor(floor);
-    selectedPlaceIds.includes(place_id)
-      ? setSelectedPlaceIds(selectedPlaceIds.filter((e) => e != place_id))
-      : setSelectedPlaceIds([...selectedPlaceIds, place_id]);
+    selectedPlaceIds.includes(placeId)
+      ? setSelectedPlaceIds(selectedPlaceIds.filter((e) => e != placeId))
+      : setSelectedPlaceIds([...selectedPlaceIds, placeId]);
     setSearchedMap(location);
   };
   // 검색 키워드 변경
-  const [_, setSearchedKeyword] = useRecoilState(searchedPlacesKeywordState);
-  const onSearch = (value, e, info) => {
-    setSearchedKeyword(value);
+  const [searchedKeyword, setSearchedKeyword] = useState('');
+  const onSearch = (placeName) => {
+    setSearchedKeyword(placeName);
+    if (placeName.trim().length === 0) return;
+    const fetchSearchPlaces = async (placeName) => {
+      try {
+        const data = await searchPlaces(placeName);
+        setPlaces(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSearchPlaces(placeName);
   };
-
-  // 좋아요 누르면 데이터 변경
-  const handleLikeToggle = (place_id) => {
-    setPlaceDummy((prevPlaces) =>
-      prevPlaces.map((place) =>
-        place.place_id === place_id ? { ...place, liked: !place.liked } : place
-      )
-    );
-  };
-
+  // 검색시엔 층 상관없이 검색되고, 검색어가 없이 층만 누르면 층별로 나타나게
+  useEffect(() => {
+    if (searchedKeyword === '') {
+      setSearchedPlace(places.filter((place) => place.floor === searchedFloor));
+    } else {
+      setSearchedPlace(places);
+    }
+  }, [places, searchedFloor]);
+  // 장소 전체 목록 조회
+  useEffect(() => {
+    const fetchAllPlaces = async () => {
+      try {
+        const data = await getAllPlaces();
+        setPlaces(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAllPlaces();
+  }, []);
 
   return (
     <>
-    <FixedContainer>
-      {/* 지도 */}
-      <PlaceMap />
-      {/* 검색창 */}
-      <div style={{textAlign: "center"}}>
-      <Search
-        placeholder="장소명 입력"
-        onChange={(e) => onSearch(e.target.value)}
-        size="large"
-        style={{
-          margin: '5px auto 15px',
-          width: '90%',
-        }}
-      />
-      </div>
-      </FixedContainer>
-      <ScrollableContainer>
-      {/* 장소들 */}
-      {searchedPlace.map(({ place_id, name, phone, start_time, end_time, floor, location, category, rate, liked }) => (
-        <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
-          <PlaceItem
-            isSelected={selectedPlaceIds.includes(place_id)}
-            srcImg={`/places/${place_id}.png`}
-            name={name}
-            phone={phone}
-            star={rate}
-            rate={rate}
-            category={category}
-            startTime={start_time}
-            endTime={end_time}
-            liked={liked}
-            floor={floor}
-            place_id={place_id}
-            onLikeToggle={() => handleLikeToggle(place_id)} 
+      <FixedContainer>
+        <PlaceMap />
+
+        <div style={{ textAlign: 'center' }}>
+          <Search
+            placeholder="장소명 입력"
+            onChange={(e) => onSearch(e.target.value)}
+            size="large"
+            style={{
+              margin: '5px auto 15px',
+              width: '90%',
+            }}
           />
         </div>
-      ))}
+      </FixedContainer>
+
+      <ScrollableContainer>
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>Error: {error.message}</div>
+        ) : (
+          searchedPlace.map(
+            ({ placeId, name, phone, startTime, endTime, floor, location, category, star, rate, liked }) => (
+              <div onClick={() => pickPlace(placeId, location, floor)} key={placeId}>
+                <PlaceItem
+                  isSelected={selectedPlaceIds.includes(placeId)}
+                  srcImg={`/places/${placeId}.png`}
+                  name={name}
+                  phone={phone}
+                  star={star || 0}
+                  rate={rate || 0}
+                  category={category}
+                  startTime={startTime}
+                  endTime={startTime}
+                  liked={liked}
+                  floor={floor}
+                  placeId={placeId}
+                  onLikeToggle={() => handleLikeToggle(placeId)}
+                  setPlaces={setPlaces}
+                />
+              </div>
+            ),
+          )
+        )}
       </ScrollableContainer>
     </>
   );

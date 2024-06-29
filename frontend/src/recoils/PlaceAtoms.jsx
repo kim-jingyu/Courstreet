@@ -18,25 +18,6 @@ export const searchedPlacesKeywordState = atom({
   default: '',
 });
 
-// 장소 검색 결과
-export const searchedPlacesState = selector({
-  key: 'searchedPlacesState',
-  get: ({ get }) => {
-    const dummy = get(placeDummyState);
-    const floor = get(searchedPlacesFloorState);
-    const keyword = get(searchedPlacesKeywordState);
-
-    let searchedPlaces = dummy;
-    if (keyword === '') {
-      searchedPlaces = searchedPlaces.filter((place) => place.floor === floor);
-    } else {
-      searchedPlaces = searchedPlaces.filter((place) => place.name.includes(keyword));
-    }
-    return searchedPlaces;
-  },
-  set: ({ set }, newValue) => set(placeDummyState, newValue),
-});
-
 // 지도 검색 조건(층 + 장소번호)
 export const searchedMapState = atom({
   key: 'searchedMapState',

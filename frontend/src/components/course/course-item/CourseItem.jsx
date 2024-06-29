@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { courseDummyState, coursePlaceDummyState } from '/src/recoils/CourseAtoms';
 import { Modal } from 'antd';
 import './CourseItem.style';
 import {
@@ -27,29 +25,30 @@ import more from '/src/assets/icons/more.png';
 import fiveguys from '/src/assets/icons/fiveguys.png';
 import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
 import profile from '/src/assets/icons/profile.png';
+import { likeCourse } from '/src/apis/courseAPI';
 
-function CourseItem({ course, goDetail, onLikeToggle }) {
+function CourseItem({ course, goDetail, setCourses }) {
   const navigate = useNavigate();
-  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
   // 코스 삭제
   const handleDelete = () => {
-    setCourseDummy((prevCourses) => prevCourses.filter((c) => c.COURSE_ID !== course.COURSE_ID));
+    setCourses((prevCourses) => prevCourses.filter((c) => c.courseId !== course.courseId));
     setOpen(false);
   };
   // 코스 수정
   const handleUpdate = () => {
-    navigate(`/courseupdate/${course.COURSE_ID}`);
+    navigate(`/courseupdate/${course.courseId}`);
     setOpen(false);
   };
-
-  // 좋아요 클릭
-  const [isLiked, setIsLiked] = useState(course.LIKED);
-  const toggleLiked = (event) => {
+  // 코스 좋아요
+  const toggleLiked = async (courseId, event) => {
     event.stopPropagation();
-    setIsLiked(!isLiked);
-    onLikeToggle(course.COURSE_ID);
+    const res = await likeCourse(courseId);
+    if (res) {
+      setCourses((prevCourses) =>
+        prevCourses.map((course) => (course.courseId === courseId ? { ...course, liked: !course.liked } : course)),
+      );
+    }
   };
-
   const [open, setOpen] = useState(false);
   // 모달 오픈
   const showModal = (event) => {
@@ -66,16 +65,16 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
       <Container onClick={goDetail}>
         <ItemContainer>
           <ImageBox>
-            <img src={`/courses/${course.COURSE_ID}.jpg`}></img>
+            <img src={`/courses/${course.courseId}.jpg`}></img>
           </ImageBox>
-          <UserIcon src={profile}/>
+          <UserIcon src={profile} />
           <ItemFooter>
             <UserContainer>
-              <UserName>{course.NICKNAME}님의 코스</UserName>
-              <HeartIcon src={isLiked ? heartFilled : heartEmpty} onClick={toggleLiked} />
-              {course.MEMBER_ID === 10 && <MoreIcon src={more} onClick={showModal}></MoreIcon>}
+              <UserName>{course.nickname}님의 코스</UserName>
+              <HeartIcon src={course.liked ? heartFilled : heartEmpty} onClick={(event) => toggleLiked(course.courseId, event)} />
+              {course.memberId === 10 && <MoreIcon src={more} onClick={showModal}></MoreIcon>}
             </UserContainer>
-            <ItemTitle>{course.TITLE}</ItemTitle>
+            <ItemTitle>{course.title}</ItemTitle>
             <div
               style={{
                 display: '-webkit-box',
@@ -90,14 +89,14 @@ function CourseItem({ course, goDetail, onLikeToggle }) {
                 color: 'darkgray',
               }}
             >
-              {course.CONTENT}
+              {course.content}
             </div>
           </ItemFooter>
         </ItemContainer>
       </Container>
 
       <Modal open={open} onCancel={handleCancel} footer={null} centered width={200} closable={false}>
-        <ModalTitle>{course.TITLE}</ModalTitle>
+        <ModalTitle>{course.title}</ModalTitle>
         <ModalBtn>
           <button onClick={handleUpdate}>수정</button>
           <br />

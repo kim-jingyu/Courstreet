@@ -37,6 +37,7 @@ function TodayPick() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // 오늘의픽 전체 목록 조회
   useEffect(() => {
     const fetchTodayPick = async () => {
       try {
@@ -72,13 +73,13 @@ function TodayPick() {
         <img src={pinImg} style={{ width: '25px', margin: '0px 4px' }}></img>
         오늘의 픽
       </div>
-      <Carousel autoplay arrows infinite={true}>
+      <Carousel autoplay autoplaySpeed={2500} arrows infinite={true}>
         {picks.map((course, idx) => (
-          <div key={idx} onClick={() => goDetail(course.COURSE_ID)}>
+          <div key={idx} onClick={() => goDetail(course.courseId)}>
             <div style={contentStyle}>
-              <img style={imageStyle} src={`/courses/${course.COURSE_ID}.jpg`} />
+              <img style={imageStyle} src={`/courses/${course.courseId}.jpg`} />
             </div>
-            <h1 style={textstyle}>{course.TITLE}</h1>
+            <h1 style={textstyle}>{course.title}</h1>
           </div>
         ))}
       </Carousel>

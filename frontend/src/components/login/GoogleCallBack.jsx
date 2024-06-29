@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const GoogleLoginCallback = () => {
   const location = useLocation();
@@ -10,7 +11,7 @@ const GoogleLoginCallback = () => {
     const code = params.get('code');
 
     if (code) {
-      fetch('http://localhost:8080/login/google', {
+      fetch('http://localhost:8080/login/kakao', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -19,10 +20,18 @@ const GoogleLoginCallback = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('Access Token:', data.accessToken);
-          // 이후 필요한 처리 로직 추가
-          // 예: 로컬 스토리지에 토큰 저장
-          localStorage.setItem('accessToken', data.accessToken);
+          const accessToken = data.accessToken;
+          console.log('Access Token:', accessToken);
+          // 로컬 스토리지에 토큰 저장
+          localStorage.setItem('accessToken', accessToken);
+          // memberId 로컬 스토리지에 저장
+          const tokenParts = accessToken.split('.');
+          const encodedPayload = tokenParts[1];
+          const decodedPayload = atob(encodedPayload.replace(/-/g, '+').replace(/_/g, '/'));
+          const payloadObj = JSON.parse(decodedPayload);
+          const memberId = payloadObj.sub;
+          console.log('Member ID', memberId);
+          localStorage.setItem('memberId', memberId);
           navigate('/'); // 메인 페이지로 리디렉션
         })
         .catch((error) => {
@@ -30,7 +39,6 @@ const GoogleLoginCallback = () => {
         });
     }
   }, [location, navigate]);
-
   return <div>Google 로그인 중...</div>;
 };
 
