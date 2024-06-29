@@ -1,9 +1,9 @@
-import { publicApi, privateApi, uploadFileApi } from '.';
+import { publicApi, privateApi } from '.';
 
 // 오늘의픽 조회
 export const getTodayPick = async () => {
   try {
-    const res = await publicApi.get(`/course/today-pick`);
+    const res = await publicApi.get(`/today-pick`);
     console.log('getTodayPick try', res.data);
     return res.data;
   } catch (err) {
@@ -13,23 +13,37 @@ export const getTodayPick = async () => {
 
 // 코스 목록 전체 조회
 export const getAllCourses = async () => {
-  try {
-    const res = await publicApi.get(`/course/all`);
-    console.log('getAllCourses try', res.data);
-    return res.data;
-  } catch (err) {
-    console.log('getAllCourses catch', err);
+  const accessToken = localStorage.getItem('accessToken');
+  // 회원
+  if (accessToken) {
+    try {
+      // const res = await privateApi.get(`/courses/m`);
+      const res = await publicApi.get(`/courses`);
+      console.log('getAllCourses.m try', res.data);
+      return res.data;
+    } catch (err) {
+      console.log('getAllCourses.m catch', err);
+    }
+  // 비회원
+  } else {
+    try {
+      const res = await publicApi.get(`/courses`);
+      console.log('getAllCourses try', res.data);
+      return res.data;
+    } catch (err) {
+      console.log('getAllCourses catch', err);
+    }
   }
 };
 
 // 코스 목록 검색
-export const getCourses = async () => {
+export const searchCourses = async (keyword) => {
   try {
     const res = await publicApi.get(`/course?keyword${keyword}`);
-    console.log('getCourses try', res.data);
+    console.log('searchCourses try', res.data);
     return res.data;
   } catch (err) {
-    console.log('getCourses catch', err);
+    console.log('searchCourses catch', err);
   }
 };
 
@@ -39,7 +53,7 @@ export const getRecommendedSchedule = async (data) => {
     const res = await privateApi.post(`/course/recommend`, data);
     console.log('getRecommendedSchedule try', res.data);
   } catch (err) {
-    console.log('getRecommendedSchedule then', err);
+    console.log('getRecommendedSchedule catch', err);
   }
 };
 
@@ -69,8 +83,8 @@ export const createCourse = async (data) => {
 export const updateCourse = async (courseId, data) => {
   try {
     const res = await privateApi.put(`/course/${courseId}`, data);
-    console.log('updateCourse try', res.data);
-    return res.data;
+    console.log('updateCourse try', res);
+    return true;
   } catch (err) {
     console.log('updateCourse catch', err);
   }
@@ -80,30 +94,30 @@ export const updateCourse = async (courseId, data) => {
 export const deleteCourse = async (courseId) => {
   try {
     const res = await privateApi.delete(`/course/${courseId}`);
-    console.log('deleteCourse try', res.data);
-    return res.data;
+    console.log('deleteCourse try', res);
+    return true;
   } catch (err) {
     console.log('deleteCourse catch', err);
   }
 };
 
 // 코스 좋아요
-export const likeCourse = async (data) => {
+export const likeCourse = async (courseId) => {
   try {
-    const res = await privateApi.post(`/member/like/course`, data);
-    console.log('likeCourse try', res.data);
-    return res.data;
+    const res = await privateApi.post(`/like/course/`, courseId);
+    console.log('likeCourse try', res);
+    return true;
   } catch (err) {
     console.log('likeCourse catch', err);
   }
 };
 
 // 코스 좋아요 취소
-export const unlikeCourse = async (data) => {
+export const unlikeCourse = async (courseId) => {
   try {
-    const res = await privateApi.post(`/member/cancel/like/course`, data);
-    console.log('unlikeCourse try', res.data);
-    return res.data;
+    const res = await privateApi.post(`/like/cancel/course`, courseId);
+    console.log('unlikeCourse try', res);
+    return true;
   } catch (err) {
     console.log('unlikeCourse catch', err);
   }

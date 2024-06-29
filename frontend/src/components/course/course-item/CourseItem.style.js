@@ -69,6 +69,7 @@ export const HeartIcon = styled.img`
   width: 10%;
   background-position: center;
   margin-left: auto;
+  z-index: 100;
 `;
 
 export const MoreIcon = styled.img`

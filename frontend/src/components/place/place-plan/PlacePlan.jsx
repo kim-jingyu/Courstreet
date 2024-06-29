@@ -92,7 +92,6 @@ function PlacePlan() {
   };
   const handleAddOk = () => {
     const newPlaces = placeDummy.filter((place) => selectedPlaceIds.includes(place.place_id));
-    console.log(newPlaces);
     for (const place of newPlaces) {
       setPlaces((prev) => [...prev, { info: place, memo: '' }]);
     }
@@ -137,7 +136,6 @@ function PlacePlan() {
   const [modalTextDetail, setModalTextDetail] = useState('');
   // 모달 오픈
   const showDetailModal = (placeDetail) => {
-    console.log(placeDetail);
     setModalTextDetail(placeDetail);
     setOpenDetail(true);
   };

@@ -8,7 +8,7 @@ export const FixedContainer = styled.div`
 
 export const ScrollableContainer = styled.div`
   padding: 20px;
-  height: 450px;
+  height: 455px;
   overflow-y: auto;
-  margin-botton: 10px;
+  margin-bottom: 10px;
 `;

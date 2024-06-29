@@ -11,6 +11,7 @@ import {
 import {
   courseDummyState,
 } from '/src/recoils/CourseAtoms';
+import { getMyCourses } from '/src/apis/mypageAPI';
 
 
 
@@ -38,7 +39,7 @@ function LikePlace() {
   const likeCourses = likeCourse.filter(dummy => dummy.LIKED)
 
   // 내 코스만 보기
-  const myCourse = useRecoilValue(courseDummyState);
+  const [myCourse, setMyCourse] = useState([]);
   const myCourses = myCourse.filter(dummy => dummy.MEMBER_ID === 10)
 
   // 좋아요 누르면 장소 데이터 변경
@@ -96,9 +97,19 @@ function LikePlace() {
     }
   };
 
+  useEffect(() => {
+    const fetchMyCourses = async () => {
+      const data = await getMyCourses();
+      if (data) {
+        setMyCourse(data)
+      }
+    } 
+    fetchMyCourses()
+  }, [])
+
   return (
     <>
-      <Tabs>
+      {/* <Tabs>
         <Tab active={activeTab === 'myCourses'} onClick={() => handleTabClick('myCourses')}>나의 코스</Tab>
         <LikeTab active={activeLikeTab} onClick={() => handleTabClick('likeCourses')}>좋아요</LikeTab>
       </Tabs>
@@ -161,7 +172,7 @@ function LikePlace() {
           </LikeContainer>
         )}
         
-      </div>
+      </div> */}
     </>
   );
 }

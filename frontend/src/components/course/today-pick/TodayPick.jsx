@@ -1,11 +1,8 @@
-import { courseDummyState } from '/src/recoils/CourseAtoms';
-import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'antd';
-import carousel1 from '/src/assets/icons/carousel1.png';
-import carousel2 from '/src/assets/icons/carousel2.png';
 import pinImg from '/src/assets/icons/todaypick-pin.png';
 import { useEffect, useState } from 'react';
+import { getTodayPick } from '/src/apis/courseAPI';
 
 const contentStyle = {
   display: 'flex',
@@ -35,15 +32,32 @@ const textstyle = {
 
 function TodayPick() {
   const navigate = useNavigate();
-  const goDetail = (courseId) => navigate(`coursedetail/${courseId}`)
-  
-  const [courseDummy, setCourseDummy] = useRecoilState(courseDummyState);
-  const ids = [10, 4, 26, 9, 27];
+  const goDetail = (courseId) => navigate(`coursedetail/${courseId}`);
   const [picks, setPicks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 오늘의픽 전체 목록 조회
   useEffect(() => {
-    setPicks(courseDummy.filter((course) => ids.includes(course.COURSE_ID)));
+    const fetchTodayPick = async () => {
+      try {
+        const data = await getTodayPick();
+        setPicks(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTodayPick();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
     <>
       <div
@@ -59,13 +73,13 @@ function TodayPick() {
         <img src={pinImg} style={{ width: '25px', margin: '0px 4px' }}></img>
         오늘의 픽
       </div>
-      <Carousel autoplay arrows infinite={true}>
+      <Carousel autoplay autoplaySpeed={2500} arrows infinite={true}>
         {picks.map((course, idx) => (
-          <div key={idx} onClick={()=>goDetail(course.COURSE_ID)}>
+          <div key={idx} onClick={() => goDetail(course.courseId)}>
             <div style={contentStyle}>
-              <img style={imageStyle} src={`/courses/${course.COURSE_ID}.jpg`} />
+              <img style={imageStyle} src={`/courses/${course.courseId}.jpg`} />
             </div>
-            <h1 style={textstyle}>{course.TITLE}</h1>
+            <h1 style={textstyle}>{course.title}</h1>
           </div>
         ))}
       </Carousel>

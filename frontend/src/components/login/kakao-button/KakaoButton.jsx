@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SocialButton } from './KakaoButton.style';
 
-const KAKAO_CLIENT_ID = '';
+const KAKAO_CLIENT_ID = import.meta.env.VITE_APP_KAKAO_CLIENT_ID;
 const REDIRECT_URI = 'http://localhost:5173/kakao/callback'; // 클라이언트의 콜백 URI 설정
 
 const KakaoButton = ({ children, ...attributes }) => {
