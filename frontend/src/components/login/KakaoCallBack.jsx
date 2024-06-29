@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-
 
 const KakaoLoginCallback = () => {
   const location = useLocation();
@@ -18,6 +16,7 @@ const KakaoLoginCallback = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ code }),
+        credentials: 'include', // 쿠키 포함
       })
         .then((response) => response.json())
         .then((data) => {

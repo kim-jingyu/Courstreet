@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const BASE_URL = 'http://localhost:8080';
 axios.defaults.withCredentials = true;
@@ -8,63 +7,62 @@ export const publicApi = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
   },
+  withCredentials: true,
 });
 
 export const privateApi = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
   },
+  withCredentials: true,
 });
 
 privateApi.interceptors.request.use((config) => {
   const token = localStorage.getItem('accessToken');
-  config.headers.Authorization = 'Bearer ' + token;
+  if (token) {
+    config.headers.Authorization = 'Bearer ' + token;
+  }
   return config;
 });
 
-export async function postRefreshToken() {
-  const refreshToken = Cookies.get('refreshToken');
-  if (refreshToken) {
-    const info = {
-      refreshToken: refreshToken,
-    };
-    return await publicApi.post('/token', info);
-  } else {
-    // 쿠키에서 refreshToken을 가져올 수 없는 경우 처리
-    throw new Error('Refresh token not found');
-  }
-}
-
 privateApi.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   async (error) => {
-    const { config } = error;
-    const originRequest = config;
-    if (error.message === 'Network Error') {
+    const originalRequest = error.config;
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
       try {
         const response = await postRefreshToken();
+        console.log('Token refresh response:', response.data);
         const newAccessToken = response.data.accessToken;
-        const newRefreshToken = response.data.refreshToken;
-
         localStorage.setItem('accessToken', newAccessToken);
-        Cookies.set('refreshToken', newRefreshToken, { secure: true, sameSite: 'Lax' });
-
         axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-        originRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-
-        return axios(originRequest);
-      } catch {
-        localStorage.removeItem('accessToken');
-        Cookies.remove('refreshToken');
-        window.location.href = '/';
+        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        return axios(originalRequest);
+      } catch (refreshError) {
+        console.error('Token refresh failed:', refreshError);
+        return Promise.reject(refreshError);
       }
     }
     return Promise.reject(error);
-  },
+  }
 );
+
+export async function postRefreshToken() {
+  const token = localStorage.getItem('accessToken'); // 기존 accessToken 가져오기
+  try {
+    const response = await publicApi.post('/token', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+    });
+    console.log('postRefreshToken response:', response);
+    return response;
+  } catch (error) {
+    console.error('postRefreshToken error:', error);
+    throw error;
+  }
+}
