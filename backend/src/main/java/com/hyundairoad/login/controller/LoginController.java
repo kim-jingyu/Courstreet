@@ -44,7 +44,7 @@ public class LoginController {
     @PostMapping("/login/{provider}")
     public ResponseEntity<AccessTokenResponse> login(@PathVariable String provider, @RequestBody @Validated LoginRequest loginRequest, HttpServletResponse response) {
         MemberTokens memberTokens = loginService.login(provider, loginRequest.getCode());
-        ResponseCookie cookie = ResponseCookie.from("refresh-token", memberTokens.getRefreshToken())
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", memberTokens.getRefreshToken())
                 .maxAge(COOKIE_AGE_SECONDS)
                 .sameSite("None")
                 .secure(true)
@@ -64,7 +64,7 @@ public class LoginController {
      */
     @Operation(summary = "액세스 토큰을 갱신합니다.", description = "리프레시 토큰을 사용하여 액세스 토큰을 갱신하는 API입니다.")
     @PostMapping("/token")
-    public ResponseEntity<AccessTokenResponse> extendLogin(@CookieValue("refresh-token") String refreshToken, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<AccessTokenResponse> extendLogin(@CookieValue("refreshToken") String refreshToken, @RequestHeader("Authorization") String authorizationHeader) {
         String renewalRefreshToken = loginService.renewalAccessToken(refreshToken, authorizationHeader);
         return ResponseEntity.status(CREATED).body(new AccessTokenResponse(renewalRefreshToken));
     }
@@ -79,7 +79,7 @@ public class LoginController {
     @Operation(summary = "로그아웃 요청을 처리합니다.", description = "회원의 로그아웃을 처리하는 API입니다.")
     @MemberOnly
     @DeleteMapping("/logout")
-    public ResponseEntity<Void> logout(@MemberCheck Accessor accessor, @CookieValue("refresh-token") String refreshToken) {
+    public ResponseEntity<Void> logout(@MemberCheck Accessor accessor, @CookieValue("refreshToken") String refreshToken) {
         loginService.removeRefreshToken(refreshToken);
         return ResponseEntity.noContent().build();
     }

@@ -1,13 +1,13 @@
-package com.hyundairoad.login.config;
+package com.hyundairoad.login;
 
-import com.hyundairoad.auth.member.MemberCheck;
 import com.hyundairoad.auth.domain.Accessor;
+import com.hyundairoad.auth.member.MemberCheck;
 import com.hyundairoad.global.error.BadRequestException;
 import com.hyundairoad.global.error.RefreshTokenException;
 import com.hyundairoad.login.domain.MemberTokens;
-import com.hyundairoad.login.repository.RefreshTokenRepository;
 import com.hyundairoad.login.infra.BearerAuthorizationExtractor;
 import com.hyundairoad.login.infra.JwtProvider;
+import com.hyundairoad.login.repository.RefreshTokenRepository;
 import com.hyundairoad.member.exception.MemberNotFoundException;
 import com.hyundairoad.member.repository.MemberRepository;
 import jakarta.servlet.http.Cookie;
@@ -31,8 +31,8 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
  * 작성자: 김진규
  * 작성일: 2024-06-29
  */
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
     private final JwtProvider jwtProvider;
     private final BearerAuthorizationExtractor extractor;
@@ -53,12 +53,16 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
         }
 
         try {
+            System.out.println("parameter = " + parameter + ", mavContainer = " + mavContainer + ", webRequest = " + webRequest + ", binderFactory = " + binderFactory);
             String refreshToken = extractRefreshToken(request.getCookies());
             String accessToken = extractor.extractAccessToken(webRequest.getHeader(AUTHORIZATION));
             jwtProvider.validateTokens(new MemberTokens(refreshToken, accessToken));
 
             Long memberId = Long.valueOf(jwtProvider.getSubject(accessToken));
-            if (!memberRepository.existsById(memberId)) throw new MemberNotFoundException();
+            if (!memberRepository.existsById(memberId)){
+                System.out.println("LoginArgumentResolver.resolveArgument");
+                throw new MemberNotFoundException();
+            }
             return Accessor.member(memberId);
         } catch (RefreshTokenException e) {
             return Accessor.guest();
