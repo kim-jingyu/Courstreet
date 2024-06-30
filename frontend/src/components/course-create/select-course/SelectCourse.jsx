@@ -1,18 +1,23 @@
+// 코스 생성을 위한 제목, 내용을 쓰는 페이지
+// 작성자: 김준섭
+
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { courseCreateContentState, courseCreateTitleState } from '/src/recoils/HeaderAtoms';
 import * as S from './SelectCourse.style';
-import addPhoto from '/src/assets/icons/add-photo.png';
 import PlacePlan from '/src/components/place/place-plan/PlacePlan';
 
 function SelectCourse() {
+  // 전역으로 저장될 제목, 내용 데이터
   const [title, setTitle] = useRecoilState(courseCreateTitleState);
   const [content, setContent] = useRecoilState(courseCreateContentState);
   const [uploaded, setUploaded] = useState(false);
 
+  // 제목 변경
   const changeTitle = (val) => {
     if (val.length < 31) setTitle(val);
   };
+  // 내용 변경
   const changeContent = (event) => {
     if (event.target.value.length > 500) {
       return;
@@ -45,6 +50,7 @@ function SelectCourse() {
 
       {/* 장소 계획 */}
       <PlacePlan />
+
     </S.Container>
   );
 }

@@ -1,3 +1,6 @@
+// 비밀번호 찾기 페이지
+// 작성자: 김진규
+
 import {
   Container,
   Header,

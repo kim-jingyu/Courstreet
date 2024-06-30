@@ -1,3 +1,6 @@
+// 마이페이지. 내가 작성한 코스들, 내가 좋아하는 장소 및 코스들을 보여주는 페이지
+// 작성자: 김진규, 조희정
+
 import { useState, useEffect } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
@@ -109,7 +112,7 @@ function LikePlace() {
 
   return (
     <>
-      {/* <Tabs>
+      <Tabs>
         <Tab active={activeTab === 'myCourses'} onClick={() => handleTabClick('myCourses')}>나의 코스</Tab>
         <LikeTab active={activeLikeTab} onClick={() => handleTabClick('likeCourses')}>좋아요</LikeTab>
       </Tabs>
@@ -128,7 +131,7 @@ function LikePlace() {
               <div onClick={() => pickPlace(place_id, location, floor)} key={place_id}>
                 <PlaceItem
                   srcImg={`/places/${place_id}.png`}
-                  name={name}ㅖ
+                  name={name}
                   phone={phone}
                   star={rate}
                   rate={rate}
@@ -171,8 +174,7 @@ function LikePlace() {
             ))}
           </LikeContainer>
         )}
-        
-      </div> */}
+      </div>
     </>
   );
 }

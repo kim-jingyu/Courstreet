@@ -91,16 +91,6 @@ export const UserName = styled.span`
   color: #888;
 `;
 
-export const Dot = styled.span`
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-
-export const DateRange = styled.span`
-  font-size: 0.8rem;
-  color: #bbb;
-`;
-
 export const ItemTitle = styled.div`
   font-size: 17px;
   font-weight: bold;

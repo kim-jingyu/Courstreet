@@ -1,3 +1,6 @@
+// 지도검색, 메인, 마이페이지로 가는 헤더 네이게이터
+// 작성자: 김준섭
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';
@@ -15,26 +18,7 @@ function Header() {
   const goCourse = () => navigate('/');
   const goMypage = () => navigate('/mypage');
 
-  const [currPage, setCurrPage] = useRecoilState(courseCreateIndexState);
-
   const location = useLocation();
-  const currentUrl = location.pathname;
-
-  const goPrev = () => {
-    if (currentUrl !== '/coursecreate') navigate('/');
-    else if (currentUrl == '/coursecreate') {
-      if (currPage == 0) navigate('/');
-      else if (currPage == 1) setCurrPage(0);
-      else setCurrPage(1);
-    }
-  };
-  const goPost = () => {
-    if (currentUrl == '/coursecreate') {
-      if (currPage == 0) setCurrPage(1);
-      else if (currPage == 1) setCurrPage(2);
-      else console.log('create Course');
-    }
-  };
 
   return (
     <S.Container>

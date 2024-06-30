@@ -1,3 +1,6 @@
+// Kakao 로그인 후 서버에 토큰 요청을 보내는 콜백 컴포넌트
+// 작성자: 김진규
+
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -5,6 +8,8 @@ const KakaoLoginCallback = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Kakao 로그인 성공 시 리다이렉트되는 페이지
+  // 마운트 되면 자동으로 서버에 로그인 요청을 보냄
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const code = params.get('code');

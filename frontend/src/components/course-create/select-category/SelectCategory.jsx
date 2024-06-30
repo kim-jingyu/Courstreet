@@ -1,5 +1,14 @@
+// 코스 생성 카테고리 선택 페이지
+// 작성자: 김준섭
+
 import { useRecoilState } from 'recoil';
-import { withCategoryState, themeCategoryState, genderCategoryState, ageCategoryState } from '/src/recoils/CourseAtoms';
+import {
+  withCategoryState,
+  themeCategoryState,
+  genderCategoryState,
+  ageCategoryState,
+  timeCategoryState,
+} from '/src/recoils/CourseAtoms';
 
 import * as S from './SelectCategory.style';
 import * as G from '../CourseCreateComponent.style';
@@ -8,14 +17,9 @@ import { Calendar, TimePicker, theme } from 'antd';
 function SelectCategory() {
   // antd 토큰
   const { token } = theme.useToken();
-  // 달력과 시간
+  // 달력 날짜 선택
   const onSelect = (val) => {
-    // setValue(newValue);
-    // setSelectedValue(newValue);
-    console.log(val);
-  };
-  const onTimeChange = (time, timeString) => {
-    console.log(time, timeString);
+    // console.log(val);
   };
   const CalenderStyle = {
     margin: '10px auto',
@@ -23,15 +27,16 @@ function SelectCategory() {
     border: `2px solid ${token.colorBorderSecondary}`,
     borderRadius: token.borderRadiusLG,
   };
-
   // 카테고리
+  const [currTime, setCurrTime] = useRecoilState(timeCategoryState);
   const [currWith, setCurrWith] = useRecoilState(withCategoryState);
   const [currTheme, setCurrTheme] = useRecoilState(themeCategoryState);
   const [currGender, setCurrGender] = useRecoilState(genderCategoryState);
   const [currAge, setCurrAge] = useRecoilState(ageCategoryState);
-
+  // 방문시간, 누구랑, 테마, 성별, 연령 선택
+  const pickTime = (time, timeString) => setCurrTime([time[0]['$H'], time[1]['$H']]);
   const pickWith = (val) => (currWith === val ? setCurrWith(0) : setCurrWith(val));
-  const pickTheme = (val) => currTheme === val ? setCurrTheme(0) : setCurrTheme(val);
+  const pickTheme = (val) => (currTheme === val ? setCurrTheme(0) : setCurrTheme(val));
   const pickGender = (val) => (currGender === val ? setCurrGender(0) : setCurrGender(val));
   const pickAge = (val) => (currAge === val ? setCurrAge(0) : setCurrAge(val));
 
@@ -41,7 +46,13 @@ function SelectCategory() {
       <div style={CalenderStyle}>
         <Calendar fullscreen={false} onSelect={onSelect} />
       </div>
-      <TimePicker.RangePicker placeholder={['방문예정시간', '방문종료시간']} use12Hours format="h a" onChange={onTimeChange} size="large" />
+      <TimePicker.RangePicker
+        placeholder={['방문예정시간', '방문종료시간']}
+        use12Hours
+        format="h a"
+        onChange={pickTime}
+        size="large"
+      />
       <br /> <br />
       <G.ComponentTitle>누구와 함께</G.ComponentTitle>
       <S.Section>

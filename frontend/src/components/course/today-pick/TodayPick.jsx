@@ -1,3 +1,6 @@
+// 백화점에서 설정하는 오늘의픽
+// 작성자: 남진수
+
 import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'antd';
 import pinImg from '/src/assets/icons/todaypick-pin.png';
@@ -52,6 +55,7 @@ function TodayPick() {
     fetchTodayPick();
   }, []);
 
+  // 상태별 화면 분기
   if (loading) {
     return <div>Loading...</div>;
   }

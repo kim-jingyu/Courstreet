@@ -1,3 +1,6 @@
+// 에러 컴포넌트
+// 작성자: 김준섭
+
 function NotFound() {
   return (
     <>

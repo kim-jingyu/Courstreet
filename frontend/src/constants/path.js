@@ -1,3 +1,6 @@
+// 라우터 경로 상수
+// 작성자: 김준섭
+
 const PATH = {
   Course: '/',
   Signup: '/signup',

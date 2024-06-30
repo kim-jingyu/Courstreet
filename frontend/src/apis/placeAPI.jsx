@@ -1,3 +1,6 @@
+// 장소 관련 API
+// 작성자: 조희정
+
 import { publicApi, privateApi } from '.';
 
 // 장소 목록 전체 조회
@@ -8,6 +11,7 @@ export const getAllPlaces = async () => {
     return res.data;
   } catch (err) {
     console.log('getAllPlaces catch', err);
+    throw new Error('Failed to getAllPlaces. Please try again.')
   }
 };
 
@@ -15,10 +19,10 @@ export const getAllPlaces = async () => {
 export const searchPlaces = async (placeName) => {
   try {
     const res = await publicApi.get(`/place?placeName=${placeName}`);
-    console.log('searchPlaces try', res.data);
     return res.data;
   } catch (err) {
     console.log('searchPlaces catch', err);
+    throw new Error('Failed to searchPlaces. Please try again.')
   }
 };
 
@@ -26,7 +30,6 @@ export const searchPlaces = async (placeName) => {
 export const likePlace = async (placeId) => {
   try {
     const res = await privateApi.post(`/like/place`, placeId);
-    console.log('likePlace try', res);
     return true;
   } catch (err) {
     console.log('likePlace catch', err);
@@ -37,7 +40,6 @@ export const likePlace = async (placeId) => {
 export const unlikePlace = async (placeId) => {
   try {
     const res = await privateApi.post(`/like/cancel/place`, placeId);
-    console.log('unlikePlace try', res);
     return true;
   } catch (err) {
     console.log('unlikePlace catch', err);

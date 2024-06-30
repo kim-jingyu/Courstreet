@@ -1,3 +1,6 @@
+// 장소 페이지
+// 작성자: 조희정
+
 import { useRecoilState } from 'recoil';
 import { selectedPlaceIdsState, searchedMapState, searchedPlacesFloorState } from '/src/recoils/PlaceAtoms';
 import { FixedContainer, ScrollableContainer } from './Place.style.js';
@@ -18,7 +21,7 @@ function Place() {
   const [selectedPlaceIds, setSelectedPlaceIds] = useRecoilState(selectedPlaceIdsState);
   const [searchedMap, setSearchedMap] = useRecoilState(searchedMapState);
   const [searchedFloor, setSearchedFloor] = useRecoilState(searchedPlacesFloorState);
-  // 장소 선택
+  // 필수 방문 장소 선택
   const pickPlace = (placeId, location, floor) => {
     setSearchedFloor(floor);
     selectedPlaceIds.includes(placeId)

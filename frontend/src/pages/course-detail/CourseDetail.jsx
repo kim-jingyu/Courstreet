@@ -1,3 +1,6 @@
+// 코스 상세 페이지
+// 작성자: 남진수
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './CourseDetail.style';
@@ -26,6 +29,7 @@ function CourseDetail() {
     fetchCourse();
   }, []);
 
+  // 상태별 화면 분기
   if (loading) {
     return <div>Loading...</div>;
   }

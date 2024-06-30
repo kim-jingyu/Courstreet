@@ -1,3 +1,6 @@
+// 현대 테마에 맞는 색깔 상수들
+// 작성자: 김준섭
+
 const COLOR = {
   HDOrange: '#CA7701',
   HDDepartmentPink: '#F5DCEA',

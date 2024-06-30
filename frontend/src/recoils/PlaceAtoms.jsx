@@ -1,3 +1,6 @@
+// 장소 관련 전역 변수
+// 작성자: 조희정
+
 import { atom, selector } from 'recoil';
 
 // 현재까지 선택된 장소들의 id

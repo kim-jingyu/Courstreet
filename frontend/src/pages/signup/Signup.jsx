@@ -1,3 +1,6 @@
+// 회원가입 페이지
+// 작성자: 김진규
+
 import { useState } from 'react';
 import './Signup.style';
 import {
@@ -21,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const navigate = useNavigate()
+  // 데이터 설정
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');

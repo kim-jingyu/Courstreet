@@ -1,3 +1,6 @@
+// 코스 수정 페이지
+// 작성자: 김준섭
+
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -15,7 +18,7 @@ function CourseUpdate() {
   const currentUrl = location.pathname;
   const updatable = currentUrl.startsWith('/courseupdate');
 
-
+  // 제목, 내용
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const changeTitle = (val) => {
@@ -42,13 +45,9 @@ function CourseUpdate() {
     <>
       <S.Container>
         <S.CourseHeader>
-          {/* <S.CourseTitle>{course.TITLE}</S.CourseTitle> */}
             <S.CourseTitleUpdate placeholder="(제목)" onChange={(e) => changeTitle(e.target.value)} value={title} />
           <S.MoreIcon src={more} onClick={() => showModal(course.COURSE_ID)}></S.MoreIcon>
         </S.CourseHeader>
-          {/* <S.TitleImage>
-            <img src={`/courses/${course.COURSE_ID}.jpg`} />
-          </S.TitleImage> */}
           <S.TitleImageUpdate>
             <label htmlFor="uploadFile">
               <img src={`/courses/${course.COURSE_ID}.jpg`} alt="" />
@@ -56,14 +55,12 @@ function CourseUpdate() {
             <input
               type="file"
               id="uploadFile"
-              // onChange={uploadFile}
               accept="*"
               multiple={false}
               style={{ display: 'none' }}
             />
           </S.TitleImageUpdate>
 
-        {/* <S.CourseContent>{course.CONTENT}</S.CourseContent> */}
         <S.CourseContentUpdate placeholder="내용 입력" onChange={changeContent} value={content} />
 
         {/* 장소 일정 */}

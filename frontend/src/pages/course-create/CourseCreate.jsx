@@ -1,3 +1,6 @@
+// 코스 생성 페이지
+// 작성자: 김준섭
+
 import { useEffect } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import {
@@ -35,6 +38,7 @@ function CourseCreate() {
   const resetCourseCreateTitle = useResetRecoilState(courseCreateTitleState);
   const resetCreateContent = useResetRecoilState(courseCreateContentState);
 
+  // 페이지 unmounted 시 리코일 리셋
   useEffect(() => {
     return () => {
       resetCourseCreateIndex();

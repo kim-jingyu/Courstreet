@@ -1,8 +1,10 @@
+// 마이페이지
+// 작성자: 조희정
+
 import './MyPage.style';
 import { Container, Header, Title } from './MyPage.style';
 import LikePlace from '/src/components/mypage/like-place/LikePlace';
 import MyComment from '/src/components/mypage/mycomment/MyComment';
-import PlaceLiked from '/src/components/place/place-liked/PlaceLiked';
 
 function MyPage() {
   return (

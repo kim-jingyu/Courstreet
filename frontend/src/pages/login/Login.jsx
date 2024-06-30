@@ -1,3 +1,6 @@
+// 로그인 페이지
+// 작성자: 김진규
+
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'antd';
 
@@ -10,7 +13,6 @@ import {
   LoginContainer,
   LoginForm,
   Options,
-  SocialButton,
   SocialLogin,
   Title,
 } from './Login.style';
@@ -19,29 +21,19 @@ import GoogleButton from '/src/components/login/google-button/GoogleButton';
 import KakaoButton from '/src/components/login/kakao-button/KakaoButton';
 
 function Login() {
-  const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
-  const login = () => {
+  const login = (event) => {
     event.preventDefault();
-    if (!flag) {
-      setOpen(true);
-      setFlag(!flag);
-      return;
-    }
-    localStorage.setItem('username', 'JADEN');
-    navigate('/');
+    setOpen(true);
+    return;
   };
-
   const [open, setOpen] = useState(false);
-  // 모달 오픈
-  // const showModal = () => {
-  // };
   // 모달 취소 클릭
-  const handleOk = () => {
+  const handleOk = (event) => {
     event.preventDefault();
     setOpen(false);
   };
-  const handleCancel = () => {
+  const handleCancel = (event) => {
     event.preventDefault();
     setOpen(false);
   };

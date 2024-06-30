@@ -1,3 +1,6 @@
+// URL 별로 할당된 페이지 컴포넌트들 매핑 집합
+// 작성자: 김준섭
+
 import Course from '../pages/course/Course';
 import Signup from '../pages/signup/Signup';
 import CourseCreate from '../pages/course-create/CourseCreate';

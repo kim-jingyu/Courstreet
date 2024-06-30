@@ -1,13 +1,14 @@
+// 코스 목록 아이템
+// 작성자: 남진수
+
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { deleteCourse, likeCourse } from '/src/apis/courseAPI';
 import { Modal } from 'antd';
 import './CourseItem.style';
 import {
   Container,
-  DateRange,
-  Dot,
   ImageBox,
-  ImageGrid,
   ItemContainer,
   ItemFooter,
   UserIcon,
@@ -22,17 +23,17 @@ import {
 import heartEmpty from '/src/assets/icons/heartEmpty.png';
 import heartFilled from '/src/assets/icons/heartFilled.png';
 import more from '/src/assets/icons/more.png';
-import fiveguys from '/src/assets/icons/fiveguys.png';
-import { Section, CategorySelector } from '/src/components/course-create/select-category/SelectCategory.style';
 import profile from '/src/assets/icons/profile.png';
-import { likeCourse } from '/src/apis/courseAPI';
 
 function CourseItem({ course, goDetail, setCourses }) {
   const navigate = useNavigate();
   // 코스 삭제
-  const handleDelete = () => {
-    setCourses((prevCourses) => prevCourses.filter((c) => c.courseId !== course.courseId));
-    setOpen(false);
+  const handleDelete = async () => {
+    const res = await deleteCourse(course.courseId);
+    if (res) {
+      setCourses((prevCourses) => prevCourses.filter((c) => c.courseId !== course.courseId));
+      setOpen(false);
+    }
   };
   // 코스 수정
   const handleUpdate = () => {
@@ -71,7 +72,10 @@ function CourseItem({ course, goDetail, setCourses }) {
           <ItemFooter>
             <UserContainer>
               <UserName>{course.nickname}님의 코스</UserName>
-              <HeartIcon src={course.liked ? heartFilled : heartEmpty} onClick={(event) => toggleLiked(course.courseId, event)} />
+              <HeartIcon
+                src={course.liked ? heartFilled : heartEmpty}
+                onClick={(event) => toggleLiked(course.courseId, event)}
+              />
               {course.memberId === 10 && <MoreIcon src={more} onClick={showModal}></MoreIcon>}
             </UserContainer>
             <ItemTitle>{course.title}</ItemTitle>

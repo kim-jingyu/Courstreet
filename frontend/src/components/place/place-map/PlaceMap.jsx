@@ -1,4 +1,6 @@
-import { useState } from 'react';
+// 지도를 나타내는 컴포넌트
+// 작성자: 조희정
+
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { mapImageUrlState, searchedMapState, searchedPlacesFloorState } from '/src/recoils/PlaceAtoms';
 import * as S from './PlaceMap.style';
@@ -9,6 +11,7 @@ function PlaceMap() {
   const [searchedMap, setSearchedMap] = useRecoilState(searchedMapState);
   const mapImageUrl = useRecoilValue(mapImageUrlState);
 
+  // 장소를 클릭하면 장소 이미지 url을 변경
   const pickFloor = (floor) => {
     setSearchedFloor(floor);
     setSearchedMap(`${floor}-0`);

@@ -1,3 +1,6 @@
+// 장소 목록 아이템
+// 작성자: 조희정
+
 import { useLocation } from 'react-router-dom';
 import { Modal, Rate } from 'antd';
 import { useState } from 'react';
@@ -12,7 +15,7 @@ import {
   LikeContainer,
   LikeItem,
   HeartIcon,
-} from '../place-liked/PlaceLiked.style';
+} from './PlaceItem.style';
 import { StarFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import CheckInactive from '/src/assets/icons/check-circle-inactive.png';

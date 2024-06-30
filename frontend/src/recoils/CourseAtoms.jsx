@@ -1,4 +1,13 @@
+// 코스 관련 전역 변수
+// 남진수
+
 import { atom } from 'recoil';
+
+// 방문시간 키워드
+export const timeCategoryState = atom({
+  key: 'timeCategoryState',
+  default: [11, 15],
+});
 
 // 누구랑 함께 키워드
 export const withCategoryState = atom({

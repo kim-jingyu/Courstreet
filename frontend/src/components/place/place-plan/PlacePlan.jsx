@@ -1,3 +1,6 @@
+// 코스 내에 장소 일정을 나타내는 컴포넌트
+// 작성자: 조희정
+
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
@@ -16,7 +19,7 @@ import {
   ItemTitle,
   LikeContainer,
   LikeItem,
-} from '../place-liked/PlaceLiked.style';
+} from '../place-item/PlaceItem.style';
 import * as S from './PlacePlan.style';
 import { StarFilled } from '@ant-design/icons';
 import DeleteInactive from '/src/assets/icons/delete-round-inactive.png';

@@ -1,3 +1,6 @@
+// 코스 생성을 위한 장소 선택 페이지
+// 작성자: 김준섭
+
 import { useRecoilState } from 'recoil';
 import { useState, useEffect } from 'react';
 import { courseCreateIndexState } from '/src/recoils/HeaderAtoms';

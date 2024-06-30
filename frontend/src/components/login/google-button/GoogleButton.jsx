@@ -1,3 +1,6 @@
+// 구글 간편로그인 API로 요청을 보내는 로그인 버튼
+// 작성자: 김진규
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SocialButton } from './GoogleButton.style';
@@ -9,6 +12,7 @@ const SCOPE = 'https%3A//www.googleapis.com/auth/userinfo.profile';
 const GoogleButton = ({ children, ...attributes }) => {
   const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}`;
 
+  // 클릭 시 googleAuthUrl로 get 요청
   return (
     <SocialButton as="a" href={googleAuthUrl} {...attributes}>
       <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="Google Icon" />

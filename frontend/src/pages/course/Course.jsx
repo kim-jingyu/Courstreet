@@ -1,3 +1,6 @@
+// 메인 페이지
+// 작성자: 남진수
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllCourses, searchCourses } from '/src/apis/courseAPI';
@@ -35,7 +38,7 @@ function Course() {
   };
   // // 코스 필터
   useEffect(() => {
-    setFilteredCourses(courses.filter((dummy) => currTheme.length === 0 || currTheme.includes(dummy.theme)));
+    setFilteredCourses(courses.filter((course) => currTheme.length === 0 || currTheme.includes(course.theme)));
   }, [courses, currTheme]);
   // 코스 검색
   const onSearch = async (keyword) => {

@@ -1,3 +1,6 @@
+// 라우터 관련 객체
+// 작성자: 김준섭
+
 import { createBrowserRouter } from 'react-router-dom';
 // import ErrorComponent from './components/ErrorComponent';
 import PATH from './constants/path';

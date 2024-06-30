@@ -1,6 +1,8 @@
+// 내가 댓글을 작성한 코스들을 보여주는 페이지
+// 작성자: 조희정
+
 import CourseItem from '../../course/course-item/CourseItem';
-import { Tabs, Tab, CourseContainer } from '../mycourse/MyCourse.style';
-import { MyCommentTab } from './MyComment.style';
+import { MyCommentTab, Tabs, Tab, CourseContainer } from './MyComment.style';
 
 function MyComment() {
   return (
