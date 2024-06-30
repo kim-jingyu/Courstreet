@@ -10,6 +10,7 @@ export const getMyCourses = async () => {
     return res.data;
   } catch (err) {
     console.log('getMyCourses catch', err);
+    throw new Error('Failed to getMyProfile. Please try again.');
   }
 };
 
