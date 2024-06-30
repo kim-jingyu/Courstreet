@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * 좋아요 컨트롤러
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Tag(name = "좋아요", description = "좋아요 API입니다.")
 @RestController

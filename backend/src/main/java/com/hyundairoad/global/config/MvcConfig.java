@@ -12,9 +12,8 @@ import java.util.List;
 
 /**
  * CorsConfig
- * <p>
+ *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Configuration
 @RequiredArgsConstructor

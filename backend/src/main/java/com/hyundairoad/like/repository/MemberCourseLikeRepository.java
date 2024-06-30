@@ -10,7 +10,6 @@ import java.util.Optional;
  * MemberCourseLikeRepository
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 public interface MemberCourseLikeRepository extends JpaRepository<MemberCourseLike, Long> {
     Optional<MemberCourseLike> findByMemberIdAndCourseId(Long memberId, Long courseId);

@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * 장소 서비스
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 @Service
 @Transactional(readOnly = true)
@@ -57,6 +56,7 @@ public class PlaceService {
      * @return 생성된 장소의 ID
      * @throws IOException 이미지 파일 처리 중 예외 발생
      */
+    @Transactional
     public Long createPlace(CreatePlaceRequest createPlaceRequest) throws IOException {
         return placeRepository.save(Place.createPlace(createPlaceRequest, imageService.uploadFile(createPlaceRequest.image()))).getId();
     }
@@ -68,6 +68,7 @@ public class PlaceService {
      * @return 수정 결과 (null)
      * @throws IOException 이미지 파일 처리 중 예외 발생
      */
+    @Transactional
     public Void updatePlace(Long placeId, UpdatePlaceRequest updatePlaceRequest) throws IOException {
         Place place = getPlace(placeId);
         place.updatePlace(updatePlaceRequest, imageService.updateFile(place.getPlaceImgUrl(), updatePlaceRequest.image()));

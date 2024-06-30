@@ -10,7 +10,6 @@ import java.util.Optional;
  * MemberPlaceLikeRepository
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 public interface MemberPlaceLikeRepository extends JpaRepository<MemberPlaceLike, Long> {
     Optional<MemberPlaceLike> findByMemberIdAndPlaceId(Long memberId, Long placeId);

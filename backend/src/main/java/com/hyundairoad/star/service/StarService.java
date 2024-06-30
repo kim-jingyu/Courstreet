@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
  * 별점 서비스
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Service
 @Transactional
@@ -45,6 +44,7 @@ public class StarService {
      * @return 장소의 평균 별점
      * @throws MemberPlaceStartNotFoundException 해당 장소에 별점이 없는 경우 예외 발생
      */
+    @Transactional(readOnly = true)
     public Double getAvgRate(Long placeId) {
         return memberPlaceStarRepository.findAverageRate(placeId).orElseThrow(MemberPlaceStartNotFoundException::new);
     }

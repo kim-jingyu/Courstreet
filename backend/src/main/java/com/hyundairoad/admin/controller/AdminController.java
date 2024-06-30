@@ -26,7 +26,6 @@ import static org.springframework.http.HttpStatus.CREATED;
  * AdminController
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Tag(name = "관리자", description = "관리자 API입니다.")
 @RestController
@@ -35,6 +34,13 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class AdminController {
     private final AdminService adminService;
 
+    /**
+     * 관리자를 생성합니다.
+     *
+     * @param accessor 인증된 관리자 정보
+     * @param request  관리자 생성 요청 정보
+     * @return 생성된 관리자 ID
+     */
     @Operation(summary = "관리자를 생성합니다.", description = "관리자를 생성하는 API입니다.")
     @AdminOnly
     @PostMapping
@@ -42,6 +48,14 @@ public class AdminController {
         return ResponseEntity.status(CREATED).body(adminService.createAdmin(request));
     }
 
+    /**
+     * 관리자 비밀번호를 수정합니다.
+     *
+     * @param accessor 인증된 관리자 정보
+     * @param id       관리자 ID
+     * @param request  비밀번호 수정 요청 정보
+     * @return 수정된 관리자 ID
+     */
     @Operation(summary = "관리자 비밀번호를 수정합니다.", description = "관리자 비밀번호를 수정하는 API입니다.")
     @AdminOnly
     @PatchMapping("/{id}/password")
@@ -49,11 +63,18 @@ public class AdminController {
         return ResponseEntity.ok().body(adminService.updatePassword(id, request));
     }
 
+    /**
+     * 관리자로 로그인합니다.
+     *
+     * @param request  로그인 요청 정보
+     * @param response HTTP 응답 객체
+     * @return 액세스 토큰 응답
+     */
     @Operation(summary = "관리자로 로그인합니다.", description = "관리자로 로그인하는 API입니다.")
     @PostMapping("/admin/login")
     public ResponseEntity<AccessTokenResponse> loginAdmin(@RequestBody @Validated AdminLoginRequest request, HttpServletResponse response) {
         MemberTokens memberTokens = adminService.login(request);
-        ResponseCookie cookie = ResponseCookie.from("refresh-token", memberTokens.getRefreshToken())
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", memberTokens.getRefreshToken())
                 .maxAge(COOKIE_AGE_SECONDS)
                 .sameSite("None")
                 .secure(true)
@@ -64,16 +85,30 @@ public class AdminController {
         return ResponseEntity.status(CREATED).body(new AccessTokenResponse(memberTokens.getAccessToken()));
     }
 
+    /**
+     * 액세스 토큰을 갱신합니다.
+     *
+     * @param refreshToken        리프레시 토큰 (쿠키에서 가져옴)
+     * @param authorizationHeader 기존 액세스 토큰 (헤더에서 가져옴)
+     * @return 갱신된 액세스 토큰 응답
+     */
     @Operation(summary = "액세스 토큰을 갱신합니다.", description = "리프레시 토큰을 사용하여 액세스 토큰을 갱신하는 API입니다.")
     @PostMapping("/token")
-    public ResponseEntity<AccessTokenResponse> extendLoginAdmin(@CookieValue("refresh-token") String refreshToken, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<AccessTokenResponse> extendLoginAdmin(@CookieValue("refreshToken") String refreshToken, @RequestHeader("Authorization") String authorizationHeader) {
         String renewalRefreshToken = adminService.renewalAccessToken(refreshToken, authorizationHeader);
         return ResponseEntity.status(CREATED).body(new AccessTokenResponse(renewalRefreshToken));
     }
 
+    /**
+     * 로그아웃 요청을 처리합니다.
+     *
+     * @param accessor     인증된 관리자 정보
+     * @param refreshToken 리프레시 토큰 (쿠키에서 가져옴)
+     * @return 처리 결과
+     */
     @Operation(summary = "로그아웃 요청을 처리합니다.", description = "회원의 로그아웃을 처리하는 API입니다.")
     @DeleteMapping("/logout")
-    public ResponseEntity<Void> logout(@AdminCheck Accessor accessor, @CookieValue("refresh-token") String refreshToken) {
+    public ResponseEntity<Void> logout(@AdminCheck Accessor accessor, @CookieValue("refreshToken") String refreshToken) {
         adminService.removeRefreshToken(refreshToken);
         return ResponseEntity.noContent().build();
     }

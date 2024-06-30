@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
  * 별점 컨트롤러
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Tag(name = "별점", description = "별점 API입니다.")
 @RestController

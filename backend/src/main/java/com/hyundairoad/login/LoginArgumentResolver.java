@@ -29,7 +29,6 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
  * LoginArgumentResolver
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Component
 @RequiredArgsConstructor
@@ -53,14 +52,12 @@ public class LoginArgumentResolver implements HandlerMethodArgumentResolver {
         }
 
         try {
-            System.out.println("parameter = " + parameter + ", mavContainer = " + mavContainer + ", webRequest = " + webRequest + ", binderFactory = " + binderFactory);
             String refreshToken = extractRefreshToken(request.getCookies());
             String accessToken = extractor.extractAccessToken(webRequest.getHeader(AUTHORIZATION));
             jwtProvider.validateTokens(new MemberTokens(refreshToken, accessToken));
 
             Long memberId = Long.valueOf(jwtProvider.getSubject(accessToken));
             if (!memberRepository.existsById(memberId)){
-                System.out.println("LoginArgumentResolver.resolveArgument");
                 throw new MemberNotFoundException();
             }
             return Accessor.member(memberId);

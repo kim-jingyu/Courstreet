@@ -1,9 +1,11 @@
 package com.hyundairoad.place.domain;
 
 import com.hyundairoad.course.domain.CoursePlace;
+import com.hyundairoad.like.domain.MemberPlaceLike;
 import com.hyundairoad.member.domain.WithWhom;
 import com.hyundairoad.place.domain.dto.CreatePlaceRequest;
 import com.hyundairoad.place.domain.dto.UpdatePlaceRequest;
+import com.hyundairoad.star.domain.MemberPlaceStar;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,13 +13,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static lombok.Builder.*;
+import static lombok.Builder.Default;
 
 /**
  * 장소 엔티티
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 @Builder
 @Getter
@@ -76,7 +77,18 @@ public class Place {
 
     @Default
     @OneToMany(mappedBy = "place")
+    @ToString.Exclude
     private List<CoursePlace> coursePlaceList = new ArrayList<>();
+
+    @Default
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<MemberPlaceLike> memberPlaceLikeList = new ArrayList<>();
+
+    @Default
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<MemberPlaceStar> memberPlaceStarList = new ArrayList<>();
 
     public static Place createPlace(CreatePlaceRequest createPlaceRequest, String imgUrl) {
         return Place.builder()

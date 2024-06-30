@@ -21,8 +21,7 @@ import java.util.List;
 /**
  * 장소 컨트롤러
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 @Tag(name = "장소", description = "장소 API입니다.")
 @RestController

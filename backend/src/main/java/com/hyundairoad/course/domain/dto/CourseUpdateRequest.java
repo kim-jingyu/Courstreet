@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * CourseUpdateRequest
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 남진수
  */
 public record CourseUpdateRequest(
         @Size(min = 1, max = 50, message = "50자 이하만 입력가능합니다.")

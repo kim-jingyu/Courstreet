@@ -12,10 +12,9 @@ import static jakarta.persistence.FetchType.*;
 import static lombok.AccessLevel.PROTECTED;
 
 /**
- * 회원-장소 엔티티
+ * 회원-장소 좋아요 엔티티
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Getter
 @Entity

@@ -10,7 +10,6 @@ import java.util.Optional;
  * MemberPlaceStarRepository
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 public interface MemberPlaceStarRepository extends JpaRepository<MemberPlaceStar, Long> {
     Optional<MemberPlaceStar> findByMemberIdAndPlaceId(Long memberId, Long placeId);

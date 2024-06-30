@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * PlaceRepository
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 public interface PlaceRepository extends JpaRepository<Place, Long> {
     List<Place> findByNameContaining(String name);

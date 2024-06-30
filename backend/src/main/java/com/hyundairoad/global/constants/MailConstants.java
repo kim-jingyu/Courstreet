@@ -1,5 +1,10 @@
 package com.hyundairoad.global.constants;
 
+/**
+ * MailConstants
+ *
+ * 작성자: 김진규
+ */
 public class MailConstants {
     public static final String PASSWORD_FIND_TITLE = "비밀번호 찾기 인증 이메일입니다.";
     public static final String PASSWORD_FIND_CONTENT_PREV = "<!DOCTYPE html>" +
