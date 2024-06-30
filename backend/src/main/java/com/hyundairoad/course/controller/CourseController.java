@@ -4,6 +4,7 @@ import com.hyundairoad.auth.domain.Accessor;
 import com.hyundairoad.auth.member.MemberCheck;
 import com.hyundairoad.auth.member.MemberOnly;
 import com.hyundairoad.course.domain.dto.CourseCreateRequest;
+import com.hyundairoad.course.domain.dto.CourseRecommendRequest;
 import com.hyundairoad.course.domain.dto.CourseResponse;
 import com.hyundairoad.course.domain.dto.CourseUpdateRequest;
 import com.hyundairoad.course.service.CourseService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
@@ -72,6 +74,13 @@ public class CourseController {
     public ResponseEntity<Void> updateCourse(@MemberCheck Accessor accessor, @PathVariable Long id, @ModelAttribute @Validated CourseUpdateRequest courseUpdateRequest) throws IOException {
         courseService.validateCourseByMember(accessor.getMemberId(), id);
         return ResponseEntity.ok().body(courseService.updateCourse(id, accessor.getMemberId(), courseUpdateRequest));
+    }
+
+    @Operation(summary = "추천장소를 제공합니다.", description = "정보를 바탕으로 장소를 추천하는 API입니다.")
+    @MemberOnly
+    @PostMapping("/recommend")
+    public ResponseEntity<List<Map<String, Object>>> recommendCourse(@MemberCheck Accessor accessor, @RequestBody @Validated CourseRecommendRequest courseRecommendRequest) {
+        return ResponseEntity.ok().body(courseService.recommendPlaces(courseRecommendRequest));
     }
 
     @Operation(summary = "새로운 코스를 생성합니다.", description = "새로운 코스를 생성하는 API입니다.")
