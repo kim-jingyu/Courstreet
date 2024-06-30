@@ -1,11 +1,14 @@
 package com.hyundairoad.mail.domain;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+/**
+ * 메일
+ *
+ * 작성자: 김진규
+ */
+@Data
 @Builder
 public class Mail {
     private String email;

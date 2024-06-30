@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 /**
  * UpdatePlaceRequest
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 public record UpdatePlaceRequest(String name,
                                  @Pattern(regexp = "^(010-\\d{4}-\\d{4}|010\\d{8}|\\d{2,3}-\\d{3,4}-\\d{4}|\\d{2,3}\\d{3,4}\\d{4})$", message = "유효한 전화번호를 입력해주세요.")

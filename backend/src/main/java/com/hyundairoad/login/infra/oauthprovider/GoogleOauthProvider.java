@@ -17,7 +17,6 @@ import java.util.Optional;
  * GoogleOauthProvider
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Component
 public class GoogleOauthProvider implements OauthProvider {

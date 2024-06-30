@@ -12,8 +12,7 @@ import java.util.Map;
 /**
  * PlaceResponse
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 @Builder
 public record PlaceResponse(Long placeId,

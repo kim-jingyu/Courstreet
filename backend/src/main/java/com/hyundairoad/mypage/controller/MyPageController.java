@@ -20,7 +20,6 @@ import java.util.List;
  * 마이페이지 컨트롤러
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Tag(name = "마이페이지", description = "마이페이지 API입니다.")
 @RestController

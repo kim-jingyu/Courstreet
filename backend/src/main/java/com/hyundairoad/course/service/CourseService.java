@@ -2,10 +2,7 @@ package com.hyundairoad.course.service;
 
 import com.hyundairoad.course.domain.Course;
 import com.hyundairoad.course.domain.CoursePlace;
-import com.hyundairoad.course.domain.dto.CourseCreateRequest;
-import com.hyundairoad.course.domain.dto.CourseResponse;
-import com.hyundairoad.course.domain.dto.CourseUpdateRequest;
-import com.hyundairoad.course.domain.dto.PlacePerMemo;
+import com.hyundairoad.course.domain.dto.*;
 import com.hyundairoad.course.exception.CourseNotFoundException;
 import com.hyundairoad.course.exception.CoursePlaceNotFoundException;
 import com.hyundairoad.course.repository.CoursePlaceRepository;
@@ -17,17 +14,23 @@ import com.hyundairoad.like.repository.MemberCourseLikeRepository;
 import com.hyundairoad.member.service.MemberService;
 import com.hyundairoad.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.sql.Types;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 코스 서비스
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 남진수
  */
 @Service
 @Transactional(readOnly = true)
@@ -39,6 +42,7 @@ public class CourseService {
     private final PlaceService placeService;
     private final ImageService imageService;
     private final MemberService memberService;
+    private final JdbcTemplate jdbcTemplate;
 
     /**
      * 회원이 코스를 소유하고 있는지 검증합니다.
@@ -147,6 +151,43 @@ public class CourseService {
         course.update(member, courseUpdateRequest.title(), courseUpdateRequest.content(), newImgUrl);
         return null;
     }
+
+    /**
+     * 추천장소를 제공합니다.
+     *
+     * @param courseRecommendRequest 코스 수정 요청 정보
+     * @return 추천한 장소의 리스트
+     */
+    public List<Map<String, Object>> recommendPlaces(CourseRecommendRequest courseRecommendRequest) {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withProcedureName("recommend_places")
+                .declareParameters(
+                        new SqlParameter("user_id", Types.NUMERIC),
+                        new SqlParameter("start_time", Types.TIMESTAMP),
+                        new SqlParameter("end_time", Types.TIMESTAMP),
+                        new SqlParameter("with_whom", Types.VARCHAR),
+                        new SqlParameter("user_gender", Types.NUMERIC),
+                        new SqlParameter("user_age", Types.NUMERIC),
+                        new SqlParameter("theme", Types.VARCHAR),
+                        new SqlParameter("favorite_place", Types.VARCHAR),
+                        new SqlOutParameter("result_cursor", Types.REF_CURSOR)
+                );
+
+        Map<String, Object> inParams = new HashMap<>();
+        inParams.put("user_id", courseRecommendRequest.memberId());
+        inParams.put("start_time", courseRecommendRequest.startTime());
+        inParams.put("end_time", courseRecommendRequest.endTime());
+        inParams.put("with_whom", courseRecommendRequest.withWhom());
+        inParams.put("user_gender", courseRecommendRequest.gender());
+        inParams.put("user_age", courseRecommendRequest.age());
+        inParams.put("theme", courseRecommendRequest.theme());
+        inParams.put("favorite_place", courseRecommendRequest.favoritePlace());
+
+        Map<String, Object> outParams = jdbcCall.execute(inParams);
+
+        return (List<Map<String, Object>>) outParams.get("result_cursor");
+    }
+
 
     /**
      * 새로운 코스를 생성합니다.

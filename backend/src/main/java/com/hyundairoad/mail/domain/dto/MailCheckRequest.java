@@ -5,6 +5,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
+/**
+ * MailCheckRequest
+ *
+ * 작성자: 김진규
+ */
 @Data
 public class MailCheckRequest {
     @Email

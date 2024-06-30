@@ -9,8 +9,7 @@ import java.time.LocalDateTime;
 /**
  * CourseResponse
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 남진수
  */
 @Builder
 public record CourseResponse(Long courseId,

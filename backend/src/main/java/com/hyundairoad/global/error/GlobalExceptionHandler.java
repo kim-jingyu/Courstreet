@@ -20,7 +20,6 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
  * GlobalExceptionHandler
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Slf4j
 @RestControllerAdvice

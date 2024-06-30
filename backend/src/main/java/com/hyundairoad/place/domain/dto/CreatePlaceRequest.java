@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 /**
  * CreatePlaceRequest
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 조희정
  */
 public record CreatePlaceRequest (
         @NotBlank(message = "장소 이름을 입력해주세요.")

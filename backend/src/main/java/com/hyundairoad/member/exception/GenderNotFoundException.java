@@ -9,7 +9,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
  * GenderNotFoundException
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 public class GenderNotFoundException extends HyundaiRoadException {
     public GenderNotFoundException() {

@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 /**
  * CoursePlaceNotFoundException
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 남진수
  */
 public class CoursePlaceNotFoundException extends HyundaiRoadException {
     public CoursePlaceNotFoundException() {

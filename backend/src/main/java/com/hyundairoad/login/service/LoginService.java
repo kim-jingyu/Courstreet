@@ -18,7 +18,6 @@ import static com.hyundairoad.global.constants.AuthCredentials.MAX_TRY_COUNT;
  * 로그인 서비스
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Service
 @Transactional

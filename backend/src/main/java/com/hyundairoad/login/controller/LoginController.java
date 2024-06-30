@@ -24,7 +24,6 @@ import static org.springframework.http.HttpStatus.CREATED;
  * 로그인 컨트롤러
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Tag(name = "로그인", description = "로그인 API입니다.")
 @RestController

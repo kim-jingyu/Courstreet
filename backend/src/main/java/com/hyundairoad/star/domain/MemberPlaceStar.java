@@ -8,10 +8,9 @@ import lombok.*;
 import static jakarta.persistence.FetchType.*;
 
 /**
- * 회원-장소 엔티티
+ * 회원-장소 별점 엔티티
  *
  * 작성자: 김진규
- * 작성일: 2024-06-29
  */
 @Builder
 @Getter

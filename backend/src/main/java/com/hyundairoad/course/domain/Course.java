@@ -6,15 +6,13 @@ import com.hyundairoad.member.domain.Member;
 import com.hyundairoad.member.domain.WithWhom;
 import com.hyundairoad.place.domain.Theme;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
 import static lombok.Builder.Default;
@@ -23,8 +21,7 @@ import static lombok.EqualsAndHashCode.Include;
 /**
  * 코스 엔티티
  *
- * 작성자: 김진규
- * 작성일: 2024-06-29
+ * 작성자: 김진규, 남진수
  */
 @Entity
 @Getter
@@ -66,11 +63,13 @@ public class Course {
     private Visibility visibility;
 
     @Default
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<MemberCourseLike> memberCourseLikeList = new ArrayList<>();
 
     @Default
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<CoursePlace> coursePlaceList = new ArrayList<>();
 
     public static Course createCourse(Member member, String courseImgUrl, CourseCreateRequest courseCreateRequest, List<CoursePlace> coursePlaces) {
