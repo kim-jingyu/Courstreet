@@ -147,7 +147,7 @@
                   </tr>
                 </tr>
                 <tr>
-                    <td rowspan="3">일반 회원</td>
+                    <td rowspan="4">일반 회원</td>
                     <td>회원 프로필 이미지 조회</td>
                     <td></td>
                     <td>김진규</td>
