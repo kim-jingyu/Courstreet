@@ -331,28 +331,28 @@
                 <td rowspan="3">내 코스 보기</td>
                 <td>내가 작성한 코스만 보기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>내 코스 수정하기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>내 코스 삭제하기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td rowspan="3">좋아요 보기</td>
                 <td>좋아요한 코스만 보기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>좋아요 보기</td>
                 <td>좋아요한 장소만 보기</td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td rowspan="6">지도 검색</td>
@@ -361,31 +361,31 @@
                 <td>지도 보기</td>
                 <td>층마다 지도 보기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>장소 검색</td>
                 <td>장소 이름으로 검색</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>장소 정보 보기</td>
                 <td>지도로 장소 위치 보기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>장소 상세정보 보기</td>
                 <td>- 모달로 운영시간, 전화번호 보기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
             <tr>
                 <td>장소 평점 주기</td>
                 <td>- 별을 눌러 장소마다 평점 주기</td>
                 <td></td>
-                <td>조회정</td>
+                <td>조희정</td>
             </tr>
         </tr>
     </tbody>
