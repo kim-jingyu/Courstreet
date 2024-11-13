@@ -425,6 +425,8 @@
 
 ### 구연 화면
 
-
-<img width="455" alt="image" src="https://github.com/user-attachments/assets/ace314a2-ac00-4765-8af5-9f4e97dbfe6c">
-
+<div align="center">
+  <br />
+  <img width="455" alt="image" src="https://github.com/user-attachments/assets/ace314a2-ac00-4765-8af5-9f4e97dbfe6c">
+  <br />
+</div>
