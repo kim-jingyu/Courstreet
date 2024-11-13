@@ -423,7 +423,8 @@
 
 <br>
 
-### 시연 화면
+### 구연 화면
 
 
-<img width="1296" alt="image" src="https://github.com/user-attachments/assets/33a818c0-ff80-4048-9ec1-41d589e08f47">
+<img width="455" alt="image" src="https://github.com/user-attachments/assets/ace314a2-ac00-4765-8af5-9f4e97dbfe6c">
+
